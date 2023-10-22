@@ -80,7 +80,7 @@ FONT 9, "System"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
     LTEXT           "WTU-ATRI v3.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) WTU ATRI",IDC_STATIC,40,25,119,8
+    LTEXT           "Copyright (C) WTU Ace Team of Robotics Intelligence (ATRI)",IDC_STATIC,40,25,119,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
 END
 
@@ -120,7 +120,7 @@ BEGIN
             VALUE "FileDescription", "WTU Ace Team of Robotics Intelligence Client Application"
             VALUE "FileVersion", "3.0"
             VALUE "InternalName", "WTU-ATRI"
-            VALUE "LegalCopyright", "Copyright (C) WTU ATRI"
+            VALUE "LegalCopyright", "Copyright (C) WTU Ace Team of Robotics Intelligence (ATRI)"
             VALUE "OriginalFilename", "WTU-ATRI.EXE"
             VALUE "ProductName", "WTU Ace Team of Robotics Intelligence Client"
             VALUE "ProductVersion", "3.0"
