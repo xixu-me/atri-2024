@@ -103,5 +103,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ReadMe.txt" />
+    <None Include=".clang-format" />
   </ItemGroup>
 </Project>

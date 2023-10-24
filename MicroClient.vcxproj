@@ -245,6 +245,7 @@
     <ClInclude Include="TParseString.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".clang-format" />
     <None Include="res\MicroClient.ico" />
     <None Include="res\MicroClient.rc2" />
     <None Include="res\MicroClientDoc.ico" />
