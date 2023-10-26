@@ -21,124 +21,28 @@ extern int nKick;
 #define G_ANGLE_BOUND 60
 #define G_BOUND_BOUND 10
 
-void CStrategySystem::Home1(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME1:
-		robot = &home1;
-		break;
-	}
-
-	// TODO: Home1
+// 罚球
+void CStrategySystem::Penalty() {
+	// TODO: Penalty
 }
 
-void CStrategySystem::Home2(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME2:
-		robot = &home2;
-		break;
-	}
-
-	// TODO: Home2
+// 争球
+void CStrategySystem::Freeball() {
+	// TODO: Freeball
 }
 
-void CStrategySystem::Home3(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME3:
-		robot = &home3;
-		break;
-	}
-
-	// TODO: Home3
+// 射门
+void CStrategySystem::Shot() {
+	// TODO: Shot
 }
 
-void CStrategySystem::Home4(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME4:
-		robot = &home4;
-		break;
-	}
-
-	// TODO: Home4
+// 控球
+void CStrategySystem::Possession() {
+	// TODO: Possession
 }
 
-void CStrategySystem::Home5(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME5:
-		robot = &home5;
-		break;
-	}
-
-	// TODO: Home5
-}
-
-void CStrategySystem::Home6(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME6:
-		robot = &home6;
-		break;
-	}
-
-	// TODO: Home6
-}
-
-void CStrategySystem::Home7(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME7:
-		robot = &home7;
-		break;
-	}
-
-	// TODO: Home7
-}
-
-void CStrategySystem::Home8(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME8:
-		robot = &home8;
-		break;
-	}
-
-	// TODO: Home8
-}
-
-void CStrategySystem::Home9(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME9:
-		robot = &home9;
-		break;
-	}
-
-	// TODO: Home9
-}
-
-void CStrategySystem::Home10(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME10:
-		robot = &home10;
-		break;
-	}
-
-	// TODO: Home10
-}
-
-void CStrategySystem::Goalie(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HGOALIE:
-		robot = &hgoalie;
-		break;
-	}
-
+// 守门
+void CStrategySystem::Goalie() {
 	static bool flag = true;
 	int gx = ball.position.x < 950 ? 950 : 965;
 
@@ -164,11 +68,11 @@ void CStrategySystem::Goalie(int which) {
 	if (ball.position.x > 515 && ball.position.x < 900 || ball.position.x > 900 && ball.position.x < ball.oldPosition.x) {
 		flag = true;
 		if (ball.position.y < 313)
-			Position(which, CPoint(gx, 313));
+			Position(HGOALIE, CPoint(gx, 313));
 		else if (ball.position.y > 505)
-			Position(which, CPoint(gx, 505));
+			Position(HGOALIE, CPoint(gx, 505));
 		else
-			Position(which, CPoint(gx, ball.position.y));
+			Position(HGOALIE, CPoint(gx, ball.position.y));
 	}
 	// 球在中预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
@@ -177,96 +81,74 @@ void CStrategySystem::Goalie(int which) {
 			dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
 		flag = false;
 		if (ball.position.y > ball.oldPosition.y)
-			Position(which, CPoint(gx, ball.position.y + dy));
+			Position(HGOALIE, CPoint(gx, ball.position.y + dy));
 		else
-			Position(which, CPoint(gx, ball.position.y - dy));
+			Position(HGOALIE, CPoint(gx, ball.position.y - dy));
 		if (ball.position.x > 900) {
-			double dy = (robot->position.x - 873) * ABS(ball.position.y - robot->position.y) * 1.0 / (robot->position.x - ball.position.x);
+			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - robot->position.y) * 1.0 / (robot->position.x - ball.position.x);
 			if (ball.position.y > robot->position.y)
-				Position(which, CPoint(873, robot->position.y + dy));
+				Position(HGOALIE, CPoint(873, robot->position.y + dy));
 			else
-				Position(which, CPoint(873, robot->position.y - dy));
+				Position(HGOALIE, CPoint(873, robot->position.y - dy));
 		}
 	}
 	// 球在上预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y < 217 && ball.position.y >= ball.oldPosition.y) {
 		flag = true;
-		if (robot->position.y > 217) {
-			PositionPro(which, CPoint(ball.position));
+		if (hgoalie.position.y > 217) {
+			PositionPro(HGOALIE, CPoint(ball.position));
 		}
-		Position(which, CPoint(gx, 265));
+		Position(HGOALIE, CPoint(gx, 265));
 	}
 	// 球在下预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y <= ball.oldPosition.y) {
 		flag = true;
-		if (robot->position.y < 607) {
-			PositionPro(which, CPoint(ball.position));
+		if (hgoalie.position.y < 607) {
+			PositionPro(HGOALIE, CPoint(ball.position));
 		}
-		Position(which, CPoint(gx, 556));
+		Position(HGOALIE, CPoint(gx, 556));
 	}
 	// 球在对方半场
 	else {
 		flag = true;
-		Position(which, CPoint(gx, 409));
+		Position(HGOALIE, CPoint(gx, 409));
 	}
 	//}
 }
 
-void CStrategySystem::Action() {
-	Think();
+int CStrategySystem::Status() {
+	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
+		return 0; // 罚球
+	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
+		return 1; // 争球
+	if (ball.position.x >= 900 && ball.position.x <= 930 && ball.position.y >= 394 && ball.position.y <= 424)
+		return 2; // 射门
+	return 3;	  // 控球
 }
 
 void CStrategySystem::Think() {
-	// switch (m_nStrategy) {
-	// case 0:
-	Strategy0();
-	// 	break;
-	// case 1:
-	// 	Strategy1();
-	// 	break;
-	// case 2:
-	// 	Strategy2();
-	// 	break;
-	// case 3:
-	// 	Strategy3();
-	// 	break;
-	// case 4:
-	// 	Strategy4();
-	// 	break;
-	// case 5:
-	// 	Strategy5();
-	// 	break;
-	// }
+	if (Status() == 0) {
+		Penalty();
+		return;
+	}
+	if (Status() == 1) {
+		Freeball();
+		return;
+	}
+	if (Status() == 2) {
+		Shot();
+		return;
+	}
+	if (Status() == 3) {
+		Possession();
+		return;
+	}
 }
 
-void CStrategySystem::Strategy0() {
-	Home1(HOME1);
-	Home2(HOME2);
-	Home3(HOME3);
-	Home4(HOME4);
-	Home5(HOME5);
-	Home6(HOME6);
-	Home7(HOME7);
-	Home8(HOME8);
-	Home9(HOME9);
-	Home10(HOME10);
-	Goalie(HGOALIE);
+void CStrategySystem::Action() {
+	Think();
+	Goalie();
 }
-
-// void CStrategySystem::Strategy1() {
-// }
-
-// void CStrategySystem::Strategy2() {
-// }
-
-// void CStrategySystem::Strategy3() {
-// }
-
-// void CStrategySystem::Strategy4() {
-// }
-
-// void CStrategySystem::Strategy5() {
-// }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
 	Robot2 *robot;
@@ -549,20 +431,26 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 	Robot2 ho10, Robot2 hgo, Robot3 opp) {
 	if (m_nGameArea == GAME_RIGHT) {
 		ball.position = bal.position;
+		ball.oldPosition = bal.oldPosition;
 
 		home1.position = ho1.position;
+		home1.oldPosition = ho1.oldPosition;
 		home1.angle = ho1.angle;
 
 		home2.position = ho2.position;
+		home2.oldPosition = ho2.oldPosition;
 		home2.angle = ho2.angle;
 
 		home3.position = ho3.position;
+		home3.oldPosition = ho3.oldPosition;
 		home3.angle = ho3.angle;
 
 		home4.position = ho4.position;
+		home4.oldPosition = ho4.oldPosition;
 		home4.angle = ho4.angle;
 
 		home5.position = ho5.position;
+		home5.oldPosition = ho5.oldPosition;
 		home5.angle = ho5.angle;
 
 		home6.position = ho6.position;
@@ -748,7 +636,7 @@ CStrategySystem::CStrategySystem(int id) {
 	C_Home11.Data.Rv = 0;
 	C_Home11.Data.Command = C_STOP;
 
-	m_nStrategy = id; // left = 1, right = 0
+	m_nStrategy = id; // left = 0, right = 1
 	nKick = 0;
 	nKick2 = 0;
 	nShoot = 0;

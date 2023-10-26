@@ -20,17 +20,15 @@ private:
 	void PositionPro(int which, CPoint point);
 	void Velocity(int which, int vL, int vR);
 	void Angle(int which, int desired_angle);
-	void Home1(int which);
-	void Home2(int which);
-	void Home3(int which);
-	void Home4(int which);
-	void Home5(int which);
-	void Home6(int which);
-	void Home7(int which);
-	void Home8(int which);
-	void Home9(int which);
-	void Home10(int which);
-	void Goalie(int which);
+
+	void Penalty();	   // 罚球
+	void Freeball();   // 争球
+	void Shot();	   // 射门
+	void Possession(); // 控球
+	void Goalie();	   // 守门
+
+	int Status(); // 判断状态
+
 	CRect boundRect;
 	int m_nStrategy;
 	int m_OurTeam;
@@ -57,12 +55,6 @@ private:
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
 	void Think();
-	void Strategy0();
-	// void Strategy1();
-	// void Strategy2();
-	// void Strategy3();
-	// void Strategy4();
-	// void Strategy5();
 
 public:
 	int command[35];
