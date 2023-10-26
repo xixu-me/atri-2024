@@ -85,11 +85,11 @@ void CStrategySystem::Goalie() {
 		else
 			Position(HGOALIE, CPoint(gx, ball.position.y - dy));
 		if (ball.position.x > 900) {
-			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - robot->position.y) * 1.0 / (robot->position.x - ball.position.x);
-			if (ball.position.y > robot->position.y)
-				Position(HGOALIE, CPoint(873, robot->position.y + dy));
+			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
+			if (ball.position.y > hgoalie.position.y)
+				Position(HGOALIE, CPoint(873, hgoalie.position.y + dy));
 			else
-				Position(HGOALIE, CPoint(873, robot->position.y - dy));
+				Position(HGOALIE, CPoint(873, hgoalie.position.y - dy));
 		}
 	}
 	// 球在上预测区域靠近球门
