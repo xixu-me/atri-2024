@@ -33,7 +33,25 @@ void CStrategySystem::Freeball() {
 
 // 射门
 void CStrategySystem::Shot() {
-	// TODO: Shot
+
+	Position(which,CPoint);//机器人到足够近的点
+	if()
+		shot1();
+	if()
+		shot2();
+}
+void CStrategySystem::shot1(int which) // 机器人which侧射
+{
+	Robot2 *robot;
+	switch (which) {
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+  	}
+	
 }
 
 // 控球

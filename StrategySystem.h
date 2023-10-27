@@ -29,6 +29,7 @@ private:
 
 	int Status(); // 判断状态
 	double Distance(CPoint point1, CPoint point2);
+	void shot1(int which);
 
 	CRect boundRect;
 	int m_nStrategy;
