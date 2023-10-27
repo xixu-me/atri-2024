@@ -23,13 +23,15 @@ private:
 
 	void Penalty();	   // 罚球
 	void Freeball();   // 争球
-	void Shot();	   // 射门
+	void Shot(int which);	   // 射门
 	void Possession(); // 控球
 	void Goalie();	   // 守门
 
 	int Status(); // 判断状态
 	double Distance(CPoint point1, CPoint point2);
-	void shot1(int which);
+	void shot1(int which);// 机器人which直射，只有直射动作
+	//void shot2(int which);// 机器人which旋转射
+	//int search();//查找在禁区里的机器人
 
 	CRect boundRect;
 	int m_nStrategy;

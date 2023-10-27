@@ -32,15 +32,28 @@ void CStrategySystem::Freeball() {
 }
 
 // 射门
-void CStrategySystem::Shot() {
-
-	Position(which,CPoint);//机器人到足够近的点
-	if()
-		shot1();
-	if()
-		shot2();
+void CStrategySystem::Shot(int which) {
+	Robot2 *robot;
+	switch (10) {
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	}
+	CPoint t1,t2,t3;
+	t1.x = ball.position.x;
+	t1.y = ball.position.y;
+	Position(10, t1); // 机器人到足够近的点
+	t2.x = robot->position.x;
+	t2.y = robot->position.y;
+	if (Distance(t1,t2)==1)
+		shot1(10);
+	/*if ()
+		shot2();*/
 }
-void CStrategySystem::shot1(int which) // 机器人which侧射
+void CStrategySystem::shot1(int which) // 机器人which直射
 {
 	Robot2 *robot;
 	switch (which) {
@@ -50,9 +63,32 @@ void CStrategySystem::shot1(int which) // 机器人which侧射
 	case HOME10:
 		robot = &home10;
 		break;
-  	}
-	
+	}
+	CPoint t;
+	t.x = ball.position.x;
+	t.y = ball.position.y;
+	double o=atan(abs(robot->position.y-t.y)*1.0/abs(robot->position.x-t.x));
+	Angle(which,o);//朝向球角度
+	Velocity(which,127,127);//射门
 }
+/*void CStrategySystem::shot2(int which); // 机器人which旋转射
+{
+	Robot2 *robot;
+	switch (which) {
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	}
+	
+}*/
+/*int CStrategySystem::search()//查找在禁区里的机器人
+{
+	
+}*/
+
 
 // 控球
 void CStrategySystem::Possession() {
@@ -139,13 +175,13 @@ double CStrategySystem::Distance(CPoint point1, CPoint point2) {
 }
 
 int CStrategySystem::Status() {
-	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
+	/*if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
 		return 0; // 罚球
 	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
 		return 1; // 争球
 	if (ball.position.x >= 900 && ball.position.x <= 930 && ball.position.y >= 394 && ball.position.y <= 424)
-		return 2; // 射门
-	return 3;	  // 控球
+		return 2; // 射门*/
+	return 2;	  // 控球
 }
 
 void CStrategySystem::Think() {
@@ -158,7 +194,7 @@ void CStrategySystem::Think() {
 		return;
 	}
 	if (Status() == 2) {
-		Shot();
+		Shot(10);
 		return;
 	}
 	if (Status() == 3) {
@@ -169,7 +205,6 @@ void CStrategySystem::Think() {
 
 void CStrategySystem::Action() {
 	Think();
-	Goalie();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
