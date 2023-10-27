@@ -116,6 +116,10 @@ void CStrategySystem::Goalie() {
 	//}
 }
 
+double CStrategySystem::Distance(CPoint point1, CPoint point2) {
+	return sqrt(1.0 * (point1.x - point2.x) * (point1.x - point2.x) + 1.0 * (point1.y - point2.y) * (point1.y - point2.y));
+}
+
 int CStrategySystem::Status() {
 	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
 		return 0; // 罚球

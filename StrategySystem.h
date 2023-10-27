@@ -28,6 +28,7 @@ private:
 	void Goalie();	   // 守门
 
 	int Status(); // 判断状态
+	double Distance(CPoint point1, CPoint point2);
 
 	CRect boundRect;
 	int m_nStrategy;
