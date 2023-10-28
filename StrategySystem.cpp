@@ -85,6 +85,7 @@ void CStrategySystem::shot2(int which) { // 旋射
 }
 
 int CStrategySystem::search() { // 查找在禁区里的机器人
+	return 0;
 }
 
 // 控球，需调用 Shot
