@@ -96,9 +96,9 @@ void CStrategySystem::Possession() {
 	CPoint t0, t1, t2, t3, t4, t5;
 	t0.x = ball.position.x;
 	t0.y = ball.position.y;
-	if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
-		Position(HOME2, CPoint(ball.position.x, ball.position.y));
-	}
+	// if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
+	// 	Position(HOME2, CPoint(ball.position.x, ball.position.y));
+	// }
 	// 个人行走细节策略：己方人不挡道，所有控球人绕球进攻方的侧后
 	//  宏观占位策略：进攻时留3个人守在门框，防守时所有人压球于角
 	//  宏观（控球时）占位策略：控球人要均匀围满球前进方向的侧后，不可扎堆于一点
