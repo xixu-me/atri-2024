@@ -15,23 +15,26 @@ public:
 #ifdef _DEBUG
 #endif // _DEBUG
 private:
-	void Stop(int which);
-	void Position(int which, CPoint point);
-	void PositionPro(int which, CPoint point);
-	void Velocity(int which, int vL, int vR);
-	void Angle(int which, int desired_angle);
+	void Penalty();		  // 罚球
+	void Freeball();	  // 争球
+	void Shot(int which); // 射门
+	void Possession();	  // 控球
+	void Goalie();		  // 守门
 
-	void Penalty();	   // 罚球
-	void Freeball();   // 争球
-	void Shot(int which);	   // 射门
-	void Possession(); // 控球
-	void Goalie();	   // 守门
+	void shot1(int which); // 直射
+	void shot2(int which); // 旋射
+	int search();		   // 查找在禁区里的机器人
+
+	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
+	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
+	void Direction(int which, CPoint point);	   // 冲向某点
 
 	int Status(); // 判断状态
-	double Distance(CPoint point1, CPoint point2);
-	void shot1(int which);// 机器人which直射，只有直射动作
-	//void shot2(int which);// 机器人which旋转射
-	//int search();//查找在禁区里的机器人
+
+	void Stop(int which);
+	void Position(int which, CPoint point);
+	void Velocity(int which, int vL, int vR);
+	void Angle(int which, int desired_angle);
 
 	CRect boundRect;
 	int m_nStrategy;
@@ -58,7 +61,7 @@ private:
 	Robot1 ball;
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
-	void Think();
+	// void Think();
 
 public:
 	int command[35];

@@ -34,7 +34,7 @@ void CStrategySystem::Freeball() {
 // 射门
 void CStrategySystem::Shot(int which) {
 	Robot2 *robot;
-	switch (10) {
+	switch (which) {
 	case HOME9:
 		robot = &home9;
 		break;
@@ -42,19 +42,19 @@ void CStrategySystem::Shot(int which) {
 		robot = &home10;
 		break;
 	}
-	CPoint t1,t2,t3;
+	CPoint t1, t2, t3;
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	Position(10, t1); // 机器人到足够近的点
 	t2.x = robot->position.x;
 	t2.y = robot->position.y;
-	if (Distance(t1,t2)==1)
-		shot1(10);
-	/*if ()
-		shot2();*/
+	if (Distance(t1, t2) == 1)
+		shot1(HOME10);
+	// if ()
+	// 	shot2();
 }
-void CStrategySystem::shot1(int which) // 机器人which直射
-{
+
+void CStrategySystem::shot1(int which) { // 直射
 	Robot2 *robot;
 	switch (which) {
 	case HOME9:
@@ -67,12 +67,12 @@ void CStrategySystem::shot1(int which) // 机器人which直射
 	CPoint t;
 	t.x = ball.position.x;
 	t.y = ball.position.y;
-	double o=atan(abs(robot->position.y-t.y)*1.0/abs(robot->position.x-t.x));
-	Angle(which,o);//朝向球角度
-	Velocity(which,127,127);//射门
+	double o = atan(abs(robot->position.y - t.y) * 1.0 / abs(robot->position.x - t.x));
+	Angle(which, o);		   // 朝向球角度
+	Velocity(which, 127, 127); // 射门
 }
-/*void CStrategySystem::shot2(int which); // 机器人which旋转射
-{
+
+void CStrategySystem::shot2(int which) { // 旋射
 	Robot2 *robot;
 	switch (which) {
 	case HOME9:
@@ -82,15 +82,12 @@ void CStrategySystem::shot1(int which) // 机器人which直射
 		robot = &home10;
 		break;
 	}
-	
-}*/
-/*int CStrategySystem::search()//查找在禁区里的机器人
-{
-	
-}*/
+}
 
+int CStrategySystem::search() { // 查找在禁区里的机器人
+}
 
-// 控球
+// 控球，需调用 Shot
 void CStrategySystem::Possession() {
 	// TODO: Possession
 }
@@ -150,7 +147,7 @@ void CStrategySystem::Goalie() {
 	else if (ball.position.x > 515 && ball.position.y < 217 && ball.position.y >= ball.oldPosition.y) {
 		flag = true;
 		if (hgoalie.position.y > 217) {
-			PositionPro(HGOALIE, CPoint(ball.position));
+			Direction(HGOALIE, CPoint(ball.position));
 		}
 		Position(HGOALIE, CPoint(gx, 265));
 	}
@@ -158,7 +155,7 @@ void CStrategySystem::Goalie() {
 	else if (ball.position.x > 515 && ball.position.y <= ball.oldPosition.y) {
 		flag = true;
 		if (hgoalie.position.y < 607) {
-			PositionPro(HGOALIE, CPoint(ball.position));
+			Direction(HGOALIE, CPoint(ball.position));
 		}
 		Position(HGOALIE, CPoint(gx, 556));
 	}
@@ -174,37 +171,126 @@ double CStrategySystem::Distance(CPoint point1, CPoint point2) {
 	return sqrt(1.0 * (point1.x - point2.x) * (point1.x - point2.x) + 1.0 * (point1.y - point2.y) * (point1.y - point2.y));
 }
 
-int CStrategySystem::Status() {
-	/*if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
-		return 0; // 罚球
-	if (ball.position.x <= 309 && ball.position.x >= 279 && ball.position.y >= 394 && ball.position.y <= 424)
-		return 1; // 争球
-	if (ball.position.x >= 900 && ball.position.x <= 930 && ball.position.y >= 394 && ball.position.y <= 424)
-		return 2; // 射门*/
-	return 2;	  // 控球
+double CStrategySystem::Angle(CPoint point1, CPoint point2) {
+	return atan2(1.0 * (point1.y - point2.y), 1.0 * (point1.x - point2.x));
 }
 
-void CStrategySystem::Think() {
-	if (Status() == 0) {
-		Penalty();
-		return;
+void CStrategySystem::Direction(int which, CPoint point) {
+	Robot2 *robot;
+	double distance_e;
+	int dx, dy, desired_angle, theta_e, vL, vR;
+
+	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
+		break;
 	}
-	if (Status() == 1) {
-		Freeball();
-		return;
+
+	point.x = 2 * point.x - robot->position.x;
+	point.y = 2 * point.y - robot->position.y;
+
+	point.x = point.x < boundRect.left ? boundRect.left : point.x;
+	point.x = point.x > boundRect.right ? boundRect.right : point.x;
+	point.y = point.y < boundRect.top ? boundRect.top : point.y;
+	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
+
+	dx = point.x - robot->position.x;
+	dy = point.y - robot->position.y;
+
+	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
+
+	if (dx == 0 && dy == 0)
+		desired_angle = 90;
+	else
+		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
+
+	theta_e = desired_angle - robot->angle;
+
+	while (theta_e > 180)
+		theta_e -= 360;
+	while (theta_e < -180)
+		theta_e += 360;
+
+	if (theta_e < -90) {
+		theta_e += 180;
+		distance_e = -distance_e;
 	}
-	if (Status() == 2) {
-		Shot(10);
-		return;
+	else if (theta_e > 90) {
+		theta_e -= 180;
+		distance_e = -distance_e;
 	}
-	if (Status() == 3) {
-		Possession();
-		return;
+
+	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
+	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
+
+	Velocity(which, vL, vR);
+}
+
+// 判断状态，1 为罚球，0 为正常, 其他为争球
+int CStrategySystem::Status() {
+	if (ball.position.x <= 309 && ball.position.x >= 279) {
+		if (ball.position.y >= 394 && ball.position.y <= 424)
+			return 1;
+		if (ball.position.y <= 638 && ball.position.y >= 628)
+			return 2; // 左下争球点
+		if (ball.position.y <= 190 && ball.position.y >= 180)
+			return 3; // 左上争球点
 	}
+	if (ball.position.x <= 950 && ball.position.x >= 920) {
+		if (ball.position.y <= 638 && ball.position.y >= 628)
+			return 4; // 右下争球点
+		if (ball.position.y <= 190 && ball.position.y >= 180)
+			return 5; // 右上争球点
+	}
+	return 0;
 }
 
 void CStrategySystem::Action() {
-	Think();
+	switch (Status()) {
+	case 1:
+		Penalty();
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+		Freeball();
+		break;
+	default:
+		Possession();
+		break;
+	}
+	Goalie();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
@@ -372,78 +458,10 @@ void CStrategySystem::Position(int which, CPoint point) {
 		break;
 	}
 
-	dx = point.x - robot->position.x;
-	dy = point.y - robot->position.y;
-
-	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
-
-	if (dx == 0 && dy == 0)
-		desired_angle = 90;
-	else
-		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
-
-	theta_e = desired_angle - robot->angle;
-
-	while (theta_e > 180)
-		theta_e -= 360;
-	while (theta_e < -180)
-		theta_e += 360;
-
-	if (theta_e < -90) {
-		theta_e += 180;
-		distance_e = -distance_e;
-	}
-	else if (theta_e > 90) {
-		theta_e -= 180;
-		distance_e = -distance_e;
-	}
-
-	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
-	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
-
-	Velocity(which, vL, vR);
-}
-
-void CStrategySystem::PositionPro(int which, CPoint point) { // TODO: PositionPro
-	Robot2 *robot;
-	double distance_e;
-	int dx, dy, desired_angle, theta_e, vL, vR;
-
-	switch (which) {
-	case HOME1:
-		robot = &home1;
-		break;
-	case HOME2:
-		robot = &home2;
-		break;
-	case HOME3:
-		robot = &home3;
-		break;
-	case HOME4:
-		robot = &home4;
-		break;
-	case HOME5:
-		robot = &home5;
-		break;
-	case HOME6:
-		robot = &home6;
-		break;
-	case HOME7:
-		robot = &home7;
-		break;
-	case HOME8:
-		robot = &home8;
-		break;
-	case HOME9:
-		robot = &home9;
-		break;
-	case HOME10:
-		robot = &home10;
-		break;
-	case HGOALIE:
-		robot = &hgoalie;
-		break;
-	}
+	point.x = point.x < boundRect.left ? boundRect.left : point.x;
+	point.x = point.x > boundRect.right ? boundRect.right : point.x;
+	point.y = point.y < boundRect.top ? boundRect.top : point.y;
+	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
 
 	dx = point.x - robot->position.x;
 	dy = point.y - robot->position.y;
