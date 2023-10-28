@@ -45,7 +45,7 @@ void CStrategySystem::Shot(int which) {
 	CPoint t1, t2, t3;
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
-	Position(10, t1); // 机器人到足够近的点
+	Direction(10, t1); // 机器人到足够近的点
 	t2.x = robot->position.x;
 	t2.y = robot->position.y;
 	if (Distance(t1, t2) == 1)
