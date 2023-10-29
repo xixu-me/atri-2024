@@ -77,18 +77,31 @@ void CStrategySystem::Shot(int which) {
 	case HOME9:
 		robot = &home9;
 		break;
-	case HOME10:
-		robot = &home10;
+	case HOME1:
+		robot = &home1;
 		break;
 	}
-	CPoint t1, t2, t3;
+	CPoint t1,t2,t3,t4;//t1球，t2机器人,t3机器人要移动到的点，t4门
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
-	Direction(10, t1); // 机器人到足够近的点
-	t2.x = robot->position.x;
-	t2.y = robot->position.y;
-	if (Distance(t1, t2) == 1)
-		shot1(HOME10);
+	if(t1.y<=313)
+	{t4.x=65;t4.y=505;}
+	if(t1.y>=313)
+	t4.x=65;t4.y=313;
+	//double O=Angle(t1,t4);
+	double O = atan(t4.y - t1.y * 1.0 / t4.x - t1.x);
+	t3.x=t1.x+cos(180-O)*20.0;
+	t3.y=t1.y+sin(180-O)*20.0;
+	if (Distance(t1, t2) <= 20 &&Distance(t1, t2) >=0)
+		shot1(which);
+	else 
+	{ 
+		Direction(which, t3); // 机器人到足够近的点
+		t2.x = robot->position.x;
+		t2.y = robot->position.y;
+	}
+	/*if (Distance(t1, t2) <= 10&&Distance(t1, t2) >=0)
+		shot1(which);*/
 	// if ()
 	// 	shot2();
 }
@@ -99,17 +112,35 @@ void CStrategySystem::shot1(int which) { // 直射
 	case HOME9:
 		robot = &home9;
 		break;
+	case HOME1:
+		robot = &home1;
+		break;
+	}
+	CPoint t;//t球
+	t.x = ball.position.x;
+	t.y = ball.position.y;
+	double o = atan(robot->position.y - t.y* 1.0 / robot->position.x - t.x);//机器人面向球的角度
+	Angle(which, o);		   // 朝球转角度
+	Velocity(which, 127, 127); // 射门
+}
+/*void banarea(int which)  //让9，10不进禁区
+{
+	Robot2 *robot;
+	switch (which) {
+	case HOME9:
+		robot = &home9;
+		break;
 	case HOME10:
 		robot = &home10;
 		break;
 	}
-	CPoint t;
-	t.x = ball.position.x;
-	t.y = ball.position.y;
-	double o = atan(abs(robot->position.y - t.y) * 1.0 / abs(robot->position.x - t.x));
-	Angle(which, o);		   // 朝向球角度
-	Velocity(which, 127, 127); // 射门
-}
+	CPoint t1, t2;//t1球
+	t1.x = ball.position.x;
+	t1.y = ball.position.y;
+	t2.x = robot->position.x;
+	t2.y = robot->position.y;
+	if((t1.x>=65&&1.x<=103&&t1.y>=247&&t1.y<=577)||(t2.x+1==))
+}*/
 
 void CStrategySystem::shot2(int which) { // 旋射
 	Robot2 *robot;
@@ -227,7 +258,7 @@ double CStrategySystem::Distance(CPoint point1, CPoint point2) {
 }
 
 double CStrategySystem::Angle(CPoint point1, CPoint point2) {
-	return atan2(1.0 * (point1.y - point2.y), 1.0 * (point1.x - point2.x));
+	return atan2(1.0 * (point1.y - point2.y), 1.0 * (point2.x - point1.x));
 }
 
 void CStrategySystem::Direction(int which, CPoint point) {
@@ -346,6 +377,7 @@ void CStrategySystem::Action() {
 		break;
 	}
 	Goalie();
+	//Shot(1);
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
