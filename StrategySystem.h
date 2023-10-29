@@ -21,9 +21,10 @@ private:
 	void Possession();	  // 控球
 	void Goalie();		  // 守门
 
-	void shot1(int which); // 直射
-	void shot2(int which); // 旋射
-	int search();		   // 查找在禁区里的机器人
+	void spin(int which, bool isClockwise); // 自旋
+	void shot1(int which);					// 直射
+	void shot2(int which);					// 旋射
+	int search();							// 查找在禁区里的机器人
 
 	void control(int which);
 
