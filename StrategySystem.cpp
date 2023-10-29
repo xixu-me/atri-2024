@@ -23,7 +23,7 @@ extern int nKick;
 
 // 罚球
 void CStrategySystem::Penalty() {
-	// TODO: Penalty
+	//// TODO: Penalty
 }
 
 // 争球
