@@ -24,6 +24,11 @@ extern int nKick;
 // 罚球
 void CStrategySystem::Penalty() {
 	//// TODO: Penalty
+	if (ball.position.x <= 309 && ball.position.x >= 279) {
+		if (ball.position.y >= 394 && ball.position.y <= 424) {
+
+		}
+	}
 }
 
 // 争球
