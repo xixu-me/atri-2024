@@ -28,7 +28,41 @@ void CStrategySystem::Penalty() {
 
 // 争球
 void CStrategySystem::Freeball() {
-	// TODO: Freeball
+	int d = 3;
+	if (Status() == 2) { // 左上
+
+		if (Distance(home3.position, ball.position) > d)
+			Direction(HOME3, ball.position);
+		else
+			spin(HOME3, false);
+	}
+	else if (Status() == 3) { // 左下
+		if (Distance(home3.position, ball.position) > d)
+			Direction(HOME1, ball.position);
+		else
+			spin(HOME1, true);
+	}
+	else if (Status() == 4) { // 右上
+		if (Distance(home3.position, ball.position) > d)
+			Direction(HOME10, ball.position);
+		else
+			spin(HOME10, true);
+	}
+
+	else if (Status() == 5) { // 右下
+
+		if (Distance(home3.position, ball.position) > d)
+			Direction(HOME7, ball.position);
+		else
+			spin(HOME10, false);
+	}
+}
+
+void CStrategySystem::spin(int which, bool isClockwise) { // 自旋
+	if (isClockwise)
+		Velocity(which, 127, -127);
+	else
+		Velocity(which, -127, 127);
 }
 
 // 射门
@@ -277,16 +311,16 @@ int CStrategySystem::Status() {
 	if (ball.position.x <= 309 && ball.position.x >= 279) {
 		if (ball.position.y >= 394 && ball.position.y <= 424)
 			return 1;
-		if (ball.position.y <= 638 && ball.position.y >= 628)
-			return 2; // 左下争球点
 		if (ball.position.y <= 190 && ball.position.y >= 180)
-			return 3; // 左上争球点
+			return 2; // 左上争球点
+		if (ball.position.y <= 638 && ball.position.y >= 628)
+			return 3; // 左下争球点
 	}
 	if (ball.position.x <= 950 && ball.position.x >= 920) {
-		if (ball.position.y <= 638 && ball.position.y >= 628)
-			return 4; // 右下争球点
 		if (ball.position.y <= 190 && ball.position.y >= 180)
-			return 5; // 右上争球点
+			return 4; // 右上争球点
+		if (ball.position.y <= 638 && ball.position.y >= 628)
+			return 5; // 右下争球点
 	}
 	return 0;
 }

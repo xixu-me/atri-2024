@@ -21,9 +21,10 @@ private:
 	void Possession();	  // 控球
 	void Goalie();		  // 守门
 
-	void shot1(int which); // 直射
-	void shot2(int which); // 旋射
-	int search();		   // 查找在禁区里的机器人
+	void spin(int which, bool isClockwise); // 自旋
+	void shot1(int which);					// 直射
+	void shot2(int which);					// 旋射
+	int search();							// 查找在禁区里的机器人
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
 	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
