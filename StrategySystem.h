@@ -25,7 +25,6 @@ private:
 	void shot1(int which);					// 直射
 	void shot2(int which);					// 旋射
 	int search();							// 查找在禁区里的机器人
-
 	void control(int which);
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
