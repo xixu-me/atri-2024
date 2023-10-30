@@ -94,18 +94,18 @@ void CStrategySystem::Shot(int which) {
 	if(t1.y<409)
 	{
 		t4.x=65;t4.y=505;
-		O = Angle(t4,ball.position);
+		O = Angle(ball.position,t4);
 		t3.x=t1.x+cos(180-O)*19.0;
 		t3.y=t1.y-sin(180-O)*19.0;
 	}
 	if(t1.y>=409)
 	{
 		t4.x=65;t4.y=313;
-		O = Angle(t4,ball.position);
-		t3.x=t1.x+cos(180-O)*19.0;
-		t3.y=t1.y+sin(180-O)*19.0;
+		O = Angle(ball.position,t4);
+		t3.x=t1.x+cos(O-180)*19.0;
+		t3.y=t1.y+sin(O-180)*19.0;
 	}
-	O=Angle(t4,ball.position);
+	O=Angle(robot->position,ball.position);
 	if (abs((Angle(t4,ball.position))-Angle(ball.position,robot->position)<=5)&&Distance(ball.position,robot->position)<=20)
 	 	shot1(which,O);
 	else 
