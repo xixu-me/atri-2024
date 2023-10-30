@@ -23,12 +23,18 @@ extern int nKick;
 
 // 罚球
 void CStrategySystem::Penalty() {
-	//// TODO: Penalty
-	if (ball.position.x <= 309 && ball.position.x >= 279) {
-		if (ball.position.y >= 394 && ball.position.y <= 424) {
-
-		}
-	}
+	// srand(time(nullptr));
+	// int x = rand() % 2;
+	// if (x) {
+	// 	if (...)
+	// 		Direction(HOME1, ball.position);
+	// 	else
+	// 		Position(HOME1, ...);
+	// }
+	// else {
+	// 	if (...)
+	// 		...
+	// }
 }
 
 // 争球
@@ -81,7 +87,7 @@ void CStrategySystem::Shot(int which) {
 		robot = &home1;
 		break;
 	}
-	CPoint t1,t2,t3,t4;//t1球，t2机器人,t3机器人要移动到的点，t4门
+	CPoint t1, t2, t3, t4; // t1球，t2机器人,t3机器人要移动到的点，t4门
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	if(t1.y<=313)
@@ -116,12 +122,12 @@ void CStrategySystem::shot1(int which) { // 直射
 		robot = &home1;
 		break;
 	}
-	CPoint t;//t球
+	CPoint t; // t球
 	t.x = ball.position.x;
 	t.y = ball.position.y;
-	double o = atan(robot->position.y - t.y* 1.0 / robot->position.x - t.x);//机器人面向球的角度
-	Angle(which, o);		   // 朝球转角度
-	Velocity(which, 127, 127); // 射门
+	double o = atan(robot->position.y - t.y * 1.0 / robot->position.x - t.x); // 机器人面向球的角度
+	Angle(which, o);														  // 朝球转角度
+	Velocity(which, 127, 127);												  // 射门
 }
 /*void banarea(int which)  //让9，10不进禁区
 {
@@ -158,8 +164,7 @@ int CStrategySystem::search() { // 查找在禁区里的机器人
 	return 0;
 }
 
-void CStrategySystem::control(int which)
-{
+void CStrategySystem::control(int which) {
 	Robot2 *robot;
 	switch (which) {
 	case HOME1:
@@ -196,63 +201,55 @@ void CStrategySystem::control(int which)
 		robot = &hgoalie;
 		break;
 	}
-	//进攻区域
-	if (ball.position.x<=665)
-	{
+	// 进攻区域
+	if (ball.position.x <= 665) {
 		// 对方罚球区内
 		if (ball.position.x <= 160 && ball.position.y >= 607 && ball.position.y <= 217) {
 			Position(which, CPoint(160, ball.position.y));
 		}
 		// 对方下半场
-		else if ( ball.position.y > 607 ) {
-			//机器人在球右下
+		else if (ball.position.y > 607) {
+			// 机器人在球右下
 			if (robot->position.y < ball.position.y && robot->position.x > ball.position.x) {
 				Position(which, ball.position);
 			}
-			//机器人在球右上
+			// 机器人在球右上
 			else if (robot->position.y > ball.position.y && robot->position.x > ball.position.x) {
 				// 绕道球下方
-				//Velocity(which, vL, vR);
-
+				// Velocity(which, vL, vR);
 			}
-			//机器人在球左上
+			// 机器人在球左上
 			else if (robot->position.y < ball.position.y && robot->position.x < ball.position.x) {
-
 			}
-			//机器人在球左下
+			// 机器人在球左下
 			else {
-
 			}
-
 		}
 		// 对方中场
-		else if (ball.position.y<217&&ball.position.y>=572) {
-			//机器人在球的右下或右中
-			if (robot->position.x > ball.position.x&&robot->position.y<=ball.position.y)
-			{
+		else if (ball.position.y < 217 && ball.position.y >= 572) {
+			// 机器人在球的右下或右中
+			if (robot->position.x > ball.position.x && robot->position.y <= ball.position.y) {
 				Direction(which, ball.position);
 			}
-			//在机器人在球右上
-			else if (robot->position.x>ball.position.x&&robot->position.y>ball.position.y)
-			{
-				//右上且距离较远
+			// 在机器人在球右上
+			else if (robot->position.x > ball.position.x && robot->position.y > ball.position.y) {
+				// 右上且距离较远
 				if (robot->position.y >= ball.position.y + 100) {
 					Position(which, CPoint(ball.position.x - 20, ball.position.y + 30));
 				}
-				//距离较近
+				// 距离较近
 				else {
 					Position(which, CPoint(ball.position.x - 10, ball.position.y));
 				}
 			}
 		}
-		//else 
+		// else
 	}
-	else if (robot->position.x > ball.position.x&&robot->position.x>=160)
+	else if (robot->position.x > ball.position.x && robot->position.x >= 160)
 		Direction(which, ball.position);
-
 }
 // 控球，需调用 Shot
-	void CStrategySystem::Possession() {
+void CStrategySystem::Possession() {
 	control(1);
 	control(2);
 	control(3);
@@ -270,7 +267,7 @@ void CStrategySystem::control(int which)
 	CPoint t0, t1, t2, t3, t4, t5;
 	t0.x = ball.position.x;
 	t0.y = ball.position.y;*/
-	
+
 	// if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
 	// 	Position(HOME2, CPoint(ball.position.x, ball.position.y));
 	// }
@@ -484,6 +481,7 @@ void CStrategySystem::Action() {
 	// Goalie();
 	Shot(1);
 	Goalie();
+	// Shot(1);
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
