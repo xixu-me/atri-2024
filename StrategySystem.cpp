@@ -85,18 +85,18 @@ void CStrategySystem::Shot(int which) {
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	if(t1.y<=313)
-	{t4.x=65;t4.y=505;}
-	if(t1.y>=313)
-	t4.x=65;t4.y=313;
+	{t4.x=65;t4.y=590;}
+	if(t1.y>313)
+	t4.x=65;t4.y=330;
 	//double O=Angle(t1,t4);
 	double O = atan(t4.y - t1.y * 1.0 / t4.x - t1.x);
-	t3.x=t1.x+cos(180-O)*20.0;
-	t3.y=t1.y+sin(180-O)*20.0;
+	t3.x=t1.x+cos(180-O)*19.0;
+	t3.y=t1.y+sin(180-O)*19.0;
 	if (Distance(t1, t2) <= 20 &&Distance(t1, t2) >=0)
 		shot1(which);
 	else 
 	{ 
-		Direction(which, t3); // 机器人到足够近的点
+		Position(which, t3); // 机器人到足够近的点
 		t2.x = robot->position.x;
 		t2.y = robot->position.y;
 	}
@@ -467,22 +467,23 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	switch (Status()) {
-	case 1:
-		Penalty();
-		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		Freeball();
-		break;
-	default:
-		Possession();
-		break;
-	}
+	// switch (Status()) {
+	// case 1:
+	// 	Penalty();
+	// 	break;
+	// case 2:
+	// case 3:
+	// case 4:
+	// case 5:
+	// 	Freeball();
+	// 	break;
+	// default:
+	// 	Possession();
+	// 	break;
+	// }
+	// Goalie();
+	Shot(1);
 	Goalie();
-	//Shot(1);
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
