@@ -464,24 +464,23 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	// switch (Status()) {
-	// case 1:
-	// 	Penalty();
-	// 	break;
-	// case 2:
-	// case 3:
-	// case 4:
-	// case 5:
-	// 	Freeball();
-	// 	break;
-	// default:
-	// 	Possession();
-	// 	break;
-	// }
-	// Goalie();
-	Shot(1);
+	switch (Status()) {
+	case 1:
+		Penalty();
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+		Freeball();
+		break;
+	default:
+		Possession();
+		break;
+	}
 	Goalie();
 	// Shot(1);
+	// Goalie();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
