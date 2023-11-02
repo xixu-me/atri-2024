@@ -23,18 +23,21 @@ extern int nKick;
 
 // 罚球
 void CStrategySystem::Penalty() {
-	// srand(time(nullptr));
-	// int x = rand() % 2;
-	// if (x) {
-	// 	if (...)
-	// 		Direction(HOME1, ball.position);
-	// 	else
-	// 		Position(HOME1, ...);
-	// }
-	// else {
-	// 	if (...)
-	// 		...
-	// }
+	 srand(time(nullptr));
+	 int x = rand() % 2;
+	 //1往上射
+	 if (x) {
+		 if (home1.position.x <= 300 && home1.position.x >= 299 && home1.position.y >= 411 && home1.position.y <= 412)
+			 Direction(HOME1, ball.position);
+		 else
+			 Position(HOME1, CPoint(300, 412));
+	 }
+	 else {
+		if (home1.position.x <= 300 && home1.position.x >= 299 && home1.position.y >= 407 && home1.position.y<=408)
+			Direction(HOME1, ball.position);
+		else
+			Position(HOME1, CPoint(300,408));
+	 }
 }
 
 // 争球
