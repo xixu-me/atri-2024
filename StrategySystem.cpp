@@ -23,21 +23,28 @@ extern int nKick;
 
 // 罚球
 void CStrategySystem::Penalty() {
-	 srand(time(nullptr));
-	 int x = rand() % 2;
-	 //1往上射
-	 if (x) {
-		 if (home1.position.x <= 300 && home1.position.x >= 299 && home1.position.y >= 411 && home1.position.y <= 412)
-			 Direction(HOME1, ball.position);
-		 else
-			 Position(HOME1, CPoint(300, 412));
-	 }
-	 else {
-		if (home1.position.x <= 300 && home1.position.x >= 299 && home1.position.y >= 407 && home1.position.y<=408)
-			Direction(HOME1, ball.position);
+	srand(time(nullptr));
+	int x = rand() % 2;
+	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
+	int k, b;
+	// 1往上射
+	if (x) {
+		k = (ball.position.y - 313) / (ball.position.x - 60);
+		b = 313 - 60 * k;
+		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+			Direction(HOME1, ball.position); // 跟踪球射门
 		else
-			Position(HOME1, CPoint(300,408));
-	 }
+			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+	}
+	// 往下射
+	else {
+		k = (ball.position.y - 505) / (ball.position.x - 60);
+		b = 505 - 60 * k;
+		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+			Direction(HOME1, ball.position); // 跟踪球射门
+		else
+			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+	}
 }
 
 // 争球
