@@ -217,51 +217,172 @@ void CStrategySystem::control(int which) {
 		break;
 	}
 	// 进攻区域
-	if (ball.position.x <= 665) {
+	if (ball.position.x <= 590) {
+
 		// 对方罚球区内
-		if (ball.position.x <= 160 && ball.position.y >= 607 && ball.position.y <= 217) {
-			Position(which, CPoint(160, ball.position.y));
+		if (ball.position.x <= 160) {
+			// Position(which, CPoint(160, ball.position.y));
 		}
 		// 对方下半场
 		else if (ball.position.y > 607) {
 			// 机器人在球右下
-			if (robot->position.y < ball.position.y && robot->position.x > ball.position.x) {
-				Position(which, ball.position);
+			if (robot->position.y <= ball.position.y && robot->position.x >= ball.position.x) {
+				Direction(which, ball.position);
+				// Velocity(which, 127, 127);
 			}
 			// 机器人在球右上
 			else if (robot->position.y > ball.position.y && robot->position.x > ball.position.x) {
-				// 绕道球下方
+				Direction(which, CPoint(ball.position.x + 10, ball.position.y));
 				// Velocity(which, vL, vR);
 			}
 			// 机器人在球左上
 			else if (robot->position.y < ball.position.y && robot->position.x < ball.position.x) {
+				// Position(which, CPoint(ball.));
 			}
 			// 机器人在球左下
 			else {
+				Direction(which, CPoint(ball.position.x - 20, ball.position.y));
 			}
 		}
 		// 对方中场
-		else if (ball.position.y < 217 && ball.position.y >= 572) {
-			// 机器人在球的右下或右中
-			if (robot->position.x > ball.position.x && robot->position.y <= ball.position.y) {
+		else if (ball.position.y >= 217 && ball.position.y >= 607) {
+			// 机器人在球的右下
+			if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
 				Direction(which, ball.position);
 			}
-			// 在机器人在球右上
+			// 机器人在球右上
 			else if (robot->position.x > ball.position.x && robot->position.y > ball.position.y) {
 				// 右上且距离较远
 				if (robot->position.y >= ball.position.y + 100) {
-					Position(which, CPoint(ball.position.x - 20, ball.position.y + 30));
+					Direction(which, CPoint(ball.position.x + 20, ball.position.y + 20));
 				}
 				// 距离较近
 				else {
-					Position(which, CPoint(ball.position.x - 10, ball.position.y));
+					Direction(which, CPoint(ball.position.x + 10, ball.position.y));
+				}
+			}
+			// 机器人在球左下
+			else if (robot->position.x <= ball.position.x && robot->position.y >= ball.position.y) {
+				Direction(which, CPoint(ball.position.x - 20, ball.position.y + 20));
+			}
+			// 机器人在球左上
+			else {
+				Direction(which, CPoint(ball.position.x - 20, ball.position.y - 20));
+			}
+		}
+		// 上场
+		else {
+			// 机器人在球右上
+			if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
+				Direction(which, ball.position);
+			}
+			// 机器人在球右下
+			else if (robot->position.x >= ball.position.x && robot->position.y > ball.position.y) {
+				Direction(which, CPoint(ball.position.x + 20, ball.position.y));
+			}
+			// 机器人在球左上
+			else if (robot->position.x < ball.position.x && robot->position.y >= ball.position.y) {
+				Direction(which, CPoint(ball.position.x - 20, ball.position.y));
+			}
+			// 机器人在左下
+			else {
+			}
+		}
+	}
+	// 防守区域（1右上+正上，2左上+正左，3左下+正下，4右下+正右）
+	else if (ball.position.x > 590 && ball.position.x < 965) {
+		// 己方罚球区内
+		if (ball.position.x >= 873 && ball.position.y <= 607 && ball.position.y >= 217) {
+			Position(which, CPoint(873, ball.position.y));
+		}
+		// 己方上半场
+		else if (ball.position.y < 217 && ball.position.y >= 0) {
+			// 机器人在球1区
+			if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
+				// 绕道球上
+				PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
+			}
+			// 机器人在球2区
+			else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
+				// 绕道球下
+				PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
+			}
+			// 机器人在3区
+			else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
+				PositionSE(which, ball.position);
+			}
+			// 机器人在球4区
+			else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
+				PositionSE(which, ball.position);
+			}
+		}
+		// 己方中场
+		else if (ball.position.y > 217 && ball.position.y <= 607) {
+			// 球在中场上侧，要把球往上压
+			if (ball.position.y < 409) {
+				// 机器人在球1区
+				if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
+					// 绕道球上
+					PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
+				}
+				// 机器人在球2区
+				else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
+					// 绕道球下
+					PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
+				}
+				// 机器人在3区
+				else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
+					PositionSE(which, ball.position);
+				}
+				// 机器人在球4区
+				else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
+					PositionSE(which, ball.position);
+				}
+			}
+			// 球在中场下侧，要把球往下压
+			else {
+				// 机器人在球1区
+				if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
+					// 绕道球上
+					PositionSE(which, ball.position);
+				}
+				// 机器人在球2区
+				else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
+					// 绕道球下
+					PositionSE(which, ball.position);
+				}
+				// 机器人在3区
+				else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
+					PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
+				}
+				// 机器人在球4区
+				else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
+					PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
 				}
 			}
 		}
-		// else
+		// 己方下半场
+		else if (ball.position.y > 607) {
+			// 机器人在球1区
+			if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
+				// 绕道球上
+				PositionSE(which, ball.position);
+			}
+			// 机器人在球2区
+			else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
+				// 绕道球下
+				PositionSE(which, ball.position);
+			}
+			// 机器人在3区
+			else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
+				PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
+			}
+			// 机器人在球4区
+			else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
+				PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
+			}
+		}
 	}
-	else if (robot->position.x > ball.position.x && robot->position.x >= 160)
-		Direction(which, ball.position);
 }
 // 控球，需调用 Shot
 void CStrategySystem::Possession() {
