@@ -23,18 +23,28 @@ extern int nKick;
 
 // 罚球
 void CStrategySystem::Penalty() {
-	// srand(time(nullptr));
-	// int x = rand() % 2;
-	// if (x) {
-	// 	if (...)
-	// 		Direction(HOME1, ball.position);
-	// 	else
-	// 		Position(HOME1, ...);
-	// }
-	// else {
-	// 	if (...)
-	// 		...
-	// }
+	srand(time(nullptr));
+	int x = rand() % 2;
+	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
+	int k, b;
+	// 1往上射
+	if (x) {
+		k = (ball.position.y - 313) / (ball.position.x - 60);
+		b = 313 - 60 * k;
+		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+			Direction(HOME1, ball.position); // 跟踪球射门
+		else
+			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+	}
+	// 往下射
+	else {
+		k = (ball.position.y - 505) / (ball.position.x - 60);
+		b = 505 - 60 * k;
+		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+			Direction(HOME1, ball.position); // 跟踪球射门
+		else
+			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+	}
 }
 
 // 争球
@@ -121,7 +131,7 @@ void CStrategySystem::Shot(int which) {
 	// 	shot2();
 }
 
-void CStrategySystem::shot1(int which,double o) { // 直射
+void CStrategySystem::shot1(int which, double o) { // 直射
 	Robot2 *robot;
 	switch (which) {
 	case HOME9:
@@ -450,6 +460,100 @@ void CStrategySystem::Direction(int which, CPoint point) {
 	Velocity(which, vL, vR);
 }
 
+void CStrategySystem::PositionSE(int which, CPoint point) {
+	Robot2 *robot;
+	double distance_e;
+	int dx, dy, desired_angle, theta_e, vL, vR;
+
+	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
+		break;
+	}
+
+	if (point.x >= 873 && point.y >= 217 && point.y <= 607)
+		if (robot->position.x >= 873) {
+			if (robot->position.y <= 217) {
+				point.x = robot->position.x - (robot->position.x - point.x) * (217 - robot->position.y) / (point.y - robot->position.y);
+				point.y = 217;
+			}
+			else if (robot->position.y >= 607) {
+				point.x = robot->position.x - (robot->position.x - point.x) * (607 - robot->position.y) / (point.y - robot->position.y);
+				point.y = 607;
+			}
+		}
+		else {
+			point.x = 873;
+			point.y = robot->position.y - (robot->position.y - point.y) * (873 - robot->position.x) / (point.x - robot->position.x);
+		}
+
+	point.x = point.x < boundRect.left ? boundRect.left : point.x;
+	point.x = point.x > boundRect.right ? boundRect.right : point.x;
+	point.y = point.y < boundRect.top ? boundRect.top : point.y;
+	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
+
+	dx = point.x - robot->position.x;
+	dy = point.y - robot->position.y;
+
+	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
+
+	if (dx == 0 && dy == 0)
+		desired_angle = 90;
+	else
+		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
+
+	theta_e = desired_angle - robot->angle;
+
+	while (theta_e > 180)
+		theta_e -= 360;
+	while (theta_e < -180)
+		theta_e += 360;
+
+	if (theta_e < -90) {
+		theta_e += 180;
+		distance_e = -distance_e;
+	}
+	else if (theta_e > 90) {
+		theta_e -= 180;
+		distance_e = -distance_e;
+	}
+
+	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
+	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
+
+	Velocity(which, vL, vR);
+}
+
 // 判断状态，1 为罚球，0 为正常, 其他为争球
 int CStrategySystem::Status() {
 	if (ball.position.x <= 309 && ball.position.x >= 279) {
@@ -470,22 +574,20 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	// switch (Status()) {
-	// case 1:
-	// 	Penalty();
-	// 	break;
-	// case 2:
-	// case 3:
-	// case 4:
-	// case 5:
-	// 	Freeball();
-	// 	break;
-	// default:
-	// 	Possession();
-	// 	break;
-	// }
-	// Goalie();
-	Shot(1);
+	switch (Status()) {
+	case 1:
+		Penalty();
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+		Freeball();
+		break;
+	default:
+		Possession();
+		break;
+	}
 	Goalie();
 }
 
