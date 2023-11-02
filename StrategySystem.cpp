@@ -128,7 +128,7 @@ void CStrategySystem::Shot(int which) {
 		shot1(which);*/
 	// if ()
 	// 	shot2();
-	}
+}
 
 void CStrategySystem::shot1(int which, double o) { // 直射
 	Robot2 *robot;
@@ -612,6 +612,208 @@ void CStrategySystem::PositionSE(int which, CPoint point) {
 			point.x = 873;
 			point.y = robot->position.y - (robot->position.y - point.y) * (873 - robot->position.x) / (point.x - robot->position.x);
 		}
+
+	point.x = point.x < boundRect.left ? boundRect.left : point.x;
+	point.x = point.x > boundRect.right ? boundRect.right : point.x;
+	point.y = point.y < boundRect.top ? boundRect.top : point.y;
+	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
+
+	dx = point.x - robot->position.x;
+	dy = point.y - robot->position.y;
+
+	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
+
+	if (dx == 0 && dy == 0)
+		desired_angle = 90;
+	else
+		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
+
+	theta_e = desired_angle - robot->angle;
+
+	while (theta_e > 180)
+		theta_e -= 360;
+	while (theta_e < -180)
+		theta_e += 360;
+
+	if (theta_e < -90) {
+		theta_e += 180;
+		distance_e = -distance_e;
+	}
+	else if (theta_e > 90) {
+		theta_e -= 180;
+		distance_e = -distance_e;
+	}
+
+	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
+	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
+
+	Velocity(which, vL, vR);
+}
+
+void CStrategySystem::Rush(int which, CPoint point) {
+	Robot2 *robot;
+	double distance_e;
+	int dx, dy, desired_angle, theta_e, vL, vR;
+
+	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
+		break;
+	}
+
+	CPoint p3;
+
+	// 计算射线的斜率和截距
+	double k = (double)(point.y - robot->position.y) / (point.x - robot->position.x);
+	double b = robot->position.y - k * robot->position.x;
+	// 判断射线的方向
+	bool right = point.x > robot->position.x; // 是否向右
+	bool up = point.y < robot->position.y;	  // 是否向上
+	// 根据方向和斜率判断相交边
+	if (right && up) { // 右上方
+		if (k > 0) {   // 斜率大于 0
+			// 右边或上边
+			if (k * boundRect.right + b < boundRect.top) {
+				// 右边
+				p3.x = boundRect.right;
+				p3.y = k * boundRect.right + b;
+			}
+			else {
+				// 上边
+				p3.x = (boundRect.top - b) / k;
+				p3.y = boundRect.top;
+			}
+		}
+		else { // 斜率小于等于 0
+			// 上边或右边
+			if ((boundRect.top - b) / k > boundRect.right) {
+				// 上边
+				p3.x = (boundRect.top - b) / k;
+				p3.y = boundRect.top;
+			}
+			else {
+				// 右边
+				p3.x = boundRect.right;
+				p3.y = k * boundRect.right + b;
+			}
+		}
+	}
+	else if (right && !up) { // 右下方
+		if (k > 0) {		 // 斜率大于 0
+			// 下边或右边
+			if ((boundRect.bottom - b) / k < boundRect.right) {
+				// 下边
+				p3.x = (boundRect.bottom - b) / k;
+				p3.y = boundRect.bottom;
+			}
+			else {
+				// 右边
+				p3.x = boundRect.right;
+				p3.y = k * boundRect.right + b;
+			}
+		}
+		else { // 斜率小于等于 0
+			// 右边或下边
+			if (k * boundRect.right + b > boundRect.bottom) {
+				// 右边
+				p3.x = boundRect.right;
+				p3.y = k * boundRect.right + b;
+			}
+			else {
+				// 下边
+				p3.x = (boundRect.bottom - b) / k;
+				p3.y = boundRect.bottom;
+			}
+		}
+	}
+	else if (!right && up) { // 左上方
+		if (k > 0) {		 // 斜率大于 0
+			// 上边或左边
+			if ((boundRect.top - b) / k < boundRect.left) {
+				// 上边
+				p3.x = (boundRect.top - b) / k;
+				p3.y = boundRect.top;
+			}
+			else {
+				// 左边
+				p3.x = boundRect.left;
+				p3.y = k * boundRect.left + b;
+			}
+		}
+		else { // 斜率小于等于 0
+			// 左边或上边
+			if (k * boundRect.left + b < boundRect.top) {
+				// 左边
+				p3.x = boundRect.left;
+				p3.y = k * boundRect.left + b;
+			}
+			else {
+				// 上边
+				p3.x = (boundRect.top - b) / k;
+				p3.y = boundRect.top;
+			}
+		}
+	}
+	else {			 // 左下方
+		if (k > 0) { // 斜率大于 0
+			// 左边或下边
+			if (k * boundRect.left + b > boundRect.bottom) {
+				// 左边
+				p3.x = boundRect.left;
+				p3.y = k * boundRect.left + b;
+			}
+			else {
+				// 下边
+				p3.x = (boundRect.bottom - b) / k;
+				p3.y = boundRect.bottom;
+			}
+		}
+		else { // 斜率小于等于 0
+			// 下边或左边
+			if ((boundRect.bottom - b) / k > boundRect.left) {
+				// 下边
+				p3.x = (boundRect.bottom - b) / k;
+				p3.y = boundRect.bottom;
+			}
+			else {
+				// 左边
+				p3.x = boundRect.left;
+				p3.y = k * boundRect.left + b;
+			}
+		}
+	}
+
+	point = p3;
 
 	point.x = point.x < boundRect.left ? boundRect.left : point.x;
 	point.x = point.x > boundRect.right ? boundRect.right : point.x;

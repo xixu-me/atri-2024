@@ -32,6 +32,7 @@ private:
 	void Direction(int which, CPoint point);
 	void DirectionSE(int which, CPoint point); // 不进禁区版 Direction
 	void PositionSE(int which, CPoint point);  // 不进禁区版 Position
+	void Rush(int which, CPoint point);		   // 冲向某点
 
 	int Status(); // 判断状态
 
