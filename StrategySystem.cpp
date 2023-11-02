@@ -87,33 +87,34 @@ void CStrategySystem::Shot(int which) {
 		robot = &home1;
 		break;
 	}
-	double O;
+	double O,O1;
 	CPoint t1, t2, t3, t4; // t1球，t2机器人,t3机器人要移动到的点，t4门
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
-	if(t1.y<409)
+	if(t1.y<=409.0)
 	{
-		t4.x=65;t4.y=505;
-		O = Angle(ball.position,t4);
-		t3.x=t1.x+cos(180-O)*19.0;
-		t3.y=t1.y-sin(180-O)*19.0;
+		t4.x=65.0;t4.y=505.0;
+		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(,t4));
+		O1=180-O;
+		t3.x=t1.x+cos(O)*39;
+		t3.y=t1.y-sin(O)*39;
 	}
-	if(t1.y>=409)
+	if(t1.y>409.0)
 	{
-		t4.x=65;t4.y=313;
-		O = Angle(ball.position,t4);
-		t3.x=t1.x+cos(O-180)*19.0;
-		t3.y=t1.y+sin(O-180)*19.0;
+		t4.x=65.0;t4.y=313.0;
+		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
+		O1=180+O;
+		t3.x=t1.x+cos(O)*39;
+		t3.y=t1.y+sin(O)*39;
 	}
-	O=Angle(robot->position,ball.position);
-	if (abs((Angle(t4,ball.position))-Angle(ball.position,robot->position)<=5)&&Distance(ball.position,robot->position)<=20)
-	 	shot1(which,O);
+	if (Distance(robot->position,ball.position)<=40&&(fabs(Angle(ball.position,t3)-Angle(ball.position,robot->position)))<=3) {
+		Direction(which, ball.position);
+	}
 	else 
 	{ 
-	 	Direction(which, t3); // 机器人到足够近的点
-	// 	t2.x = robot->position.x;
-	// 	t2.y = robot->position.y;
+	 	Direction(which, t3); // 机器人到足够近的点t3
 	}
+	//if(a&&b)Position(which,t4);
 	/*if (Distance(t1, t2) <= 10&&Distance(t1, t2) >=0)
 		shot1(which);*/
 	// if ()
@@ -131,10 +132,7 @@ void CStrategySystem::shot1(int which,double o) { // 直射
 		break;
 	}
 	CPoint t; // t球
-	// t.x = ball.position.x;
-	// t.y = ball.position.y;
-	// double o = atan(robot->position.y - t.y * 1.0 / robot->position.x - t.x); // 机器人面向球的角度
-	Angle(which, o);//射门角度														  // 朝球转角度
+	Angle(which, o);//射门角度
 	Velocity(which, 127, 127);//which全速前进
 }
 /*void banarea(int which)  //让9，10不进禁区
@@ -159,8 +157,8 @@ void CStrategySystem::shot1(int which,double o) { // 直射
 void CStrategySystem::shot2(int which) { // 旋射
 	Robot2 *robot;
 	switch (which) {
-	case HOME9:
-		robot = &home9;
+	case HOME1:
+		robot = &home1;
 		break;
 	case HOME10:
 		robot = &home10;
