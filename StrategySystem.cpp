@@ -97,34 +97,33 @@ void CStrategySystem::Shot(int which) {
 		robot = &home1;
 		break;
 	}
-	double O,O1;
+	double O, O1;
 	CPoint t1, t2, t3, t4; // t1球，t2机器人,t3机器人要移动到的点，t4门
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
-	if(t1.y<=409.0)
-	{
-		t4.x=65.0;t4.y=505.0;
+	if (t1.y <= 409.0) {
+		t4.x = 65.0;
+		t4.y = 505.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(,t4));
-		O1=180-O;
-		t3.x=t1.x+cos(O)*39;
-		t3.y=t1.y-sin(O)*39;
+		O1 = 180 - O;
+		t3.x = t1.x + cos(O) * 39;
+		t3.y = t1.y - sin(O) * 39;
 	}
-	if(t1.y>409.0)
-	{
-		t4.x=65.0;t4.y=313.0;
+	if (t1.y > 409.0) {
+		t4.x = 65.0;
+		t4.y = 313.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
-		O1=180+O;
-		t3.x=t1.x+cos(O)*39;
-		t3.y=t1.y+sin(O)*39;
+		O1 = 180 + O;
+		t3.x = t1.x + cos(O) * 39;
+		t3.y = t1.y + sin(O) * 39;
 	}
-	if (Distance(robot->position,ball.position)<=40&&(fabs(Angle(ball.position,t3)-Angle(ball.position,robot->position)))<=3) {
+	if (Distance(robot->position, ball.position) <= 40 && (fabs(Angle(ball.position, t3) - Angle(ball.position, robot->position))) <= 3) {
 		Direction(which, ball.position);
 	}
-	else 
-	{ 
-	 	Direction(which, t3); // 机器人到足够近的点t3
+	else {
+		Direction(which, t3); // 机器人到足够近的点t3
 	}
-	//if(a&&b)Position(which,t4);
+	// if(a&&b)Position(which,t4);
 	/*if (Distance(t1, t2) <= 10&&Distance(t1, t2) >=0)
 		shot1(which);*/
 	// if ()
@@ -141,9 +140,9 @@ void CStrategySystem::shot1(int which, double o) { // 直射
 		robot = &home1;
 		break;
 	}
-	CPoint t; // t球
-	Angle(which, o);//射门角度
-	Velocity(which, 127, 127);//which全速前进
+	CPoint t;				   // t球
+	Angle(which, o);		   // 射门角度
+	Velocity(which, 127, 127); // which全速前进
 }
 /*void banarea(int which)  //让9，10不进禁区
 {
@@ -422,6 +421,103 @@ void CStrategySystem::Direction(int which, CPoint point) {
 
 	point.x = 2 * point.x - robot->position.x;
 	point.y = 2 * point.y - robot->position.y;
+
+	point.x = point.x < boundRect.left ? boundRect.left : point.x;
+	point.x = point.x > boundRect.right ? boundRect.right : point.x;
+	point.y = point.y < boundRect.top ? boundRect.top : point.y;
+	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
+
+	dx = point.x - robot->position.x;
+	dy = point.y - robot->position.y;
+
+	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
+
+	if (dx == 0 && dy == 0)
+		desired_angle = 90;
+	else
+		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
+
+	theta_e = desired_angle - robot->angle;
+
+	while (theta_e > 180)
+		theta_e -= 360;
+	while (theta_e < -180)
+		theta_e += 360;
+
+	if (theta_e < -90) {
+		theta_e += 180;
+		distance_e = -distance_e;
+	}
+	else if (theta_e > 90) {
+		theta_e -= 180;
+		distance_e = -distance_e;
+	}
+
+	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
+	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
+
+	Velocity(which, vL, vR);
+}
+
+void CStrategySystem::DirectionSE(int which, CPoint point) {
+	Robot2 *robot;
+	double distance_e;
+	int dx, dy, desired_angle, theta_e, vL, vR;
+
+	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
+		break;
+	}
+
+	point.x = 2 * point.x - robot->position.x;
+	point.y = 2 * point.y - robot->position.y;
+
+	if (point.x >= 873 && point.y >= 217 && point.y <= 607)
+		if (robot->position.x >= 873) {
+			if (robot->position.y <= 217) {
+				point.x = robot->position.x - (robot->position.x - point.x) * (217 - robot->position.y) / (point.y - robot->position.y);
+				point.y = 217;
+			}
+			else if (robot->position.y >= 607) {
+				point.x = robot->position.x - (robot->position.x - point.x) * (607 - robot->position.y) / (point.y - robot->position.y);
+				point.y = 607;
+			}
+		}
+		else {
+			point.x = 873;
+			point.y = robot->position.y - (robot->position.y - point.y) * (873 - robot->position.x) / (point.x - robot->position.x);
+		}
 
 	point.x = point.x < boundRect.left ? boundRect.left : point.x;
 	point.x = point.x > boundRect.right ? boundRect.right : point.x;

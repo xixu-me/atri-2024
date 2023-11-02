@@ -29,8 +29,9 @@ private:
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
 	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
-	void Direction(int which, CPoint point);	   // 冲向某点
-	void PositionSE(int which, CPoint point);	   // 不进禁区版 Position
+	void Direction(int which, CPoint point);
+	void DirectionSE(int which, CPoint point); // 不进禁区版 Direction
+	void PositionSE(int which, CPoint point);  // 不进禁区版 Position
 
 	int Status(); // 判断状态
 
