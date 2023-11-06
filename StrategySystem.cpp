@@ -22,30 +22,30 @@ extern int nKick;
 #define G_BOUND_BOUND 10
 
 // 罚球
-void CStrategySystem::Penalty() {
-	srand(time(nullptr));
-	int x = rand() % 2;
-	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
-	int k, b;
-	// 1往上射
-	if (x) {
-		k = (ball.position.y - 313) / (ball.position.x - 60);
-		b = 313 - 60 * k;
-		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-			Direction(HOME1, ball.position); // 跟踪球射门
-		else
-			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-	}
-	// 往下射
-	else {
-		k = (ball.position.y - 505) / (ball.position.x - 60);
-		b = 505 - 60 * k;
-		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-			Direction(HOME1, ball.position); // 跟踪球射门
-		else
-			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-	}
-}
+// void CStrategySystem::Penalty() {
+// 	srand(time(nullptr));
+// 	int x = rand() % 2;
+// 	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
+// 	int k, b;
+// 	// 1往上射
+// 	if (x) {
+// 		k = (ball.position.y - 313) / (ball.position.x - 60);
+// 		b = 313 - 60 * k;
+// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+// 			Direction(HOME1, ball.position); // 跟踪球射门
+// 		else
+// 			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+// 	}
+// 	// 往下射
+// 	else {
+// 		k = (ball.position.y - 505) / (ball.position.x - 60);
+// 		b = 505 - 60 * k;
+// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+// 			Direction(HOME1, ball.position); // 跟踪球射门
+// 		else
+// 			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+// 	}
+// }
 
 // 争球
 void CStrategySystem::Freeball() {
@@ -87,6 +87,22 @@ void CStrategySystem::spin(int which, bool isClockwise) { // 自旋
 }
 
 // 射门
+void CStrategySystem::canshot()//射？
+{
+	CPoint D1,D2;
+	Robot2 *robot9,*robot10;
+	robot9 = &home9;
+	robot10 = &home10;
+	if(ball.position.y>=409&&ball.position.x<=515)//球在敌方下半
+	{
+		D1.x=170;D1.y=265;
+		Direction(HOME10,D1);
+		D2.x=170;D2.y=409;
+		Direction(HOME9,D2);
+	}
+	
+}
+
 void CStrategySystem::Shot(int which) {
 	Robot2 *robot;
 	switch (which) {
@@ -106,28 +122,23 @@ void CStrategySystem::Shot(int which) {
 		t4.y = 505.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(,t4));
 		O1 = 180 - O;
-		t3.x = t1.x + cos(O) * 39;
-		t3.y = t1.y - sin(O) * 39;
+		t3.x = t1.x + cos(O) * 34;
+		t3.y = t1.y - sin(O) * 34;
 	}
 	if (t1.y > 409.0) {
 		t4.x = 65.0;
 		t4.y = 313.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
 		O1 = 180 + O;
-		t3.x = t1.x + cos(O) * 39;
-		t3.y = t1.y + sin(O) * 39;
+		t3.x = t1.x + cos(O) * 34;
+		t3.y = t1.y + sin(O) * 34;
 	}
-	if (Distance(robot->position, ball.position) <= 40 && (fabs(Angle(ball.position, t3) - Angle(ball.position, robot->position))) <= 3) {
-		Direction(which, ball.position);
+	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position,t3))) <= 2) {
+		DirectionSE(which, ball.position);
 	}
 	else {
-		Direction(which, t3); // 机器人到足够近的点t3
+		DirectionSE(which, t3); // 机器人到足够近的点t3
 	}
-	// if(a&&b)Position(which,t4);
-	/*if (Distance(t1, t2) <= 10&&Distance(t1, t2) >=0)
-		shot1(which);*/
-	// if ()
-	// 	shot2();
 }
 
 void CStrategySystem::shot1(int which, double o) { // 直射
@@ -163,17 +174,6 @@ void CStrategySystem::shot1(int which, double o) { // 直射
 	if((t1.x>=65&&1.x<=103&&t1.y>=247&&t1.y<=577)||(t2.x+1==))
 }*/
 
-void CStrategySystem::shot2(int which) { // 旋射
-	Robot2 *robot;
-	switch (which) {
-	case HOME1:
-		robot = &home1;
-		break;
-	case HOME10:
-		robot = &home10;
-		break;
-	}
-}
 
 int CStrategySystem::search() { // 查找在禁区里的机器人
 	return 0;
@@ -993,21 +993,22 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	switch (Status()) {
-	case 1:
-		Penalty();
-		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		Freeball();
-		break;
-	default:
-		Possession();
-		break;
-	}
+	// switch (Status()) {
+	// case 1:
+	// 	Penalty();
+	// 	break;
+	// case 2:
+	// case 3:
+	// case 4:
+	// case 5:
+	// 	Freeball();
+	// 	break;
+	// default:
+	// 	Possession();
+	// 	break;
+	// }
 	Goalie();
+	canshot();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {

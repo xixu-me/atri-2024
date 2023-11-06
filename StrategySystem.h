@@ -23,7 +23,7 @@ private:
 
 	void spin(int which, bool isClockwise); // 自旋
 	void shot1(int which, double o);		// 直射
-	void shot2(int which);					// 旋射
+	void canshot();							//射？
 	int search();							// 查找在禁区里的机器人
 	void control(int which);
 
