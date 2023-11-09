@@ -22,43 +22,85 @@ extern int nKick;
 #define G_BOUND_BOUND 10
 
 // 罚球
-void CStrategySystem::Penalty() {
-	// srand(time(nullptr));
-	// int x = rand() % 2;
-	// // 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
-	// int k, b;
-	// // 1往上射
-	// if (x) {
-	// 	k = (ball.position.y - 313) / (ball.position.x - 60);
-	// 	b = 313 - 60 * k;
-	// 	if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-	// 		Direction(HOME1, ball.position); // 跟踪球射门
-	// 	else
-	// 		Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-	// }
-	// // 往下射
-	// else {
-	// 	k = (ball.position.y - 505) / (ball.position.x - 60);
-	// 	b = 505 - 60 * k;
-	// 	if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-	// 		Direction(HOME1, ball.position); // 跟踪球射门
-	// 	else
-	// 		Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-	// }
-	///////////////////////////////////////////////////////////////////
-	// srand(time(nullptr));
-	// int x = rand() % 2;
-	// if (x) {
-	// 	if (ball.position.x >= 279 && ball.position.x <= 309 && ball.position.y >= 395 && ball.position.y <= 425) {
-	// 		Direction(HOME1, ball.position);
-	// 	}
-	// }
-	// else {
-	// 	if (ball.position.x >= 279 && ball.position.x <= 309 && ball.position.y >= 395 && ball.position.y <= 425) {
-	// 		Direction(HOME1, ball.position);
-	// 	}
-	// }
+// void CStrategySystem::Penalty() {
+// 	srand(time(nullptr));
+// 	int x = rand() % 2;
+// 	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
+// 	int k, b;
+// 	// 1往上射
+// 	if (x) {
+// 		k = (ball.position.y - 313) / (ball.position.x - 60);
+// 		b = 313 - 60 * k;
+// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+// 			Direction(HOME1, ball.position); // 跟踪球射门
+// 		else
+// 			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+// 	}
+// 	// 往下射
+// 	else {
+// 		k = (ball.position.y - 505) / (ball.position.x - 60);
+// 		b = 505 - 60 * k;
+// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
+// 			Direction(HOME1, ball.position); // 跟踪球射门
+// 		else
+// 			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
+// 	}
+// }
 
+// 罚球
+/*
+void CStrategySystem::Penalty() {
+	srand(time(nullptr));
+	int x = rand() % 2;
+	if (ball.position.y < 410) {
+		if (Distance(home1.position, ball.position) > 15) {
+			Position(HOME1, CPoint(28, 313));
+		}
+		else {
+			Position(HOME1, CPoint(60, 313));
+		}
+	}
+	else if (ball.position.y > 410) {
+		if (Distance(home1.position, ball.position)>15) {
+			Position(HOME1, CPoint(28, 505));
+		}
+		else {
+			Position(HOME1, CPoint(60, 505));
+		}
+	}else if (ball.position.y == 410) {
+		if (x) {
+				Position(HOME1, CPoint(60, 313));
+		}
+		else {
+				Position(HOME1, CPoint(60, 313));
+		}
+	}
+}*/
+
+// 罚球
+/* void CStrategySystem::Penalty() {
+	srand(time(nullptr));
+	int x = rand() % 2;
+	if (x) {
+		if (Distance(home1.position, ball.position) > 15) {
+			Position(HOME1, CPoint(28, 313));
+		}
+		else {
+			Position(HOME1, CPoint(60, 313));
+		}
+	}
+	else {
+		if (Distance(home1.position, ball.position) > 15) {
+			Position(HOME1, CPoint(28, 505));
+		}
+		else {
+			Position(HOME1, CPoint(60, 505));
+		}
+	}
+}*/
+
+// 罚球
+void CStrategySystem::Penalty() {
 	srand(time(nullptr));
 	int x = rand() % 2;
 	if (x) {
