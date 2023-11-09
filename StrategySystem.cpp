@@ -46,8 +46,22 @@ extern int nKick;
 // 			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
 // 	}
 // }
-
-// 争球
+//罚球
+void CStrategySystem::Penalty() {
+	srand(time(nullptr));
+	int x = rand() % 2;
+	if (x) {
+		if (ball.position.x >= 279 && ball.position.x <= 309 && ball.position.y >= 395 && ball.position.y <= 425) {
+			Direction(HOME1, ball.position);
+		}
+	}
+	else {
+		if (ball.position.x >= 279 && ball.position.x <= 309 && ball.position.y >= 395 && ball.position.y <= 425) {
+			Direction(HOME1, ball.position);
+		}
+	}
+}
+	// 争球
 void CStrategySystem::Freeball() {
 	int d = 3;
 	if (Status() == 2) { // 左上
@@ -1007,6 +1021,7 @@ void CStrategySystem::Action() {
 	// 	Possession();
 	// 	break;
 	// }
+	Penalty();
 	Goalie();
 	canshot();
 }
