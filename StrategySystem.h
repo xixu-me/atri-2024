@@ -17,13 +17,13 @@ public:
 private:
 	void Penalty();		  // 罚球
 	void Freeball();	  // 争球
-	void Shot(int which); // 射门
+	void Shot(int which,bool de); // 射门
 	void Possession();	  // 控球
 	void Goalie();		  // 守门
 
 	void spin(int which, bool isClockwise); // 自旋
 	void shot1(int which, double o);		// 直射
-	void canshot();							//射？
+	void Canshot();							//射？
 	int search();							// 查找在禁区里的机器人
 	void control(int which);
 	void ccd(int which, double d,double j);//曲线行驶
