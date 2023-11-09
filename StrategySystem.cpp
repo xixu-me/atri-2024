@@ -63,36 +63,51 @@ void CStrategySystem::Penalty() {
 }
 	// 争球
 void CStrategySystem::Freeball() {
-	int d = 3;
+	int d = 21;
 	if (Status() == 2) { // 左上
 
 		if (Distance(home3.position, ball.position) > d)
 			Direction(HOME3, ball.position);
 		else
-			spin(HOME3, false);
+			ccd(HOME3, Distance(home3.position, ball.position),atwo(home3.pos.x,home3.pos.y,ball.position.x,ball.position.y,ball.position.x,ball.position.y,28,505));
+			//spin(HOME3, false);
 	}
-	else if (Status() == 3) { // 左下
-		if (Distance(home3.position, ball.position) > d)
+	/* else if (Status() == 3) { // 左下
+		if (Distance(home1.position, ball.position) > d)
 			Direction(HOME1, ball.position);
 		else
 			spin(HOME1, true);
 	}
 	else if (Status() == 4) { // 右上
-		if (Distance(home3.position, ball.position) > d)
+		if (Distance(home10.position, ball.position) > d)
 			Direction(HOME10, ball.position);
 		else
 			spin(HOME10, true);
-	}
+	}*/
 
 	else if (Status() == 5) { // 右下
 
-		if (Distance(home3.position, ball.position) > d)
-			Direction(HOME7, ball.position);
-		else
-			spin(HOME10, false);
+		//if (Distance(home7.position, ball.position) > d)
+		//	Direction(HOME7, ball.position);
+		//else
+		//	spin(HOME7, false);
 	}
 }
-
+double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) // 两直线间夹角
+{
+	 double j=0;
+	double k1 = (y1 - y2) / (x1 - x2);
+	double k2 = (y3 - y4) / (x3 - x4);
+	j = 2*atan(fabs((k2 - k1) / (1 + k1 * k2)));
+	return j;
+}
+void CStrategySystem::ccd(int which, double d, double j)//曲线行驶
+{
+	double r = d /( 2*(sin(j / 2)));
+	int rw = 127;
+	int lw = (r - 5) / (r + 5) * rw;
+	Velocity(which, lw, rw);
+}
 void CStrategySystem::spin(int which, bool isClockwise) { // 自旋
 	if (isClockwise)
 		Velocity(which, 127, -127);
@@ -988,19 +1003,22 @@ void CStrategySystem::Rush(int which, CPoint point) {
 }
 
 // 判断状态，1 为罚球，0 为正常, 其他为争球
-int CStrategySystem::Status() {
-	if (ball.position.x <= 309 && ball.position.x >= 279) {
+int CStrategySystem::Status() 
+{
+	if (ball.position.x <= 309 && ball.position.x >= 279)
+	{
 		if (ball.position.y >= 394 && ball.position.y <= 424)
 			return 1;
-		if (ball.position.y <= 190 && ball.position.y >= 180)
+		if (ball.position.y <= 193 && ball.position.y >= 173)
 			return 2; // 左上争球点
-		if (ball.position.y <= 638 && ball.position.y >= 628)
+		if (ball.position.y <= 648 && ball.position.y >= 628)
 			return 3; // 左下争球点
 	}
-	if (ball.position.x <= 950 && ball.position.x >= 920) {
-		if (ball.position.y <= 190 && ball.position.y >= 180)
+	if (ball.position.x <= 753 && ball.position.x >= 733)
+	{
+		if (ball.position.y <= 193 && ball.position.y >= 173)
 			return 4; // 右上争球点
-		if (ball.position.y <= 638 && ball.position.y >= 628)
+		if (ball.position.y <= 648 && ball.position.y >= 628)
 			return 5; // 右下争球点
 	}
 	return 0;
@@ -1021,9 +1039,10 @@ void CStrategySystem::Action() {
 	// 	Possession();
 	// 	break;
 	// }
-	Penalty();
-	Goalie();
-	canshot();
+	//Penalty();
+	//Goalie();
+	//canshot();
+	Freeball();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
