@@ -228,16 +228,14 @@ void CStrategySystem::Canshot() // 射？
 	D2.x = 170;
 	D2.y = 409;
 	Position(HOME9, D2);
-	if((ball.oldPosition.y - ball.position.y) >= 0)//球上运动{}
+	if ((ball.oldPosition.y - ball.position.y) >= 0) // 球上运动{}
 	{
 		// Shot(HOME9, 0);
-		if(ball.position.y<=170)
-		{
+		if (ball.position.y <= 170) {
 			Position(HOME10, D1);
 			Shot(HOME9, 0);
 		}
-		else if(ball.position.y>=170)
-		{
+		else if (ball.position.y >= 170) {
 			Position(HOME9, D2);
 			Shot(HOME10, 0);
 		}
@@ -272,7 +270,6 @@ void CStrategySystem::Canshot() // 射？
 	// 	Stop(9);
 	// 	Stop(10);
 	// }
-	
 }
 
 void CStrategySystem::Shot(int which, bool de) // 0向下门框射
@@ -1212,7 +1209,6 @@ void CStrategySystem::Action() {
 	}
 	Penalty();
 	Goalie();
-	canshot();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
