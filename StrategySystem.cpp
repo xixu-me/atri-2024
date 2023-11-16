@@ -114,34 +114,81 @@ void CStrategySystem::Penalty() {
 // 争球
 void CStrategySystem::Freeball() {
 	int d = 21;
+	static bool b;		 // back che
 	if (Status() == 2) { // 左上
-
-		if (Distance(home3.position, ball.position) > d)
+		if (Distance(home3.position, ball.position) > d && flag) {
 			Direction(HOME3, ball.position);
-		else
-			ccd(HOME3, Distance(home3.position, ball.position), atwo(home3.pos.x, home3.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505));
-		// spin(HOME3, false);
+			b = home3.angle > 0;
+		}
+		else {
+			flag = false;
+			double r = Distance(home3.position, ball.position) / (2 * (sin(atwo(home3.pos.x, home3.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505)))); // 求曲线行驶时轨迹的半径
+			int lw = (r - 5) / (r + 5) * 127;
+			if (!b)
+				Velocity(3, -127, -lw);
+			else
+				Velocity(3, lw, 127);
+		}
 	}
-	/* else if (Status() == 3) { // 左下
-		if (Distance(home1.position, ball.position) > d)
+	else if (Status() == 3) { // 左下
+		if (Distance(home1.position, ball.position) > d && flag) {
 			Direction(HOME1, ball.position);
-		else
-			spin(HOME1, true);
+			b = home1.angle > 0;
+		}
+
+		else {
+			flag = false;
+			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
+			int rw = (r - 5) / (r + 5) * 127;
+			if (!b)
+				Velocity(1, -rw, -127);
+			else
+				Velocity(1, 127, rw);
+		}
 	}
 	else if (Status() == 4) { // 右上
-		if (Distance(home10.position, ball.position) > d)
+		if (Distance(home10.position, ball.position) > d && flag) {
 			Direction(HOME10, ball.position);
-		else
-			spin(HOME10, true);
-	}*/
+			b = home10.angle > 0;
+		}
+		else {
+			flag = false;
+			double r = Distance(home10.position, ball.position) / (2 * (sin(atwo(home10.pos.x, home10.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 515, 95))));
+			int rw = (r - 5) / (r + 5) * 127;
+			if (!b)
+				Velocity(10, -rw, -127);
+			else
+				Velocity(10, 127, rw);
+		}
+	}
 
 	else if (Status() == 5) { // 右下
-
-		// if (Distance(home7.position, ball.position) > d)
-		//	Direction(HOME7, ball.position);
-		// else
-		//	spin(HOME7, false);
+		if (Distance(home7.position, ball.position) > d && flag) {
+			Direction(HOME7, ball.position);
+			b = home7.angle > 0;
+		}
+		else {
+			flag = false;
+			double r = Distance(home7.position, ball.position) / (2 * (sin(atwo(home7.pos.x, home7.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 515, 723))));
+		}
 	}
+}
+
+double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) // 两直线间夹角
+{
+	double j = 0;
+	double k1 = (y1 - y2) / (x1 - x2);
+	double k2 = (y3 - y4) / (x3 - x4);
+	j = atan(fabs((k2 - k1) / (1 + k1 * k2)));
+	return j;
+}
+
+void CStrategySystem::ccd(int which, double d, double j) // 曲线行驶
+{
+	double r = d / (2 * (sin(j)));
+	int rw = 127;
+	int lw = (r - 5) / (r + 5) * rw;
+	Velocity(which, lw, rw);
 }
 
 double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) // 两直线间夹角
@@ -281,6 +328,38 @@ void CStrategySystem::shot1(int which, double o) { // 直射
 
 int CStrategySystem::search() { // 查找在禁区里的机器人
 	return 0;
+}
+
+// 控球，需调用 Shot
+void CStrategySystem::Possession() {
+	control(1);
+	control(2);
+	control(3);
+	control(4);
+	control(5);
+	control(6);
+	control(7);
+	control(8);
+	control(9);
+	control(10);
+
+	// TODO: Possession
+	// 定义五个控球的机器人
+	/*Robot2 robot1 = home1, robot2 = home2, robot3 = home3, robot4 = home4, robot5 = home5;
+	CPoint t0, t1, t2, t3, t4, t5;
+	t0.x = ball.position.x;
+	t0.y = ball.position.y;*/
+
+	// if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
+	// 	Position(HOME2, CPoint(ball.position.x, ball.position.y));
+	// }
+	// 个人行走细节策略：己方人不挡道，所有控球人绕球进攻方的侧后
+	//  宏观占位策略：进攻时留3个人守在门框，防守时所有人压球于角
+	//  宏观（控球时）占位策略：控球人要均匀围满球前进方向的侧后，不可扎堆于一点
+	//  宏观踢球策略：
+	// 如果球在左1/3区，离球最近的6个机器人尽力往球门踢（攻）
+	// 如果球在中1/3区，离球最近的6个机器人往左方上下侧踢（攻）
+	// 如果球在右1/3区，所有机器人往右方两角压球。(防)
 }
 
 void CStrategySystem::control(int which) {
@@ -489,42 +568,11 @@ void CStrategySystem::control(int which) {
 	}
 }
 
-// 控球，需调用 Shot
-void CStrategySystem::Possession() {
-	control(1);
-	control(2);
-	control(3);
-	control(4);
-	control(5);
-	control(6);
-	control(7);
-	control(8);
-	control(9);
-	control(10);
-
-	// TODO: Possession
-	// 定义五个控球的机器人
-	/*Robot2 robot1 = home1, robot2 = home2, robot3 = home3, robot4 = home4, robot5 = home5;
-	CPoint t0, t1, t2, t3, t4, t5;
-	t0.x = ball.position.x;
-	t0.y = ball.position.y;*/
-
-	// if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
-	// 	Position(HOME2, CPoint(ball.position.x, ball.position.y));
-	// }
-	// 个人行走细节策略：己方人不挡道，所有控球人绕球进攻方的侧后
-	//  宏观占位策略：进攻时留3个人守在门框，防守时所有人压球于角
-	//  宏观（控球时）占位策略：控球人要均匀围满球前进方向的侧后，不可扎堆于一点
-	//  宏观踢球策略：
-	// 如果球在左1/3区，离球最近的6个机器人尽力往球门踢（攻）
-	// 如果球在中1/3区，离球最近的6个机器人往左方上下侧踢（攻）
-	// 如果球在右1/3区，所有机器人往右方两角压球。(防)
-}
-
 // 守门
 void CStrategySystem::Goalie() {
-	static bool flag = true;
+	static bool flag, slosh = true;
 	int gx = ball.position.x < 950 ? 950 : 965;
+	int gy;
 
 	// TODO: 防点球
 	// if (CheckBallPosF1() == 1 || isPenalty) {
@@ -547,53 +595,82 @@ void CStrategySystem::Goalie() {
 	// 球在我方半场且在预测区域远离球门
 	if (ball.position.x > 515 && ball.position.x < 900 || ball.position.x > 900 && ball.position.x < ball.oldPosition.x) {
 		flag = true;
-		if (ball.position.y < 313)
+		if (ball.position.y < 313) {
 			Direction(HGOALIE, CPoint(gx, 313));
-		else if (ball.position.y > 505)
+			slosh = false;
+		}
+		else if (ball.position.y > 505) {
 			Direction(HGOALIE, CPoint(gx, 505));
-		else
-			Direction(HGOALIE, CPoint(gx, ball.position.y));
+			slosh = false;
+		}
+		else {
+			gy = ball.position.y; // Direction(HGOALIE, CPoint(gx, ball.position.y));
+		}
 	}
 	// 球在中预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
-		double dy = 0;
-		if (flag)
+		static double dy;
+		if (flag) {
 			dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
-		flag = false;
-		if (ball.position.y > ball.oldPosition.y)
-			Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
-		else
-			Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
+			flag = false;
+		}
+		if (ball.position.y > ball.oldPosition.y) {
+			gy = ball.position.y + dy; // Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
+		}
+		else {
+			gy = ball.position.y - dy; // Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
+		}
 		if (ball.position.x > 900) {
 			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
-			if (ball.position.y > hgoalie.position.y)
+			if (ball.position.y > hgoalie.position.y) {
 				Direction(HGOALIE, CPoint(873, hgoalie.position.y + dy));
-			else
+				slosh = false;
+			}
+			else {
 				Direction(HGOALIE, CPoint(873, hgoalie.position.y - dy));
+				slosh = false;
+			}
 		}
 	}
 	// 球在上预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y < 217 && ball.position.y >= ball.oldPosition.y) {
 		flag = true;
 		if (hgoalie.position.y > 217) {
-			Direction(HGOALIE, CPoint(ball.position));
+			Direction(HGOALIE, ball.position);
+			slosh = false;
 		}
-		Direction(HGOALIE, CPoint(gx, 265));
+		else {
+			gy = 265; // Direction(HGOALIE, CPoint(gx, 265));
+		}
 	}
 	// 球在下预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y <= ball.oldPosition.y) {
 		flag = true;
 		if (hgoalie.position.y < 607) {
-			Direction(HGOALIE, CPoint(ball.position));
+			Direction(HGOALIE, ball.position);
+			slosh = false;
 		}
-		Direction(HGOALIE, CPoint(gx, 556));
+		else {
+			gy = 556; // Direction(HGOALIE, CPoint(gx, 556));
+		}
 	}
 	// 球在对方半场
 	else {
 		flag = true;
-		Direction(HGOALIE, CPoint(gx, 409));
+		gy = 409; // Direction(HGOALIE, CPoint(gx, 409));
 	}
 	//}
+	if (slosh) {
+		if (hgoalie.position.y < gy) {
+			Direction(HGOALIE, CPoint(gx, gy - 20));
+		}
+		else if (hgoalie.position.y > gy) {
+			Direction(HGOALIE, CPoint(gx, gy + 20));
+		}
+		else {
+			Direction(HGOALIE, CPoint(gx, gy));
+		}
+	}
 }
 
 double CStrategySystem::Distance(CPoint point1, CPoint point2) {
@@ -1561,6 +1638,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 }
 
 CStrategySystem::CStrategySystem(int id) {
+	flag = true;
 	m_OurTeam = id;
 	boundRect.SetRect(65, 95, 965, 723);
 	if (id)

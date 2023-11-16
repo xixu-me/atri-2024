@@ -15,21 +15,21 @@ public:
 #ifdef _DEBUG
 #endif // _DEBUG
 private:
-	void Penalty();		  // 罚球
-	void Freeball();	  // 争球
-	void Shot(int which,bool de); // 射门
-	void Possession();	  // 控球
-	void Goalie();		  // 守门
+	void Penalty();				   // 罚球
+	void Freeball();			   // 争球
+	void Shot(int which, bool de); // 射门
+	void Possession();			   // 控球
+	void Goalie();				   // 守门
 
 	void spin(int which, bool isClockwise); // 自旋
 	void shot1(int which, double o);		// 直射
-	void Canshot();							//射？
+	void Canshot();							// 射？
 	int search();							// 查找在禁区里的机器人
 	void control(int which);
-	void ccd(int which, double d,double j);//曲线行驶
-	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);//两直线间夹角 
-	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
-	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
+	void ccd(int which, double d, double j);									 // 曲线行驶
+	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
+	double Distance(CPoint point1, CPoint point2);								 // 计算两点之间的距离
+	double Angle(CPoint point1, CPoint point2);									 // 计算两点之间的角度
 	void Direction(int which, CPoint point);
 	void DirectionSE(int which, CPoint point); // 不进禁区版 Direction
 	void PositionSE(int which, CPoint point);  // 不进禁区版 Position
@@ -67,6 +67,9 @@ private:
 	Robot1 ball;
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
+
+	bool flag;
+
 	// void Think();
 
 public:
