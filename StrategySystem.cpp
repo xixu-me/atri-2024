@@ -183,31 +183,6 @@ double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int
 	return j;
 }
 
-void CStrategySystem::ccd(int which, double d, double j) // 曲线行驶
-{
-	double r = d / (2 * (sin(j)));
-	int rw = 127;
-	int lw = (r - 5) / (r + 5) * rw;
-	Velocity(which, lw, rw);
-}
-
-double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) // 两直线间夹角
-{
-	double j = 0;
-	double k1 = (y1 - y2) / (x1 - x2);
-	double k2 = (y3 - y4) / (x3 - x4);
-	j = 2 * atan(fabs((k2 - k1) / (1 + k1 * k2)));
-	return j;
-}
-
-void CStrategySystem::ccd(int which, double d, double j) // 曲线行驶
-{
-	double r = d / (2 * (sin(j / 2)));
-	int rw = 127;
-	int lw = (r - 5) / (r + 5) * rw;
-	Velocity(which, lw, rw);
-}
-
 void CStrategySystem::spin(int which, bool isClockwise) { // 自旋
 	if (isClockwise)
 		Velocity(which, 127, -127);
