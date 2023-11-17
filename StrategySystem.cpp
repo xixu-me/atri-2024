@@ -114,24 +114,68 @@ void CStrategySystem::Penalty() {
 // 争球
 void CStrategySystem::Freeball() {
 	int d = 21;
-	// 机器人朝向 x 正半轴
-	static bool faceRight;
+	static bool faceR;
 	if (Status() == 2) { // 左上
 		if (Distance(home3.position, ball.position) > d && flag) {
 			Direction(HOME3, ball.position);
-			faceRight = home3.angle  
+			faceR = fabs(home3.angle) > 90;
 		}
 		else {
 			flag = false;
 			double r = Distance(home3.position, ball.position) / (2 * (sin(atwo(home3.pos.x, home3.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505)))); // 求曲线行驶时轨迹的半径
-			int lw = (r - 5) / (r + 5) * 127;
-			if ( )
-				Velocity(3, -127, -lw);
-			else
+			int lw = (r - 8) / (r + 5) * 127;
+			if (faceR)
 				Velocity(3, lw, 127);
+			else
+				Velocity(3, -127, -lw);
+		}
+	}
+	else if (Status() == 3) { // 左下
+		if (Distance(home1.position, ball.position) > d && flag) {
+			Direction(HOME1, ball.position);
+			faceR = fabs(home1.angle) > 90;
+		}
+		else {
+			flag = false;
+			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
+			int rw = (r - 5) / (r + 5) * 127;
+			if (faceR)
+				Velocity(1, -rw, -127);
+			else
+				Velocity(1, 127, rw);
+		}
+	}
+	else if (Status() == 4) { // 右上
+		if (Distance(home10.position, ball.position) > d && flag) {
+			Direction(HOME10, ball.position);
+			faceR = fabs(home10.angle) > 90;
+		}
+		else {
+			flag = false;
+			double r = Distance(home10.position, ball.position) / (2 * (sin(atwo(home10.pos.x, home10.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 515, 95))));
+			int rw = (r - 5) / (r + 5) * 127;
+			if (faceR)
+				Velocity(10, -rw, -127);
+			else
+				Velocity(10, 127, rw);
 		}
 	}
 
+	else if (Status() == 5) { // 右下
+		if (Distance(home7.position, ball.position) > d && flag) {
+			Direction(HOME7, ball.position);
+			faceR = fabs(home7.angle) > 90;
+		}
+		else {
+			flag = false;
+			double r = Distance(home7.position, ball.position) / (2 * (sin(atwo(home7.pos.x, home7.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 515, 723))));
+			int lw = (r - 5) / (r + 5) * 127;
+			if (faceR)
+				Velocity(10, -127, -lw);
+			else
+				Velocity(10, lw, 127);
+		}
+	}
 }
 
 double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) // 两直线间夹角
@@ -1133,7 +1177,7 @@ void CStrategySystem::Action() {
 	// 	break;
 	// }
 	// Goalie();
-	Shot(1,1);
+	Shot(1, 1);
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
