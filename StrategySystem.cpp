@@ -201,11 +201,14 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 	case HOME10:
 		robot = &home10;
 		break;
+	case HOME1:
+		robot = &home1;
+		break;	
 	}
 	double O, O1;
 	CPoint t1, t2, t3, t4; // t1球，t2机器人,t3机器人要移动到的点，t4门
-	// t1.x = ball.position.x;
-	// t1.y = ball.position.y;
+	t1.x = ball.position.x;
+	t1.y = ball.position.y;
 	if (de == 0) {
 		t4.x = 65.0;
 		t4.y = 505.0;
@@ -214,7 +217,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		t3.x = t1.x + cos(O) * 34;
 		t3.y = t1.y - sin(O) * 34;
 	}
-	if (de == 1) {
+	else if (de == 1) {
 		t4.x = 65.0;
 		t4.y = 313.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
@@ -222,8 +225,17 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		t3.x = t1.x + cos(O) * 34;
 		t3.y = t1.y + sin(O) * 34;
 	}
-	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 2) {
-		DirectionSE(which, ball.position);
+	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 3) {
+		if(de==1){
+			t3.x = t1.x - cos(O) * 34;
+			t3.y = t1.y - sin(O) * 34;
+			DirectionSE(which, t3);
+		}
+		else if(de==0){
+			t3.x = t1.x - cos(O) * 34;
+			t3.y = t1.y + sin(O) * 34;
+			DirectionSE(which, t3);
+		}
 	}
 	else
 		PositionSE(which, t3); // 机器人到足够近的点t3
@@ -285,7 +297,7 @@ void CStrategySystem::Canshot() // 射？
 	// }
 }
 
-void CStrategySystem::shot1(int which, double o) { // 直射
+void CStrategySystem::shot1(int which, double o,CPoint t) { // 直射
 	Robot2 *robot;
 	switch (which) {
 	case HOME9:
@@ -295,8 +307,9 @@ void CStrategySystem::shot1(int which, double o) { // 直射
 		robot = &home1;
 		break;
 	}
-	CPoint t;				   // t球
-	Angle(which, o);		   // 射门角度
+	bool a=0;
+	/*if((fabs(Angle(ball.position, t) - Angle(robot->position, t))) > 5)*/
+	Angle(which,o);			   
 	Velocity(which, 127, 127); // which全速前进
 }
 
@@ -1143,23 +1156,24 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	switch (Status()) {
-	case 1:
-		Penalty();
-		flag = true;
-		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		Freeball();
-		break;
-	default:
-		// Possession();
-		flag = true;
-		break;
-	}
-	Goalie();
+	// switch (Status()) {
+	// case 1:
+	// 	Penalty();
+	// 	flag = true;
+	// 	break;
+	// case 2:
+	// case 3:
+	// case 4:
+	// case 5:
+	// 	Freeball();
+	// 	break;
+	// default:
+	// 	// Possession();
+	// 	flag = true;
+	// 	break;
+	// }
+	// Goalie();
+	Canshot();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
