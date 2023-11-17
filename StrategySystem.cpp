@@ -160,6 +160,15 @@ void CStrategySystem::Penalty() {
 	else {
 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
 	}
+	Direction(HOME2, ball.position);
+	Direction(HOME3, ball.position);
+	Direction(HOME4, ball.position);
+	Direction(HOME5, ball.position);
+	Direction(HOME6, ball.position);
+	Direction(HOME7, ball.position);
+	Direction(HOME8, ball.position);
+	Direction(HOME9, ball.position);
+	Direction(HOME10, ball.position);
 }
 
 // 争球
@@ -180,6 +189,15 @@ void CStrategySystem::Freeball() {
 			else
 				Velocity(3, -127, -lw);
 		}
+		Direction(HOME1, ball.position);
+		Direction(HOME2, ball.position);
+		Direction(HOME4, ball.position);
+		Direction(HOME5, ball.position);
+		Direction(HOME6, ball.position);
+		Direction(HOME7, ball.position);
+		Direction(HOME8, ball.position);
+		Direction(HOME9, ball.position);
+		Direction(HOME10, ball.position);
 	}
 	else if (Status() == 3) { // 左下
 		if (Distance(home1.position, ball.position) > d && flag) {
@@ -195,6 +213,15 @@ void CStrategySystem::Freeball() {
 			else
 				Velocity(1, 127, rw);
 		}
+		Direction(HOME2, ball.position);
+		Direction(HOME3, ball.position);
+		Direction(HOME4, ball.position);
+		Direction(HOME5, ball.position);
+		Direction(HOME6, ball.position);
+		Direction(HOME7, ball.position);
+		Direction(HOME8, ball.position);
+		Direction(HOME9, ball.position);
+		Direction(HOME10, ball.position);
 	}
 	else if (Status() == 4) { // 右上
 		if (Distance(home10.position, ball.position) > d && flag) {
@@ -210,8 +237,16 @@ void CStrategySystem::Freeball() {
 			else
 				Velocity(10, 127, rw);
 		}
+		Direction(HOME1, ball.position);
+		Direction(HOME2, ball.position);
+		Direction(HOME3, ball.position);
+		Direction(HOME4, ball.position);
+		Direction(HOME5, ball.position);
+		Direction(HOME6, ball.position);
+		Direction(HOME7, ball.position);
+		Direction(HOME8, ball.position);
+		Direction(HOME9, ball.position);
 	}
-
 	else if (Status() == 5) { // 右下
 		if (Distance(home7.position, ball.position) > d && flag) {
 			Direction(HOME7, ball.position);
@@ -226,6 +261,15 @@ void CStrategySystem::Freeball() {
 			else
 				Velocity(10, lw, 127);
 		}
+		Direction(HOME1, ball.position);
+		Direction(HOME2, ball.position);
+		Direction(HOME3, ball.position);
+		Direction(HOME4, ball.position);
+		Direction(HOME5, ball.position);
+		Direction(HOME6, ball.position);
+		Direction(HOME8, ball.position);
+		Direction(HOME9, ball.position);
+		Direction(HOME10, ball.position);
 	}
 }
 
@@ -829,11 +873,11 @@ void CStrategySystem::Goalie() {
 	// 球在中预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
 		if (ball.position.x > 900) {
-			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
+			double dyy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
 			if (ball.position.y > hgoalie.position.y)
-				Direction(HGOALIE, CPoint(873, hgoalie.position.y + dy));
+				Direction(HGOALIE, CPoint(873, hgoalie.position.y + dyy));
 			else
-				Direction(HGOALIE, CPoint(873, hgoalie.position.y - dy));
+				Direction(HGOALIE, CPoint(873, hgoalie.position.y - dyy));
 		}
 		else {
 			if (flag) {
@@ -1374,22 +1418,22 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	// switch (Status()) {
-	// case 1:
-	// 	Penalty();
-	// 	flag = true;
-	// 	break;
-	// case 2:
-	// case 3:
-	// case 4:
-	// case 5:
-	// 	Freeball();
-	// 	break;
-	// default:
-	// 	// Possession();
-	// 	flag = true;
-	// 	break;
-	// }
+	switch (Status()) {
+	case 1:
+		Penalty();
+		flag = true;
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+		Freeball();
+		break;
+	default:
+		Possession();
+		flag = true;
+		break;
+	}
 	Goalie();
 }
 
