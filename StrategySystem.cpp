@@ -424,16 +424,16 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 		// 对方罚球区内,包围门框
 		if (ball.position.x <= 160 && ball.position.y <= 600 && ball.position.y >= 210) {
 
-			Navigation[1] = (175, ball.position.y);
-			Navigation[2] = (175, ball.position.y + 20);
-			Navigation[3] = (175, ball.position.y - 20);
-			Navigation[4] = (190, ball.position.y);
-			Navigation[5] = (175, ball.position.y + 10);
-			Navigation[6] = (190, ball.position.y - 10);
-			Navigation[7] = (ball.position.x, 610);
-			Navigation[8] = (ball.position.x, 210);
-			Navigation[9] = (200, ball.position.y + 30);
-			Navigation[10] = (200, ball.position.y - 30);
+			Navigation[1] = CPoint(175, ball.position.y);
+			Navigation[2] = CPoint(175, ball.position.y + 20);
+			Navigation[3] = CPoint(175, ball.position.y - 20);
+			Navigation[4] = CPoint(190, ball.position.y);
+			Navigation[5] = CPoint(175, ball.position.y + 10);
+			Navigation[6] = CPoint(190, ball.position.y - 10);
+			Navigation[7] = CPoint(ball.position.x, 610);
+			Navigation[8] = CPoint(ball.position.x, 210);
+			Navigation[9] = CPoint(200, ball.position.y + 30);
+			Navigation[10] = CPoint(200, ball.position.y - 30);
 		}
 		// 对方下半场
 		else if (ball.position.y >= 607) {
@@ -442,7 +442,7 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[1] = ball.position;
 				}
 				else { // 球员在右下
-					Navigation[1] = (ball.position.x + 10, ball.position.y + 10);
+					Navigation[1] = CPoint(ball.position.x + 10, ball.position.y + 10);
 				}
 			}
 			else {										  // 球员在左
@@ -450,7 +450,7 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[1] = ball.position;
 				}
 				else { // 左上
-					Navigation[1] = (ball.position.x - 10, ball.position.y + 10);
+					Navigation[1] = CPoint(ball.position.x - 10, ball.position.y + 10);
 				}
 			}
 			if (home2.position.x > ball.position.x) {
@@ -458,7 +458,7 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[2] = ball.position;
 				}
 				else {
-					Navigation[2] = (ball.position.x + 10, ball.position.y + 20);
+					Navigation[2] = CPoint(ball.position.x + 10, ball.position.y + 20);
 				}
 			}
 			else {
@@ -466,7 +466,7 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[2] = ball.position;
 				}
 				else {
-					Navigation[2] = (ball.position.x - 10, ball.position.y - 20);
+					Navigation[2] = CPoint(ball.position.x - 10, ball.position.y - 20);
 				}
 			}
 			if (home3.position.x > ball.position.x) {
@@ -474,7 +474,7 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[3] = ball.position;
 				}
 				else {
-					Navigation[3] = (ball.position.x + 20, ball.position.y + 10);
+					Navigation[3] = CPoint(ball.position.x + 20, ball.position.y + 10);
 				}
 			}
 			else {
@@ -482,16 +482,16 @@ void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判�
 					Navigation[3] = ball.position;
 				}
 				else {
-					Navigation[3] = (ball.position.x - 20, ball.position.y - 10);
+					Navigation[3] = CPoint(ball.position.x - 20, ball.position.y - 10);
 				}
 			}
-			Navigation[4] = (ball.position.x + 10, ball.position.y + 10);
-			Navigation[5] = (ball.position.x + 10, ball.position.y);
-			Navigation[6] = (ball.position.x + 10, ball.position.y - 10);
-			Navigation[7] = (ball.position.x, ball.position.y + 10);
-			Navigation[8] = (ball.position.x - 10, ball.position.y + 10);
-			Navigation[9] = (ball.position.x + 20, ball.position.y);
-			Navigation[10] = (ball.position.x + 20, ball.position.y + 10);
+			Navigation[4] = CPoint(ball.position.x + 10, ball.position.y + 10);
+			Navigation[5] = CPoint(ball.position.x + 10, ball.position.y);
+			Navigation[6] = CPoint(ball.position.x + 10, ball.position.y - 10);
+			Navigation[7] = CPoint(ball.position.x, ball.position.y + 10);
+			Navigation[8] = CPoint(ball.position.x - 10, ball.position.y + 10);
+			Navigation[9] = CPoint(ball.position.x + 20, ball.position.y);
+			Navigation[10] = CPoint(ball.position.x + 20, ball.position.y + 10);
 			//// Navigate(ball.position);
 			////  机器人在球右下
 			// if (robot->position.y <= ball.position.y && robot->position.x >= ball.position.x) {
@@ -1880,8 +1880,11 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 }
 
 CStrategySystem::CStrategySystem(int id) {
-	for (CPoint &p : Navigation)
-		p = ball.position;
+	int t = 11;
+	while (t--) {
+		Navigation.push_back(ball.position);
+	}
+
 	flag = true;
 	m_OurTeam = id;
 	boundRect.SetRect(65, 95, 965, 723);
