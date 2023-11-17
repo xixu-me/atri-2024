@@ -225,7 +225,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		t3.x = t1.x + cos(O) * 34;
 		t3.y = t1.y + sin(O) * 34;
 	}
-	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 3) {
+	if (Distance(robot->position, ball.position) <= 36 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 5) {
 		if(de==1){
 			t3.x = t1.x - cos(O) * 34;
 			t3.y = t1.y - sin(O) * 34;
@@ -253,7 +253,7 @@ void CStrategySystem::Canshot() // 射？
 	D2.x = 170;
 	D2.y = 409;
 	Position(HOME9, D2);
-	if ((ball.oldPosition.y - ball.position.y) >= 0) // 球上运动{}
+	if ((ball.oldPosition.y - ball.position.y) >= 0) // 球上运动
 	{
 		// Shot(HOME9, 0);
 		if (ball.position.y <= 170) {
@@ -1173,7 +1173,7 @@ void CStrategySystem::Action() {
 	// 	break;
 	// }
 	// Goalie();
-	Canshot();
+	Shot(1,1);
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
