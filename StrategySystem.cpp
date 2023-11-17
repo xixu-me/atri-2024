@@ -160,15 +160,15 @@ void CStrategySystem::Penalty() {
 	else {
 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
 	}
-	Direction(HOME2, ball.position);
-	Direction(HOME3, ball.position);
-	Direction(HOME4, ball.position);
-	Direction(HOME5, ball.position);
-	Direction(HOME6, ball.position);
-	Direction(HOME7, ball.position);
-	Direction(HOME8, ball.position);
-	Direction(HOME9, ball.position);
-	Direction(HOME10, ball.position);
+	// Direction(HOME2, ball.position);
+	// Direction(HOME3, ball.position);
+	// Direction(HOME4, ball.position);
+	// Direction(HOME5, ball.position);
+	// Direction(HOME6, ball.position);
+	// Direction(HOME7, ball.position);
+	// Direction(HOME8, ball.position);
+	// Direction(HOME9, ball.position);
+	// Direction(HOME10, ball.position);
 }
 
 // 争球
@@ -208,7 +208,7 @@ void CStrategySystem::Freeball() {
 			flag = false;
 			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
 			int rw = (r - 5) / (r + 5) * 127;
-			if (faceR)
+			if (!faceR)
 				Velocity(1, -rw, -127);
 			else
 				Velocity(1, 127, rw);
@@ -822,16 +822,21 @@ void CStrategySystem::control(int which) {
 }
 
 void CStrategySystem::Possession() {
-	Canshot();
 	Navigate();
 	/*for(int i=1;i<11;i++)
 	{
 		Navigation[i]=ball.position;
 	}*/
-
-	for (int i = 1; i <= 10; i++) {
+	for (int i = 1; i < 9; i++) {
 		control(i);
 	}
+	if (ball.position.x > 225) {
+		Canshot();
+	}
+	else
+		for (int i = 9; i < 11; i++) {
+			control(i);
+		}
 }
 
 // 守门
