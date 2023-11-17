@@ -47,7 +47,6 @@ extern int nKick;
 // 	}
 // }
 
-// 罚球
 /*
 void CStrategySystem::Penalty() {
 	srand(time(nullptr));
@@ -77,7 +76,6 @@ void CStrategySystem::Penalty() {
 	}
 }*/
 
-// 罚球
 /* void CStrategySystem::Penalty() {
 	srand(time(nullptr));
 	int x = rand() % 2;
@@ -99,15 +97,68 @@ void CStrategySystem::Penalty() {
 	}
 }*/
 
-// 罚球
+// void CStrategySystem::Penalty() {
+// 	srand(time(nullptr));
+// 	int x = rand() % 2;
+// 	if (x) {
+// 		Position(HOME1, CPoint(60, 313));
+// 	}
+// 	else {
+// 		Position(HOME1, CPoint(60, 505));
+// 	}
+// }
+
+// void CStrategySystem::Penalty() {
+// 	if (home1.position.y < ball.position.y) {
+// 		if (-home1.position.y != (-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10) + (-505 - ((-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10)))) {
+// 			Position(HOME1, CPoint(ball.position.x + 10, -((-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10) + (-505 - (-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10)))));
+// 		}
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
+// 	}
+// 	else if (home1.position.y == ball.position.y) {
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
+// 	}
+// 	else {
+// 		if (-home1.position.y != (-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10) + (-303 - ((-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10)))) {
+// 			Position(HOME1, CPoint(ball.position.x - 234, -(-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10) + (-303 - ((-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10)))));
+// 		}
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
+// 	}
+// }
+
+// void CStrategySystem::Penalty() {
+// 	srand(time(nullptr));
+// 	int x = rand() % 2;
+// 	if (x) {
+// 		if ((home1.position.x > ball.position.x + 24 + 1) || (home1.position.x < ball.position.x + 24 - 1) || (home1.position.y > ball.position.y + 10 + 1) || (home1.position.y > ball.position.y + 10 - 1)) {
+// 			Position(HOME1, CPoint(ball.position.x + 24, ball.position.y + 10));
+// 		}
+// 		Position(HOME1, CPoint(ball.position.x - 233, ball.position.y - 97));
+// 		// else {
+// 		//	//Position(HOME1, CPoint(36.5, 313));
+// 		//
+// 		// }
+// 	}
+// 	else {
+// 		if ((home1.position.x > ball.position.x + 24 + 1) || (home1.position.x < ball.position.x + 24 - 1) || (home1.position.y > ball.position.y - 10 + 1) || (home1.position.y > ball.position.y - 10 - 1)) {
+// 			Position(HOME1, CPoint(ball.position.x + 24, ball.position.y - 10));
+// 		}
+// 		Position(HOME1, CPoint(ball.position.x - 228, ball.position.y + 95));
+// 		// else {
+// 		//	//Position(HOME1, CPoint(41.5, 505));
+// 		// }
+// 	}
+// }
+
 void CStrategySystem::Penalty() {
-	srand(time(nullptr));
-	int x = rand() % 2;
-	if (x) {
-		Position(HOME1, CPoint(60, 313));
+	if (home1.position.y < ball.position.y) {
+		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
+	}
+	else if (home1.position.y == ball.position.y) {
+		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
 	}
 	else {
-		Position(HOME1, CPoint(60, 505));
+		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
 	}
 }
 
@@ -251,15 +302,12 @@ void CStrategySystem::Canshot() // 射？
 	Robot2 *robot9, *robot10;
 	robot9 = &home9;
 	robot10 = &home10;
-	D1.x = 170;
-	D1.y = 265;
-	Position(HOME10, D1);
 	D2.x = 170;
 	D2.y = 409;
-	Position(HOME9, D2);
+	D1.x = 170;
+	D1.y = 265;
 	if ((ball.oldPosition.y - ball.position.y) >= 0) // 球上运动
 	{
-		// Shot(HOME9, 0);
 		if (ball.position.y <= 170) {
 			Position(HOME10, D1);
 			Shot(HOME9, 0);
@@ -269,36 +317,10 @@ void CStrategySystem::Canshot() // 射？
 			Shot(HOME10, 0);
 		}
 	}
-	// if (ball.position.y >= 409 && ball.position.x <= 515) // 球在敌方下半
-	// {
-	// 	D1.x = 170;
-	// 	D1.y = 265;
-	// 	Position(HOME10, D1);
-	// 	D2.x = 170;
-	// 	D2.y = 409;
-	// 	Position(HOME9, D2);
-	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 369 && ball.position.y <= 505 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 		Shot(HOME9, 0);
-	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 217 && ball.position.y < 369 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 		Shot(HOME10, 0);
-	// }
-	// else if (ball.position.y < 409 && ball.position.x < 515) // 球在敌方上半
-	// {
-	// 	D1.x = 170;
-	// 	D1.y = 556;
-	// 	Position(HOME10, D1);
-	// 	D2.x = 170;
-	// 	D2.y = 409;
-	// 	Position(HOME9, D2);
-	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 313 && ball.position.y <= 449 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 		Shot(HOME9, 1);
-	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y > 449 && ball.position.y <= 607 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 		Shot(HOME10, 1);
-	// }
-	// else {
-	// 	Stop(9);
-	// 	Stop(10);
-	// }
+	else {
+		Position(HOME10, D1);
+		Position(HOME9, D2);
+	}
 }
 
 void CStrategySystem::shot1(int which, double o, CPoint t) { // 直射
@@ -340,247 +362,438 @@ int CStrategySystem::search() { // 查找在禁区里的机器人
 	return 0;
 }
 
-// 控球，需调用 Shot
-void CStrategySystem::Possession() {
-	control(1);
-	control(2);
-	control(3);
-	control(4);
-	control(5);
-	control(6);
-	control(7);
-	control(8);
-	control(9);
-	control(10);
+void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判）
+{
+	/*double d[11];
+	d[1] = Distance(ball.position, home1.position);
+	d[2] = Distance(ball.position, home2.position);
+	d[3] = Distance(ball.position, home3.position);
+	d[4] = Distance(ball.position, home4.position);
+	d[5] = Distance(ball.position, home5.position);
+	d[6] = Distance(ball.position, home6.position);
+	d[7] = Distance(ball.position, home7.position);
+	d[8] = Distance(ball.position, home8.position);
+	d[9] = Distance(ball.position, home9.position);
+	d[10] = Distance(ball.position, home10.position);*/
+	if (65 < ball.position.x <= 590) {
 
-	// TODO: Possession
-	// 定义五个控球的机器人
-	/*Robot2 robot1 = home1, robot2 = home2, robot3 = home3, robot4 = home4, robot5 = home5;
-	CPoint t0, t1, t2, t3, t4, t5;
-	t0.x = ball.position.x;
-	t0.y = ball.position.y;*/
+		// 对方罚球区内,包围门框
+		if (ball.position.x <= 160 && ball.position.y <= 600 && ball.position.y >= 210) {
 
-	// if (ball.position.x < 515 && home2.position.x > ball.position.x && home2.position.x < ball.position.x）{
-	// 	Position(HOME2, CPoint(ball.position.x, ball.position.y));
-	// }
-	// 个人行走细节策略：己方人不挡道，所有控球人绕球进攻方的侧后
-	//  宏观占位策略：进攻时留3个人守在门框，防守时所有人压球于角
-	//  宏观（控球时）占位策略：控球人要均匀围满球前进方向的侧后，不可扎堆于一点
-	//  宏观踢球策略：
-	// 如果球在左1/3区，离球最近的6个机器人尽力往球门踢（攻）
-	// 如果球在中1/3区，离球最近的6个机器人往左方上下侧踢（攻）
-	// 如果球在右1/3区，所有机器人往右方两角压球。(防)
-}
-
-void CStrategySystem::control(int which) {
-	Robot2 *robot;
-	switch (which) {
-	case HOME1:
-		robot = &home1;
-		break;
-	case HOME2:
-		robot = &home2;
-		break;
-	case HOME3:
-		robot = &home3;
-		break;
-	case HOME4:
-		robot = &home4;
-		break;
-	case HOME5:
-		robot = &home5;
-		break;
-	case HOME6:
-		robot = &home6;
-		break;
-	case HOME7:
-		robot = &home7;
-		break;
-	case HOME8:
-		robot = &home8;
-		break;
-	case HOME9:
-		robot = &home9;
-		break;
-	case HOME10:
-		robot = &home10;
-		break;
-	case HGOALIE:
-		robot = &hgoalie;
-		break;
-	}
-	// 进攻区域
-	if (ball.position.x <= 590) {
-
-		// 对方罚球区内
-		if (ball.position.x <= 160) {
-			// Position(which, CPoint(160, ball.position.y));
+			Navigation[1] = (175, ball.position.y);
+			Navigation[2] = (175, ball.position.y + 20);
+			Navigation[3] = (175, ball.position.y - 20);
+			Navigation[4] = (190, ball.position.y);
+			Navigation[5] = (175, ball.position.y + 10);
+			Navigation[6] = (190, ball.position.y - 10);
+			Navigation[7] = (ball.position.x, 610);
+			Navigation[8] = (ball.position.x, 210);
+			Navigation[9] = (200, ball.position.y + 30);
+			Navigation[10] = (200, ball.position.y - 30);
 		}
 		// 对方下半场
-		else if (ball.position.y > 607) {
-			// 机器人在球右下
-			if (robot->position.y <= ball.position.y && robot->position.x >= ball.position.x) {
-				Direction(which, ball.position);
-				// Velocity(which, 127, 127);
+		else if (ball.position.y >= 607) {
+			if (home1.position.x > ball.position.x) {	  // 球员在右
+				if (home1.position.y > ball.position.y) { // 球员在右下
+					Navigation[1] = ball.position;
+				}
+				else { // 球员在右下
+					Navigation[1] = (ball.position.x + 10, ball.position.y + 10);
+				}
 			}
-			// 机器人在球右上
-			else if (robot->position.y > ball.position.y && robot->position.x > ball.position.x) {
-				Direction(which, CPoint(ball.position.x + 10, ball.position.y));
-				// Velocity(which, vL, vR);
+			else {										  // 球员在左
+				if (home1.position.y > ball.position.y) { // 左下
+					Navigation[1] = ball.position;
+				}
+				else { // 左上
+					Navigation[1] = (ball.position.x - 10, ball.position.y + 10);
+				}
 			}
-			// 机器人在球左上
-			else if (robot->position.y < ball.position.y && robot->position.x < ball.position.x) {
-				// Position(which, CPoint(ball.));
+			if (home2.position.x > ball.position.x) {
+				if (home2.position.y > ball.position.y) {
+					Navigation[2] = ball.position;
+				}
+				else {
+					Navigation[2] = (ball.position.x + 10, ball.position.y + 20);
+				}
 			}
-			// 机器人在球左下
 			else {
-				Direction(which, CPoint(ball.position.x - 20, ball.position.y));
+				if (home2.position.y > ball.position.y) {
+					Navigation[2] = ball.position;
+				}
+				else {
+					Navigation[2] = (ball.position.x - 10, ball.position.y - 20);
+				}
 			}
+			if (home3.position.x > ball.position.x) {
+				if (home3.position.y > ball.position.y) {
+					Navigation[3] = ball.position;
+				}
+				else {
+					Navigation[3] = (ball.position.x + 20, ball.position.y + 10);
+				}
+			}
+			else {
+				if (home3.position.y > ball.position.y) {
+					Navigation[3] = ball.position;
+				}
+				else {
+					Navigation[3] = (ball.position.x - 20, ball.position.y - 10);
+				}
+			}
+			Navigation[4] = (ball.position.x + 10, ball.position.y + 10);
+			Navigation[5] = (ball.position.x + 10, ball.position.y);
+			Navigation[6] = (ball.position.x + 10, ball.position.y - 10);
+			Navigation[7] = (ball.position.x, ball.position.y + 10);
+			Navigation[8] = (ball.position.x - 10, ball.position.y + 10);
+			Navigation[9] = (ball.position.x + 20, ball.position.y);
+			Navigation[10] = (ball.position.x + 20, ball.position.y + 10);
+			//// Navigate(ball.position);
+			////  机器人在球右下
+			// if (robot->position.y <= ball.position.y && robot->position.x >= ball.position.x) {
+			//	Direction(which, ball.position);
+			//	// Velocity(which, 127, 127);
+			// }
+			//// 机器人在球右上
+			// else if (robot->position.y > ball.position.y && robot->position.x > ball.position.x) {
+			//	Direction(which, CPoint(ball.position.x + 10, ball.position.y));
+			//	// Velocity(which, vL, vR);
+			// }
+			//// 机器人在球左上
+			// else if (robot->position.y < ball.position.y && robot->position.x < ball.position.x) {
+			//	// Position(which, CPoint(ball.));
+			// }
+			//// 机器人在球左下
+			// else {
+			//	Direction(which, CPoint(ball.position.x - 20, ball.position.y));
+			// }
 		}
 		// 对方中场
-		else if (ball.position.y >= 217 && ball.position.y >= 607) {
-			// 机器人在球的右下
-			if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
-				Direction(which, ball.position);
-			}
-			// 机器人在球右上
-			else if (robot->position.x > ball.position.x && robot->position.y > ball.position.y) {
-				// 右上且距离较远
-				if (robot->position.y >= ball.position.y + 100) {
-					Direction(which, CPoint(ball.position.x + 20, ball.position.y + 20));
+		else if (ball.position.y >= 217 && ball.position.y < 607) {
+			if (home1.position.x > ball.position.x) {
+				if (home1.position.y < ball.position.y) {
+					Navigation[1] = ball.position;
 				}
-				// 距离较近
 				else {
-					Direction(which, CPoint(ball.position.x + 10, ball.position.y));
+					Navigation[1] = CPoint(ball.position.x + 10, ball.position.y - 10);
 				}
 			}
-			// 机器人在球左下
-			else if (robot->position.x <= ball.position.x && robot->position.y >= ball.position.y) {
-				Direction(which, CPoint(ball.position.x - 20, ball.position.y + 20));
-			}
-			// 机器人在球左上
 			else {
-				Direction(which, CPoint(ball.position.x - 20, ball.position.y - 20));
+				if (home1.position.y < ball.position.y) {
+					Navigation[1] = CPoint(ball.position.x, ball.position.y - 10);
+				}
+				else {
+					Navigation[1] = CPoint(ball.position.x - 10, ball.position.y - 10);
+				}
 			}
+			if (home2.position.x > ball.position.x) {
+				if (home2.position.y < ball.position.y) {
+					Navigation[2] = ball.position;
+				}
+				else {
+					Navigation[2] = CPoint(ball.position.x + 20, ball.position.y + 10);
+				}
+			}
+			else {
+				if (home2.position.y < ball.position.y) {
+					Navigation[1] = CPoint(ball.position.x, ball.position.y - 15);
+				}
+				else {
+					Navigation[1] = CPoint(ball.position.x - 10, ball.position.y - 15);
+				}
+			}
+			if (home3.position.x > ball.position.x) {
+				if (home3.position.y < ball.position.y) {
+					Navigation[3] = ball.position;
+				}
+				else {
+					Navigation[3] = CPoint(ball.position.x + 10, ball.position.y + 20);
+				}
+			}
+			else {
+				if (home3.position.y < ball.position.y) {
+					Navigation[1] = CPoint(ball.position.x + 10, ball.position.y - 15);
+				}
+				else {
+					Navigation[1] = CPoint(ball.position.x - 15, ball.position.y - 10);
+				}
+			}
+			Navigation[4] = CPoint(ball.position.x, ball.position.y - 20);
+			Navigation[5] = CPoint(ball.position.x + 10, ball.position.y - 20);
+			Navigation[6] = CPoint(ball.position.x + 20, ball.position.y - 10);
+			Navigation[7] = CPoint(ball.position.x + 20, ball.position.y + 10);
+			Navigation[8] = CPoint(ball.position.x + 20, ball.position.y + 15);
+			Navigation[9] = CPoint(ball.position.x + 40, ball.position.y - 20);
+			Navigation[10] = CPoint(ball.position.x + 30, ball.position.y - 10);
+			//// 机器人在球的右下
+			// if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
+			//	Direction(which, ball.position);
+			// }
+			//// 机器人在球右上
+			// else if (robot->position.x > ball.position.x && robot->position.y > ball.position.y) {
+			//	// 右上且距离较远
+			//	if (robot->position.y >= ball.position.y + 100) {
+			//		Direction(which, CPoint(ball.position.x + 20, ball.position.y + 20));
+			//	}
+			//	// 距离较近
+			//	else {
+			//		Direction(which, CPoint(ball.position.x + 10, ball.position.y));
+			//	}
+			// }
+			//// 机器人在球左下
+			// else if (robot->position.x <= ball.position.x && robot->position.y >= ball.position.y) {
+			//	Direction(which, CPoint(ball.position.x - 20, ball.position.y + 20));
+			// }
+			//// 机器人在球左上
+			// else {
+			//	Direction(which, CPoint(ball.position.x - 20, ball.position.y - 20));
+			// }
 		}
 		// 上场
 		else {
-			// 机器人在球右上
-			if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
-				Direction(which, ball.position);
+			if (home1.position.x > ball.position.x) {
+				if (home1.position.y < ball.position.y) {
+					Navigation[1] = ball.position;
+				}
+				else {
+					Navigation[1] = CPoint(ball.position.x + 10, ball.position.y - 10);
+				}
 			}
-			// 机器人在球右下
-			else if (robot->position.x >= ball.position.x && robot->position.y > ball.position.y) {
-				Direction(which, CPoint(ball.position.x + 20, ball.position.y));
-			}
-			// 机器人在球左上
-			else if (robot->position.x < ball.position.x && robot->position.y >= ball.position.y) {
-				Direction(which, CPoint(ball.position.x - 20, ball.position.y));
-			}
-			// 机器人在左下
 			else {
+				if (home1.position.y < ball.position.y) {
+					Navigation[1] = CPoint(ball.position.x, ball.position.y - 10);
+				}
+				else {
+					Navigation[1] = CPoint(ball.position.x - 10, ball.position.y - 10);
+				}
 			}
+			if (home2.position.x > ball.position.x) {
+				if (home2.position.y < ball.position.y) {
+					Navigation[2] = ball.position;
+				}
+				else {
+					Navigation[2] = CPoint(ball.position.x + 10, ball.position.y);
+				}
+			}
+			else {
+				if (home2.position.y < ball.position.y) {
+					Navigation[2] = CPoint(ball.position.x - 5, ball.position.y - 10);
+				}
+				else {
+					Navigation[2] = CPoint(ball.position.x - 10, ball.position.y - 10);
+				}
+			}
+			if (home3.position.x > ball.position.x) {
+				if (home3.position.y < ball.position.y) {
+					Navigation[3] = ball.position;
+				}
+				else {
+					Navigation[3] = CPoint(ball.position.x + 10, ball.position.y - 15);
+				}
+			}
+			else {
+				if (home2.position.y < ball.position.y) {
+					Navigation[3] = CPoint(ball.position.x - 5, ball.position.y - 10);
+				}
+				else {
+					Navigation[3] = CPoint(ball.position.x - 10, ball.position.y - 10);
+				}
+			}
+			Navigation[4] = CPoint(ball.position.x - 10, ball.position.y - 10);
+			Navigation[5] = CPoint(ball.position.x, ball.position.y - 10);
+			Navigation[6] = CPoint(ball.position.x + 10, ball.position.y - 10);
+			Navigation[7] = CPoint(ball.position.x + 10, ball.position.y);
+			Navigation[8] = CPoint(ball.position.x + 20, ball.position.y + 10);
+			Navigation[9] = CPoint(ball.position.x + 30, ball.position.y + 20);
+			Navigation[10] = CPoint(ball.position.x + 30, ball.position.y + 25);
+			// 机器人在球右上
+			// if (robot->position.x >= ball.position.x && robot->position.y <= ball.position.y) {
+			//	Direction(which, ball.position);
+			//}
+			//// 机器人在球右下
+			// else if (robot->position.x >= ball.position.x && robot->position.y > ball.position.y) {
+			//	Direction(which, CPoint(ball.position.x + 20, ball.position.y));
+			// }
+			//// 机器人在球左上
+			// else if (robot->position.x < ball.position.x && robot->position.y >= ball.position.y) {
+			//	Direction(which, CPoint(ball.position.x - 20, ball.position.y));
+			// }
+			//// 机器人在左下
+			// else {
+			// }
 		}
 	}
-	// 防守区域（1右上+正上，2左上+正左，3左下+正下，4右下+正右）
+	// 防守区域(在己方罚球区外)
 	else if (ball.position.x > 590 && ball.position.x < 965) {
-		// 己方罚球区内
-		if (ball.position.x >= 873 && ball.position.y <= 607 && ball.position.y >= 217) {
-			Position(which, CPoint(873, ball.position.y));
-		}
+		CPoint goal;
+		double l;
+
 		// 己方上半场
-		else if (ball.position.y < 217 && ball.position.y >= 0) {
-			// 机器人在球1区
-			if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
-				// 绕道球上
-				PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
-			}
-			// 机器人在球2区
-			else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
-				// 绕道球下
-				PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
-			}
-			// 机器人在3区
-			else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
-				PositionSE(which, ball.position);
-			}
-			// 机器人在球4区
-			else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
-				PositionSE(which, ball.position);
-			}
+		goal.x = ball.position.x;
+		goal.y = 95;
+		l = Distance(ball.position, goal);
+		if (ball.position.y < 217 && ball.position.y >= 95) {
+			Navigation[1].x = ball.position.x;
+			Navigation[1].y = 95 + (int)l + 5;
+			Navigation[2].x = ball.position.x - (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[2].y = 95 + (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[3].x = ball.position.x + (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[3].y = 95 + (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[4].x = ball.position.x;
+			Navigation[4].y = 95 + (int)l + 15;
+			Navigation[5].x = ball.position.x - (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[5].y = 95 + (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[6].x = ball.position.x + (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[6].y = 95 + (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[7].x = ball.position.x - (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[7].y = 95 + (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[8].x = ball.position.x + (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[8].y = 95 + (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[9].x = ball.position.x - (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[9].y = 95 + (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[10].x = ball.position.x + (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[10].y = 95 + (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
 		}
 		// 己方中场
 		else if (ball.position.y > 217 && ball.position.y <= 607) {
 			// 球在中场上侧，要把球往上压
 			if (ball.position.y < 409) {
-				// 机器人在球1区
-				if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
-					// 绕道球上
-					PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
-				}
-				// 机器人在球2区
-				else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
-					// 绕道球下
-					PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
-				}
-				// 机器人在3区
-				else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
-					PositionSE(which, ball.position);
-				}
-				// 机器人在球4区
-				else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
-					PositionSE(which, ball.position);
-				}
+				Navigation[1].x = ball.position.x;
+				Navigation[1].y = 95 + (int)l + 5;
+				Navigation[2].x = ball.position.x - (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[2].y = 95 + (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[3].x = ball.position.x + (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[3].y = 95 + (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[4].x = ball.position.x;
+				Navigation[4].y = 95 + (int)l + 15;
+				Navigation[5].x = ball.position.x - (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[5].y = 95 + (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[6].x = ball.position.x + (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[6].y = 95 + (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[7].x = ball.position.x - (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[7].y = 95 + (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[8].x = ball.position.x + (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[8].y = 95 + (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[9].x = ball.position.x - (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[9].y = 95 + (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[10].x = ball.position.x + (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[10].y = 95 + (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
 			}
 			// 球在中场下侧，要把球往下压
+
 			else {
-				// 机器人在球1区
-				if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
-					// 绕道球上
-					PositionSE(which, ball.position);
-				}
-				// 机器人在球2区
-				else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
-					// 绕道球下
-					PositionSE(which, ball.position);
-				}
-				// 机器人在3区
-				else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
-					PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
-				}
-				// 机器人在球4区
-				else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
-					PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
-				}
+				goal.x = ball.position.x;
+				goal.y = 723;
+				l = Distance(ball.position, goal);
+				Navigation[1].x = ball.position.x;
+				Navigation[1].y = 723 - (int)l - 5;
+				Navigation[2].x = ball.position.x - (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[2].y = 723 - (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[3].x = ball.position.x + (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[3].y = 723 - (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+				Navigation[4].x = ball.position.x;
+				Navigation[4].y = 723 - (int)l - 15;
+				Navigation[5].x = ball.position.x - (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[5].y = 723 - (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[6].x = ball.position.x + (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[6].y = 723 - (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[7].x = ball.position.x - (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[7].y = 723 - (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[8].x = ball.position.x + (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[8].y = 723 - (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+				Navigation[9].x = ball.position.x - (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[9].y = 723 - (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[10].x = ball.position.x + (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+				Navigation[10].y = 723 - (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
 			}
 		}
 		// 己方下半场
+
 		else if (ball.position.y > 607) {
-			// 机器人在球1区
-			if (robot->position.y < ball.position.y && robot->position.x >= ball.position.x) {
-				// 绕道球上
-				PositionSE(which, ball.position);
-			}
-			// 机器人在球2区
-			else if (robot->position.y <= ball.position.y && robot->position.x < ball.position.x) {
-				// 绕道球下
-				PositionSE(which, ball.position);
-			}
-			// 机器人在3区
-			else if (robot->position.y > ball.position.y && robot->position.x <= ball.position.x) {
-				PositionSE(which, CPoint(ball.position.x - 10, ball.position.y));
-			}
-			// 机器人在球4区
-			else if (robot->position.y >= ball.position.y && robot->position.x > ball.position.x) {
-				PositionSE(which, CPoint(ball.position.x + 10, ball.position.y));
-			}
+			goal.x = ball.position.x;
+			goal.y = 723;
+			l = Distance(ball.position, goal);
+			Navigation[1].x = ball.position.x;
+			Navigation[1].y = 723 - (int)l - 5;
+			Navigation[2].x = ball.position.x - (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[2].y = 723 - (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[3].x = ball.position.x + (int)sin(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[3].y = 723 - (int)cos(15.0 * PI / 180.0) * ((int)l + 5);
+			Navigation[4].x = ball.position.x;
+			Navigation[4].y = 723 - (int)l - 15;
+			Navigation[5].x = ball.position.x - (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[5].y = 723 - (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[6].x = ball.position.x + (int)sin(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[6].y = 723 - (int)cos(25.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[7].x = ball.position.x - (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[7].y = 723 - (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[8].x = ball.position.x + (int)sin(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[8].y = 723 - (int)cos(45.0 * PI / 180.0) * ((int)l + 15);
+			Navigation[9].x = ball.position.x - (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[9].y = 723 - (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[10].x = ball.position.x + (int)sin(30.0 * PI / 180.0) * ((int)l + 25);
+			Navigation[10].y = 723 - (int)cos(30.0 * PI / 180.0) * ((int)l + 25);
 		}
+	}
+}
+
+void CStrategySystem::control(int which) {
+	Robot2 *robot;
+	// switch (which) {
+	// case HOME1:
+	//	robot = &home1;
+	//	break;
+	// case HOME2:
+	//	robot = &home2;
+	//	break;
+	// case HOME3:
+	//	robot = &home3;
+	//	break;
+	// case HOME4:
+	//	robot = &home4;
+	//	break;
+	// case HOME5:
+	//	robot = &home5;
+	//	break;
+	// case HOME6:
+	//	robot = &home6;
+	//	break;
+	// case HOME7:
+	//	robot = &home7;
+	//	break;
+	// case HOME8:
+	//	robot = &home8;
+	//	break;
+	// case HOME9:
+	//	robot = &home9;
+	//	break;
+	// case HOME10:
+	//	robot = &home10;
+	//	break;
+	// case HGOALIE:
+	//	robot = &hgoalie;
+	//	break;
+	// }
+	DirectionSE(which, Navigation[which]);
+}
+
+void CStrategySystem::Possession() {
+	Canshot();
+	Navigate();
+	/*for(int i=1;i<11;i++)
+	{
+		Navigation[i]=ball.position;
+	}*/
+
+	for (int i = 1; i <= 10; i++) {
+		control(i);
 	}
 }
 
 // 守门
 void CStrategySystem::Goalie() {
 	static bool flag;
+	static double dy;
 	int gx = ball.position.x < 950 ? 950 : 965;
 	// if (ball.position.x <= 873 && ball.position.y >= 217 && ball.position.y <= 607 && hgoalie.position.y > ball.position.y) {
 	// 	Position(HGOALIE, ball.position);
@@ -604,7 +817,7 @@ void CStrategySystem::Goalie() {
 	// else {
 
 	// 球在我方半场且在预测区域远离球门
-	if (ball.position.x > 515 && ball.position.x < 900 || ball.position.x > 900 && ball.position.x < ball.oldPosition.x) {
+	if (ball.position.x > 515 && ball.position.x < 873 || ball.position.x > 873 && ball.position.x < ball.oldPosition.x) {
 		flag = true;
 		if (ball.position.y < 313)
 			Direction(HGOALIE, CPoint(gx, 313));
@@ -615,21 +828,22 @@ void CStrategySystem::Goalie() {
 	}
 	// 球在中预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
-		static double dy;
-		if (flag) {
-			dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
-			flag = false;
-		}
-		if (ball.position.y > ball.oldPosition.y)
-			Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
-		else
-			Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
 		if (ball.position.x > 900) {
 			double dy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
 			if (ball.position.y > hgoalie.position.y)
 				Direction(HGOALIE, CPoint(873, hgoalie.position.y + dy));
 			else
 				Direction(HGOALIE, CPoint(873, hgoalie.position.y - dy));
+		}
+		else {
+			if (flag) {
+				dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
+				flag = false;
+			}
+			if (ball.position.y > ball.oldPosition.y)
+				Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
+			else
+				Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
 		}
 	}
 	// 球在上预测区域靠近球门
@@ -1176,8 +1390,7 @@ void CStrategySystem::Action() {
 	// 	flag = true;
 	// 	break;
 	// }
-	// Goalie();
-	Shot(1, 1);
+	Goalie();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
@@ -1623,6 +1836,8 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 }
 
 CStrategySystem::CStrategySystem(int id) {
+	for (CPoint &p : Navigation)
+		p = ball.position;
 	flag = true;
 	m_OurTeam = id;
 	boundRect.SetRect(65, 95, 965, 723);
