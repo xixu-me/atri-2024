@@ -938,10 +938,10 @@ void CStrategySystem::Possession() {
 			if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x == 0 && ball.position.y - ball.oldPosition.y == 0)) //7可射
 			{
 				control(1);//1
-				Shot(HOME2, 1);//2射
+					Shot(HOME2, 1);//2射
 				for (int i = 3; i < 7; i++) // 3-6
 					control(i);
-				Shot(HOME7, 7);//7射
+					Shot(HOME7, 1);//7射
 				control(1); // 8
 				if (!Canshot()) // 9，10
 				{
@@ -971,7 +971,7 @@ void CStrategySystem::Possession() {
 				Shot(HOME3, 0);//3
 				for (int i = 4; i < 7; i++) // 4-6
 					control(i);
-				Shot(HOME7, 7); // 7射
+				Shot(HOME7, 1); // 7射
 				control(8);		// 8
 				if (!Canshot()) // 9，10
 				{
