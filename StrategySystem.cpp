@@ -869,9 +869,9 @@ void CStrategySystem::Possession() {
 		for (int i = 9; i < 11; i++) {
 			control(i);
 		}
-	if (ball.position.y >= 409 && ball.position.x <= 160 && ball.position.y <= 607) // 球在敌方下半
+	if (ball.position.y >= 409 && ball.position.x <= 160 && ball.position.y <= 607&&Distance(ball.position,home2.psoition)<=75) // 球在敌方下半
 		Shot(HOME2, 1);
-	else if (ball.position.y < 409 && ball.position.x <= 160 && ball.position.y >= 217) // 球在敌方上半
+	else if (ball.position.y < 409 && ball.position.x <= 160 && ball.position.y >= 217 && Distance(ball.position, home3.psoition) <= 75) // 球在敌方上半
 		Shot(HOME3, 0);
 }
 
