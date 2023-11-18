@@ -339,48 +339,75 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 
 void CStrategySystem::Canshot() // 射？
 {
-	bool t;//判断球在敌方上半还是下半；0为下半
+	bool t; // 判断球在敌方上半还是下半；0为下半
 	CPoint D1, D2, t4;
 	Robot2 *robot9, *robot10;
 	robot9 = &home9;
 	robot10 = &home10;
-	if (ball.position.y >= 409 && ball.position.x <= 290&&ball.position.y<=607) // 球在敌方下半
+	// if (ball.position.y >= 409 && ball.position.x <= 290&&ball.position.y<=607) // 球在敌方下半
+	// {
+	// 	t = 0;
+	// 	D1.x = 170;
+	// 	D1.y = 265;
+	// 	Position(HOME10, D1);
+	// 	D2.x = 170;
+	// 	D2.y = 409;
+	// 	Position(HOME9, D2);
+	// }
+	// else if (ball.position.y < 409 && ball.position.x < 290 && ball.position.y >= 217 && Distance(ball.position, home10.position) > 168) // 球在敌方上半
+	// {
+	// 	t = 1;
+	// 	D1.x = 170;
+	// 	D1.y = 556;
+	// 	Position(HOME10, D1);
+	// 	D2.x = 170;
+	// 	D2.y = 409;
+	// 	Position(HOME9, D2);
+	// 	// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 313 && ball.position.y <= 449 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
+	// 	// 	Shot(HOME9, 1);
+	// 	// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y > 449 && ball.position.y <= 607 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
+	// 	// 	Shot(HOME10, 1);
+	// }
+	if (ball.position.y >= 265 && ball.position.y <= 481) // 敌方框上半场
 	{
-		t = 0;
 		D1.x = 170;
 		D1.y = 265;
-		Position(HOME10, D1);
 		D2.x = 170;
 		D2.y = 409;
-		Position(HOME9, D2);
-
+		if (Distance(ball.position, home9.position) <= 116 && ball.position.y >= 409 && ball.position.y <= 481) //9可射
+		{
+			Shot(HOME9, 0);
+			Position(HOME10, D1);
+		}
+		else if (Distance(ball.position, home10.position) <= 168 && ball.position.y < 409 && ball.position.y >= 265) //10可射
+		{
+			Position(HOME9, D2);
+			Shot(HOME10, 0);
+		}
+		else {//9，10到预定位置
+			Position(HOME10, D1);
+			Position(HOME9, D2);
+		}
 	}
-	else if (ball.position.y < 409 && ball.position.x < 290 && ball.position.y >= 217) // 球在敌方上半
-	{
-		t = 1;
+	else if (ball.position.y >= 337 && ball.position.y <= 556) { // 敌方框下半场
 		D1.x = 170;
 		D1.y = 556;
-		Position(HOME10, D1);
 		D2.x = 170;
 		D2.y = 409;
-		Position(HOME9, D2);
-		// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 313 && ball.position.y <= 449 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-		// 	Shot(HOME9, 1);
-		// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y > 449 && ball.position.y <= 607 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-		// 	Shot(HOME10, 1);
-	}
-	if(ball.position.y>=265&&ball.position.y<=481)
-	{
-		if(Distance(ball.position,home9.position)<=116&&ball.position.y<=409&&ball.position.y>=481)
-			Shot(HOME9, 0);
-		if(Distance(ball.position,home10.position)<=168&&ball.position.y>409&&ball.position.y<=265)
-			Shot(HOME10, 0);
-	}
-	if (ball.position.y >= 337 && ball.position.y <= 556) {
-		if (Distance(ball.position, home9.position) <= 116 && ball.position.y <= 409 && ball.position.y >= 337)
+		if (Distance(ball.position, home9.position) <= 116 && ball.position.y <= 409 && ball.position.y >= 337) //9可射
+		{
 			Shot(HOME9, 1);
-		if (Distance(ball.position, home10.position) <= 164 && ball.position.y > 409 && ball.position.y <= 556)
+			Position(HOME10, D1);
+		}
+		else if (Distance(ball.position, home10.position) <= 164 && ball.position.y > 409 && ball.position.y <= 556) //10可射
+		{
+			Position(HOME9, D2);
 			Shot(HOME10, 1);
+		}
+		else { // 9，10到预定位置
+			Position(HOME10, D1);
+			Position(HOME9, D2);
+		}
 	}
 	// if ()
 	// {
@@ -859,20 +886,42 @@ void CStrategySystem::Possession() {
 	{
 		Navigation[i]=ball.position;
 	}*/
-	for (int i = 1; i < 9; i++) {
-		control(i);
-	}
-	if (ball.position.x < 290) {
-		Canshot();
-	}
-	else
-		for (int i = 9; i < 11; i++) {
+
+	// if (ball.position.x < 290) {
+	// 	Canshot();
+	// 	for (int i = 1; i < 9; i++) {
+	// 	control(i);
+	// }
+	// }
+	// else
+	// 	for (int i = 1; i < 11; i++) {
+	// 		control(i);
+	// 	}
+	if (ball.position.y >= 409 && ball.position.y <= 607 && ball.position.x < 290) // 球在敌方框下半
+	{
+		if (Distance(ball.position, home2.position) <= 75)//2可射
+			Shot(HOME2, 1);
+		if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481)//3可射
+			Shot(HOME3, 0);
+		control(1);
+		for (int i = 4; i < 9; i++)//4-8
 			control(i);
-		}
-	if (ball.position.y >= 409 && ball.position.x <= 160 && ball.position.y <= 607&&Distance(ball.position,home2.psoition)<=75) // 球在敌方下半
-		Shot(HOME2, 1);
-	else if (ball.position.y < 409 && ball.position.x <= 160 && ball.position.y >= 217 && Distance(ball.position, home3.psoition) <= 75) // 球在敌方上半
-		Shot(HOME3, 0);
+		Canshot();//9，10
+	}
+	else if (ball.position.y < 409 && ball.position.x <= 160 && ball.position.y >= 217) // 球在敌方框上半
+	{
+		if (Distance(ball.position, home3.position) <= 75)//3可射
+			Shot(HOME3, 0);
+		if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 337)//2可射
+			Shot(HOME2, 1);
+		control(1);
+		for (int i = 4; i < 9; i++)//4-8
+			control(i);
+		Canshot();/9，10
+	}
+	else//其它情况
+		for (int i = 1; i < 11; i++)//1-10
+			control(i);
 }
 
 // 守门
