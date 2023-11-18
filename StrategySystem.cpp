@@ -333,7 +333,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	if (de == 0) {
-		t4.x = 17.0;
+		t4.x = 33.0;
 		t4.y = 505.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(,t4));
 		O1 = 180 - O;
@@ -341,27 +341,27 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		t3.y = t1.y - sin(O) * 34;
 	}
 	else if (de == 1) {
-		t4.x = 17.0;
+		t4.x = 33.0;
 		t4.y = 313.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
 		O1 = 180 + O;
 		t3.x = t1.x + cos(O) * 34;
 		t3.y = t1.y + sin(O) * 34;
 	}
-	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 3) {
+	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 2) {
 		if (de == 1) {
 			t3.x = t1.x - cos(O) * 34;
 			t3.y = t1.y - sin(O) * 34;
-			DirectionSE(which, t3);
+			Direction(which, t3);
 		}
 		else if (de == 0) {
 			t3.x = t1.x - cos(O) * 34;
 			t3.y = t1.y + sin(O) * 34;
-			DirectionSE(which, t3);
+			Direction(which, t3);
 		}
 	}
 	else
-		PositionSE(which, t3); // 机器人到足够近的点t3
+		Position(which, t3); // 机器人到足够近的点t3
 }
 
 bool CStrategySystem::Canshot() // 射？
@@ -934,27 +934,63 @@ void CStrategySystem::Possession() {
 	{
 		if (Distance(ball.position, home2.position) <= 75)//2可射
 		{
-			Shot(HOME2, 1);//2
-			control(1);//1
-			for (int i = 3; i < 9; i++) // 3-8
-				control(i);
-			if (!Canshot()) // 9，10
+			
+			if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x == 0 && ball.position.y - ball.oldPosition.y == 0)) //7可射
 			{
-				control(9);
-				control(10);
+				control(1);//1
+				Shot(HOME2, 1);//2射
+				for (int i = 3; i < 7; i++) // 3-6
+					control(i);
+				Shot(HOME7, 7);//7射
+				control(1); // 8
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
+			}
+			else//7不射 
+			{
+				control(1);	// 1
+				Shot(HOME2, 1); // 2射
+				for (int i = 3; i < 9; i++) // 3-8
+					control(i);
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
 			}
 		}	
 		else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481&&ball.position.y>=505)//3可射
 		{
-			Shot(HOME3, 0);//3
-			control(1);//1
-			control(2);	   // 2
-			for (int i = 3; i < 9; i++) // 4-8
-				control(i);
-			if (!Canshot()) // 9，10
+			if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x == 0 && ball.position.y - ball.oldPosition.y == 0)) // 7可射
 			{
-				control(9);
-				control(10);
+				control(1);// 1
+				control(2);// 2
+				Shot(HOME3, 0);//3
+				for (int i = 4; i < 7; i++) // 4-6
+					control(i);
+				Shot(HOME7, 7); // 7射
+				control(8);		// 8
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
+			}
+			else//7不射
+			{
+				control(1);//1
+				control(2);// 2
+				Shot(HOME3, 0);//3
+				for (int i = 4; i < 9; i++) // 4-8
+					control(i);
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
 			}
 		}
 		else							 // 其它情况
@@ -965,28 +1001,67 @@ void CStrategySystem::Possession() {
 	{
 		if (Distance(ball.position, home3.position) <= 75)//3可射
 		{
-			Shot(HOME3, 0);//3
-			control(1);						// 1
-			control(2);	   // 2
-			for (int i = 3; i < 9; i++) // 4-8
-				control(i);
-			if (!Canshot()) // 9，10
+			if ((ball.position.y >= 217 && ball.position.y <= 337) ||(ball.position.x - ball.oldPosition.x == 0 && ball.position.y - ball.oldPosition.y == 0)) // 3，8可射
 			{
-				control(9);
-				control(10);
+				control(1);					// 1
+				control(2);					// 2
+					Shot(HOME3, 0);				// 3射
+				for (int i = 4; i < 7; i++) // 4-6
+					control(i);
+				control(HOME7); // 7
+					Shot(8,0);		// 8射
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
+			}
+			else //8不射 ，3射
+			{
+				control(1);					// 1
+				control(2);					// 2
+					Shot(HOME3, 0);				// 3射
+				for (int i = 4; i < 7; i++) // 4-6
+					control(i);
+				control(HOME7); // 7
+				control(8);	// 8
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
 			}
 		}	
-		else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 337&&ball.position.y<=313)//2可射
+		else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 313&&ball.position.y<=337)//2可射
 		{
-			Shot(HOME2, 1);//2
-			control(1);	   // 1
-			for (int i = 3; i < 9; i++) // 3-8
-				control(i);
-			if(!Canshot()) // 9，10
+			if ((ball.position.y >= 217 && ball.position.y <= 337) ||(ball.position.x - ball.oldPosition.x == 0 && ball.position.y - ball.oldPosition.y == 0)) // 8可射
 			{
-				control(9);
-				control(10);
+				control(1);					// 1
+				Shot(2,0);					// 2射
+				control(HOME3);				// 3
+				for (int i = 4; i < 7; i++) // 4-6
+					control(i);
+				control(HOME7); // 7
+				Shot(8, 0);		// 8射
+				if (!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}
 			}
+			else//8不射
+			{
+				control(1);	   // 1
+				Shot(HOME2, 1);//2
+				for (int i = 3; i < 9; i++) // 3-8
+				control(i);
+				if(!Canshot()) // 9，10
+				{
+					control(9);
+					control(10);
+				}	
+			}
+				
 		}
 		else							 // 其它情况
 			for (int i = 1; i < 11; i++) // 1-10
@@ -1035,21 +1110,23 @@ void CStrategySystem::Goalie() {
 	// 球在中预测区域靠近球门
 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
 		if (ball.position.x > 900) {
-			double dyy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
-			if (ball.position.y > hgoalie.position.y)
-				Direction(HGOALIE, CPoint(873, hgoalie.position.y + dyy));
-			else
-				Direction(HGOALIE, CPoint(873, hgoalie.position.y - dyy));
+			// double dyy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
+			// if (ball.position.y > hgoalie.position.y)
+			// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y + dyy));
+			// else
+			// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y - dyy));
+			Direction(HGOALIE, ball.position);
 		}
 		else {
-			if (flag) {
-				dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
-				flag = false;
-			}
-			if (ball.position.y > ball.oldPosition.y)
-				Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
-			else
-				Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
+			// if (flag) {
+			// 	dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
+			// 	flag = false;
+			// }
+			// if (ball.position.y > ball.oldPosition.y)
+			// 	Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
+			// else
+			// 	Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
+			Direction(HGOALIE, CPoint(gx, ball.position.y));
 		}
 	}
 	// 球在上预测区域靠近球门
