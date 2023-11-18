@@ -24,7 +24,7 @@ private:
 
 	void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
-	void Canshot();							   // 射？
+	bool Canshot();							   // 射？
 	int search();							   // 查找在禁区里的机器人
 	void control(int which);
 	void ccd(int which, double d, double j);									 // 曲线行驶

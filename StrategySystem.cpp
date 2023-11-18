@@ -294,11 +294,38 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 {
 	Robot2 *robot;
 	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
 	case HOME9:
 		robot = &home9;
 		break;
 	case HOME10:
 		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
 		break;
 	}
 	double O, O1;
@@ -306,7 +333,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	if (de == 0) {
-		t4.x = 65.0;
+		t4.x = 17.0;
 		t4.y = 505.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(,t4));
 		O1 = 180 - O;
@@ -314,7 +341,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		t3.y = t1.y - sin(O) * 34;
 	}
 	else if (de == 1) {
-		t4.x = 65.0;
+		t4.x = 17.0;
 		t4.y = 313.0;
 		O = atan(fabs(ball.position.y - t4.y) / fabs(ball.position.x - t4.x)); // fabs(Angle(ball.position,t4));
 		O1 = 180 + O;
@@ -337,7 +364,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		PositionSE(which, t3); // 机器人到足够近的点t3
 }
 
-void CStrategySystem::Canshot() // 射？
+bool CStrategySystem::Canshot() // 射？
 {
 	bool t; // 判断球在敌方上半还是下半；0为下半
 	CPoint D1, D2, t4;
@@ -363,10 +390,10 @@ void CStrategySystem::Canshot() // 射？
 	// 	D2.x = 170;
 	// 	D2.y = 409;
 	// 	Position(HOME9, D2);
-	// 	// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 313 && ball.position.y <= 449 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 	// 	Shot(HOME9, 1);
-	// 	// if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y > 449 && ball.position.y <= 607 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
-	// 	// 	Shot(HOME10, 1);
+	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y >= 313 && ball.position.y <= 449 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
+	// 		Shot(HOME9, 1);
+	// 	if (ball.position.x >= 104 && ball.position.x <= 170 && ball.position.y > 449 && ball.position.y <= 607 && (ball.oldPosition.y - ball.oldPosition.y) <= 0)
+	// 		Shot(HOME10, 1);
 	// }
 	if (ball.position.y >= 265 && ball.position.y <= 481) // 敌方框上半场
 	{
@@ -388,8 +415,10 @@ void CStrategySystem::Canshot() // 射？
 			Position(HOME10, D1);
 			Position(HOME9, D2);
 		}
+		return 1;
 	}
-	else if (ball.position.y >= 337 && ball.position.y <= 556) { // 敌方框下半场
+	else if (ball.position.y >= 337 && ball.position.y <= 556) // 敌方框下半场
+	{ 
 		D1.x = 170;
 		D1.y = 556;
 		D2.x = 170;
@@ -408,7 +437,9 @@ void CStrategySystem::Canshot() // 射？
 			Position(HOME10, D1);
 			Position(HOME9, D2);
 		}
+		return 1;
 	}
+	return 0;
 	// if ()
 	// {
 	// 	if (ball.position.y <= 170) {
@@ -897,33 +928,74 @@ void CStrategySystem::Possession() {
 	// 	for (int i = 1; i < 11; i++) {
 	// 		control(i);
 	// 	}
-	if (ball.position.y >= 409 && ball.position.y <= 607 && ball.position.x < 290) // 球在敌方框下半
+
+	// bool a, b;
+	if (ball.position.y>=337&& ball.position.x < 290) // 球在敌方下半
 	{
 		if (Distance(ball.position, home2.position) <= 75)//2可射
-			Shot(HOME2, 1);
-		if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481)//3可射
-			Shot(HOME3, 0);
-		control(1);
-		for (int i = 4; i < 9; i++)//4-8
-			control(i);
-		Canshot();//9，10
+		{
+			Shot(HOME2, 1);//2
+			control(1);//1
+			for (int i = 3; i < 9; i++) // 3-8
+				control(i);
+			if (!Canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}	
+		else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481&&ball.position.y>=505)//3可射
+		{
+			Shot(HOME3, 0);//3
+			control(1);//1
+			control(2);	   // 2
+			for (int i = 3; i < 9; i++) // 4-8
+				control(i);
+			if (!Canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else							 // 其它情况
+			for (int i = 1; i < 11; i++) // 1-10
+				control(i);
 	}
-	else if (ball.position.y < 409 && ball.position.x <= 160 && ball.position.y >= 217) // 球在敌方框上半
+	else if (ball.position.y < 481 && ball.position.x < 290) // 球在敌方上半
 	{
 		if (Distance(ball.position, home3.position) <= 75)//3可射
-			Shot(HOME3, 0);
-		if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 337)//2可射
-			Shot(HOME2, 1);
-		control(1);
-		for (int i = 4; i < 9; i++)//4-8
-			control(i);
-		Canshot();/9，10
+		{
+			Shot(HOME3, 0);//3
+			control(1);						// 1
+			control(2);	   // 2
+			for (int i = 3; i < 9; i++) // 4-8
+				control(i);
+			if (!Canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}	
+		else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 337&&ball.position.y<=313)//2可射
+		{
+			Shot(HOME2, 1);//2
+			control(1);	   // 1
+			for (int i = 3; i < 9; i++) // 3-8
+				control(i);
+			if(!Canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else							 // 其它情况
+			for (int i = 1; i < 11; i++) // 1-10
+				control(i);
 	}
 	else//其它情况
 		for (int i = 1; i < 11; i++)//1-10
 			control(i);
 }
-
 // 守门
 void CStrategySystem::Goalie() {
 	static bool flag;
