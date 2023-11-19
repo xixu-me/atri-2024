@@ -1249,12 +1249,10 @@ void CStrategySystem::Possession() {
 // 守门
 void CStrategySystem::Goalie() {
 	int gx = ball.position.x >= 873 && (ball.position.y <= 217 || ball.position.y >= 607) || ball.position.x >= 950 ? 965 : 950;
-	int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+	// int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
-	//
 	if (ball.position.x >= 927 && (ball.position.y >= 313 && ball.position.y <= 505 && ball.position.x < hgoalie.position.x || ball.position.y <= 247 && ball.position.y >= 313 || ball.position.y >= 505 && ball.position.y <= 577))
-		Position(HGOALIE, ball.position); // TODO kick ball
-	//
+		Position(HGOALIE, ball.position);
 	else {
 		if (ball.position.y < 313)
 			Direction(HGOALIE, CPoint(gx, 313));
@@ -1265,83 +1263,82 @@ void CStrategySystem::Goalie() {
 	}
 
 	// static double dy;
-	//  static bool flag;
-	//   if (ball.position.x <= 873 && ball.position.y >= 217 && ball.position.y <= 607 && hgoalie.position.y > ball.position.y) {
-	//   	Position(HGOALIE, ball.position);
-	//   }
-	// 防点球
-	//   if (CheckBallPosF1() == 1 || isPenalty) {
-	//   	isPenalty = true;
-	//   	if (ball.position.y < 409) {
-	//   		Position(which, CPoint(gx, 217));
-	//   	}
-	//   	else {
-	//   		Position(which, CPoint(gx, 607));
-	//   	}
-	//   	if (ball.position.x < 900) {
-	//   		PositionPro(which, CPoint(ball.position));
-	//   	}
-	//   	if (ball.oldPosition.x > ball.position.x || ball.position.x >= 965) {
-	//   		isPenalty = false;
-	//   	}
-	//   }
-	//   else {
-
-	// 球在我方半场且在预测区域远离球门
-	// if (ball.position.x > 515 && ball.position.x < 873 || ball.position.x > 873 && ball.position.x < ball.oldPosition.x) {
-	// 	flag = true;
-	// 	if (ball.position.y < 313)
-	// 		Direction(HGOALIE, CPoint(gx, 313));
-	// 	else if (ball.position.y > 505)
-	// 		Direction(HGOALIE, CPoint(gx, 505));
-	// 	else
-	// 		Direction(HGOALIE, CPoint(gx, ball.position.y));
+	// static bool flag;
+	// if (ball.position.x <= 873 && ball.position.y >= 217 && ball.position.y <= 607 && hgoalie.position.y > ball.position.y) {
+	// 	Position(HGOALIE, ball.position);
 	// }
-	// // 球在中预测区域靠近球门
-	// else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
-	// 	if (ball.position.x > 900) {
-	// 		// double dyy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
-	// 		// if (ball.position.y > hgoalie.position.y)
-	// 		// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y + dyy));
-	// 		// else
-	// 		// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y - dyy));
-	// 		Direction(HGOALIE, ball.position);
+	// // 防点球
+	// if (CheckBallPosF1() == 1 || isPenalty) {
+	// 	isPenalty = true;
+	// 	if (ball.position.y < 409) {
+	// 		Position(which, CPoint(gx, 217));
 	// 	}
 	// 	else {
-	// 		// if (flag) {
-	// 		// 	dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
-	// 		// 	flag = false;
-	// 		// }
-	// 		// if (ball.position.y > ball.oldPosition.y)
-	// 		// 	Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
-	// 		// else
-	// 		// 	Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
-	// 		Direction(HGOALIE, CPoint(gx, ball.position.y));
+	// 		Position(which, CPoint(gx, 607));
+	// 	}
+	// 	if (ball.position.x < 900) {
+	// 		PositionPro(which, CPoint(ball.position));
+	// 	}
+	// 	if (ball.oldPosition.x > ball.position.x || ball.position.x >= 965) {
+	// 		isPenalty = false;
 	// 	}
 	// }
-	// // 球在上预测区域靠近球门
-	// else if (ball.position.x > 515 && ball.position.y < 217 && ball.position.y >= ball.oldPosition.y) {
-	// 	flag = true;
-	// 	if (hgoalie.position.y > 217) {
-	// 		Direction(HGOALIE, ball.position);
-	// 	}
-	// 	else
-	// 		Direction(HGOALIE, CPoint(gx, 265));
-	// }
-	// // 球在下预测区域靠近球门
-	// else if (ball.position.x > 515 && ball.position.y <= ball.oldPosition.y) {
-	// 	flag = true;
-	// 	if (hgoalie.position.y < 607) {
-	// 		Direction(HGOALIE, ball.position);
-	// 	}
-	// 	else
-	// 		Direction(HGOALIE, CPoint(gx, 556));
-	// }
-	// // 球在对方半场
 	// else {
-	// 	flag = true;
-	// 	Direction(HGOALIE, CPoint(gx, 409));
-	// }
+	// 	// 球在我方半场且在预测区域远离球门
+	// 	if (ball.position.x > 515 && ball.position.x < 873 || ball.position.x > 873 && ball.position.x < ball.oldPosition.x) {
+	// 		flag = true;
+	// 		if (ball.position.y < 313)
+	// 			Direction(HGOALIE, CPoint(gx, 313));
+	// 		else if (ball.position.y > 505)
+	// 			Direction(HGOALIE, CPoint(gx, 505));
+	// 		else
+	// 			Direction(HGOALIE, CPoint(gx, ball.position.y));
+	// 	}
+	// 	// 球在中预测区域靠近球门
+	// 	else if (ball.position.x > 515 && ball.position.y > 217 && ball.position.y < 607) {
+	// 		if (ball.position.x > 900) {
+	// 			// double dyy = (hgoalie.position.x - 873) * ABS(ball.position.y - hgoalie.position.y) * 1.0 / (hgoalie.position.x - ball.position.x);
+	// 			// if (ball.position.y > hgoalie.position.y)
+	// 			// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y + dyy));
+	// 			// else
+	// 			// 	Direction(HGOALIE, CPoint(873, hgoalie.position.y - dyy));
+	// 			Direction(HGOALIE, ball.position);
+	// 		}
+	// 		else {
+	// 			// if (flag) {
+	// 			// 	dy = (gx - ball.position.x) * ABS(ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x);
+	// 			// 	flag = false;
+	// 			// }
+	// 			// if (ball.position.y > ball.oldPosition.y)
+	// 			// 	Direction(HGOALIE, CPoint(gx, ball.position.y + dy));
+	// 			// else
+	// 			// 	Direction(HGOALIE, CPoint(gx, ball.position.y - dy));
+	// 			Direction(HGOALIE, CPoint(gx, ball.position.y));
+	// 		}
+	// 	}
+	// 	// 球在上预测区域靠近球门
+	// 	else if (ball.position.x > 515 && ball.position.y < 217 && ball.position.y >= ball.oldPosition.y) {
+	// 		flag = true;
+	// 		if (hgoalie.position.y > 217) {
+	// 			Direction(HGOALIE, ball.position);
+	// 		}
+	// 		else
+	// 			Direction(HGOALIE, CPoint(gx, 265));
+	// 	}
+	// 	// 球在下预测区域靠近球门
+	// 	else if (ball.position.x > 515 && ball.position.y <= ball.oldPosition.y) {
+	// 		flag = true;
+	// 		if (hgoalie.position.y < 607) {
+	// 			Direction(HGOALIE, ball.position);
+	// 		}
+	// 		else
+	// 			Direction(HGOALIE, CPoint(gx, 556));
+	// 	}
+	// 	// 球在对方半场
+	// 	else {
+	// 		flag = true;
+	// 		Direction(HGOALIE, CPoint(gx, 409));
+	// 	}
 	// }
 }
 
@@ -1849,8 +1846,8 @@ int CStrategySystem::Status() {
 void CStrategySystem::Action() {
 	switch (Status()) {
 	case 1:
-		Penalty();
 		flag = true;
+		Penalty();
 		break;
 	case 2:
 	case 3:
@@ -1859,8 +1856,8 @@ void CStrategySystem::Action() {
 		Freeball();
 		break;
 	default:
-		Possession();
 		flag = true;
+		Possession();
 		break;
 	}
 	Goalie();
