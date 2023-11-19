@@ -1143,7 +1143,7 @@ void CStrategySystem::Goalie() {
 
 	//
 	if (ball.position.x >= 927 && (ball.position.y >= 313 && ball.position.y <= 505 && ball.position.x < hgoalie.position.x || ball.position.y <= 247 && ball.position.y >= 313 || ball.position.y >= 505 && ball.position.y <= 577))
-		Direction(HGOALIE, ball.position); // TODO kick ball
+		Position(HGOALIE, ball.position); // TODO kick ball
 	//
 	else {
 		if (ball.position.y < 313)
