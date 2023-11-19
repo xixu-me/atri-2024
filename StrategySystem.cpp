@@ -1138,17 +1138,20 @@ void CStrategySystem::Possession() {
 }
 // 守门
 void CStrategySystem::Goalie() {
-	int gx = ball.position.x < 950 ? 950 : 965;
+	int gx = ball.position.x >= 873 && (ball.position.y <= 217 || ball.position.y >= 607) || ball.position.x >= 950 ? 965 : 950;
 	int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
-	if (Distance(ball.position, hgoalie.position) <= gx - 873 && (ball.position.y <= 505 && ball.position.y >= 313 && ball.position.x < hgoalie.position.x || ball.position.y > 505 && ball.position.y > 313))
-		Direction(HGOALIE, ball.position);
+
+	//
+	if (ball.position.x >= 927 && (ball.position.y >= 313 && ball.position.y <= 505 && ball.position.x < hgoalie.position.x || ball.position.y <= 247 && ball.position.y >= 313 || ball.position.y >= 505 && ball.position.y <= 577))
+		Direction(HGOALIE, ball.position); // TODO kick ball
+	//
 	else {
-		if (gy < 313)
+		if (ball.position.y < 313)
 			Direction(HGOALIE, CPoint(gx, 313));
-		else if (gy > 505)
+		else if (ball.position.y > 505)
 			Direction(HGOALIE, CPoint(gx, 505));
 		else
-			Direction(HGOALIE, CPoint(gx, gy));
+			Direction(HGOALIE, CPoint(gx, ball.position.y));
 	}
 
 	// static double dy;
@@ -1156,7 +1159,7 @@ void CStrategySystem::Goalie() {
 	//   if (ball.position.x <= 873 && ball.position.y >= 217 && ball.position.y <= 607 && hgoalie.position.y > ball.position.y) {
 	//   	Position(HGOALIE, ball.position);
 	//   }
-	//   TODO: 防点球
+	// 防点球
 	//   if (CheckBallPosF1() == 1 || isPenalty) {
 	//   	isPenalty = true;
 	//   	if (ball.position.y < 409) {
