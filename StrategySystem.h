@@ -16,12 +16,12 @@ public:
 #ifdef _DEBUG
 #endif // _DEBUG
 private:
-	void Penalty();				   // 罚球
-	void Freeball();			   // 争球
-	void Shot(int which, bool de); // 射门
+	void Penalty();											  // 罚球
+	void Freeball();										  // 争球
+	void Shot(int which, bool de);							  // 射门
 	void CStrategySystem::Shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射
-	void Possession();// 控球
-	void Goalie();				   // 守门
+	void Possession();										  // 控球
+	void Goalie();											  // 守门
 
 	void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
