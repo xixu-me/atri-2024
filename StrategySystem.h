@@ -19,13 +19,15 @@ private:
 	void Penalty();				   // 罚球
 	void Freeball();			   // 争球
 	void Shot(int which, bool de); // 射门
-	void Possession();			   // 控球
+	void CStrategySystem::Shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射
+	void Possession();// 控球
 	void Goalie();				   // 守门
 
 	void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
 	bool Canshot();							   // 射？
-	int search();							   // 查找在禁区里的机器人
+	int search1();							   // 查找在大区里的机器人
+	int search2();							   // 查找在小区里的机器人
 	void control(int which);
 	void ccd(int which, double d, double j);									 // 曲线行驶
 	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
