@@ -150,25 +150,63 @@ void CStrategySystem::Penalty() {
 // 	}
 // }
 
+// void CStrategySystem::Penalty() {
+// 	if (home1.position.y < ball.position.y) {
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
+// 	}
+// 	else if (home1.position.y == ball.position.y) {
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
+// 	}
+// 	else {
+// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
+// 	}
+// 	// Direction(HOME2, ball.position);
+// 	// Direction(HOME3, ball.position);
+// 	// Direction(HOME4, ball.position);
+// 	// Direction(HOME5, ball.position);
+// 	// Direction(HOME6, ball.position);
+// 	// Direction(HOME7, ball.position);
+// 	// Direction(HOME8, ball.position);
+// 	// Direction(HOME9, ball.position);
+// 	// Direction(HOME10, ball.position);
+// }
+
 void CStrategySystem::Penalty() {
-	if (home1.position.y < ball.position.y) {
-		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
-	}
-	else if (home1.position.y == ball.position.y) {
-		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
+	srand(time(nullptr));
+	int x = rand() % 2;
+	int d = 21;
+	static bool faceR;
+	Direction(HOME1, CPoint(ball.position.x + 104, ball.position.y));
+	if (x) {
+		if (Distance(home1.position, ball.position) > d) {
+			Direction(HOME1, ball.position);
+			faceR = fabs(home1.angle) > 90;
+		}
+		else {
+			// flag = false;
+			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505)))); // 求曲线行驶时轨迹的半径
+			int lw = (r - 3) / (r + 5) * 127;
+			if (faceR)
+				Velocity(1, lw, 127);
+			else
+				Velocity(1, -127, -lw);
+		}
 	}
 	else {
-		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
+		if (Distance(home1.position, ball.position) > d) {
+			Direction(HOME1, ball.position);
+			faceR = fabs(home1.angle) > 90;
+		}
+		else {
+			// flag = false;
+			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
+			int rw = r / (r + 3) * 127;
+			if (!faceR)
+				Velocity(1, -rw, -127);
+			else
+				Velocity(1, 127, rw);
+		}
 	}
-	// Direction(HOME2, ball.position);
-	// Direction(HOME3, ball.position);
-	// Direction(HOME4, ball.position);
-	// Direction(HOME5, ball.position);
-	// Direction(HOME6, ball.position);
-	// Direction(HOME7, ball.position);
-	// Direction(HOME8, ball.position);
-	// Direction(HOME9, ball.position);
-	// Direction(HOME10, ball.position);
 }
 
 // 争球
