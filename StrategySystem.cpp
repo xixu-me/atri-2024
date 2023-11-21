@@ -501,7 +501,7 @@ void CStrategySystem::cp_pos() { // 中心球员位置
 	pos[0] = cur_pos[cp_id() - 1];
 }
 
-void CStrategySystem::cp_kick() { // 中心球员击球
+void CStrategySystem::cp_kick() { // TODO 中心球员击球
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
