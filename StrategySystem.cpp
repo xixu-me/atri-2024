@@ -1358,7 +1358,7 @@ int CStrategySystem::search1() // 查找在大区里的机器人
 
 int CStrategySystem::search2() // 查找在小区里的机器人
 {
-	int sum;
+	int sum = 0;
 	if (home1.position.x >= 65 && home1.position.x < 105 && home1.position.y >= 247 && home1.position.y <= 577)
 		sum++;
 	if (home2.position.x >= 65 && home2.position.x < 105 && home2.position.y >= 247 && home2.position.y <= 577)
