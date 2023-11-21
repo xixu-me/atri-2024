@@ -328,6 +328,118 @@ double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int
 // }
 
 // 控球
+// void CStrategySystem::Possession() {
+// navigate();
+/*for(int i=1;i<11;i++)
+{
+	Navigation[i]=ball.position;
+}*/
+
+// if (ball.position.x < 290) {
+// 	Canshot();
+// 	for (int i = 1; i < 9; i++) {
+// 	control(i);
+// }
+// }
+// else
+// 	for (int i = 1; i < 11; i++) {
+// 		control(i);
+// 	}
+
+// bool a, b;
+// if (ball.position.y >= 337 && ball.position.x < 290) // 球在敌方下半
+// {
+// 	if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 7可射
+// 		shot(7, 1);																																						 // 7射
+// 	else
+// 		control(7);
+
+// 	if (Distance(ball.position, home2.position) <= 75) // 2可射
+// 	{
+// 		control(1); // 1
+// 		if (search1() < 4)
+// 			shot(HOME2, 1); // 2射
+// 		else
+// 			control(2);
+// 		for (int i = 3; i < 7; i++) // 3-6
+// 			control(i);
+// 		control(1);		// 8
+// 		if (!canshot()) // 9，10
+// 		{
+// 			control(9);
+// 			control(10);
+// 		}
+// 	}
+// 	else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481 && ball.position.y >= 505) // 3可射
+// 	{
+// 		control(1); // 1
+// 		control(2); // 2
+// 		if (search1() < 4)
+// 			shot(HOME3, 0); // 3射
+// 		else
+// 			control(3);
+// 		for (int i = 4; i < 7; i++) // 4-6
+// 			control(i);
+// 		control(8);		// 8
+// 		if (!canshot()) // 9，10
+// 		{
+// 			control(9);
+// 			control(10);
+// 		}
+// 	}
+// 	else							 // 其它情况
+// 		for (int i = 1; i < 11; i++) // 1-10
+// 			control(i);
+// }
+// else if (ball.position.y < 481 && ball.position.x < 290) // 球在敌方上半
+// {
+// 	if ((ball.position.y >= 217 && ball.position.y <= 337) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 8可射
+// 		shot(8, 0);
+// 	else
+// 		control(8);
+// 	if (Distance(ball.position, home3.position) <= 75) // 3可射
+// 	{
+// 		control(1); // 1
+// 		control(2); // 2
+// 		if (search1() < 4)
+// 			shot(HOME3, 0); // 3射
+// 		else
+// 			control(3);
+// 		for (int i = 4; i < 7; i++) // 4-6
+// 			control(i);
+// 		control(HOME7); // 7
+// 		if (!canshot()) // 9，10
+// 		{
+// 			control(9);
+// 			control(10);
+// 		}
+// 	}
+// 	else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 313 && ball.position.y <= 337) // 2可射
+// 	{
+
+// 		control(1); // 1
+// 		if (search1() < 4)
+// 			shot(2, 0); // 2射
+// 		else
+// 			control(2);
+// 		control(HOME3);				// 3
+// 		for (int i = 4; i < 7; i++) // 4-6
+// 			control(i);
+// 		control(HOME7); // 7
+// 		if (!canshot()) // 9，10
+// 		{
+// 			control(9);
+// 			control(10);
+// 		}
+// 	}
+// 	else							 // 其它情况
+// 		for (int i = 1; i < 11; i++) // 1-10
+// 			control(i);
+// }
+// else							 // 其它情况
+// 	for (int i = 1; i < 11; i++) // 1-10
+// 		control(i);
+//}
 void CStrategySystem::Possession() {
 	if (cp_id()) {
 		cp_pos();
@@ -337,116 +449,6 @@ void CStrategySystem::Possession() {
 	}
 	else { // TODO 无中心球员
 	}
-	// navigate();
-	/*for(int i=1;i<11;i++)
-	{
-		Navigation[i]=ball.position;
-	}*/
-
-	// if (ball.position.x < 290) {
-	// 	Canshot();
-	// 	for (int i = 1; i < 9; i++) {
-	// 	control(i);
-	// }
-	// }
-	// else
-	// 	for (int i = 1; i < 11; i++) {
-	// 		control(i);
-	// 	}
-
-	// bool a, b;
-	// if (ball.position.y >= 337 && ball.position.x < 290) // 球在敌方下半
-	// {
-	// 	if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 7可射
-	// 		shot(7, 1);																																						 // 7射
-	// 	else
-	// 		control(7);
-
-	// 	if (Distance(ball.position, home2.position) <= 75) // 2可射
-	// 	{
-	// 		control(1); // 1
-	// 		if (search1() < 4)
-	// 			shot(HOME2, 1); // 2射
-	// 		else
-	// 			control(2);
-	// 		for (int i = 3; i < 7; i++) // 3-6
-	// 			control(i);
-	// 		control(1);		// 8
-	// 		if (!canshot()) // 9，10
-	// 		{
-	// 			control(9);
-	// 			control(10);
-	// 		}
-	// 	}
-	// 	else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481 && ball.position.y >= 505) // 3可射
-	// 	{
-	// 		control(1); // 1
-	// 		control(2); // 2
-	// 		if (search1() < 4)
-	// 			shot(HOME3, 0); // 3射
-	// 		else
-	// 			control(3);
-	// 		for (int i = 4; i < 7; i++) // 4-6
-	// 			control(i);
-	// 		control(8);		// 8
-	// 		if (!canshot()) // 9，10
-	// 		{
-	// 			control(9);
-	// 			control(10);
-	// 		}
-	// 	}
-	// 	else							 // 其它情况
-	// 		for (int i = 1; i < 11; i++) // 1-10
-	// 			control(i);
-	// }
-	// else if (ball.position.y < 481 && ball.position.x < 290) // 球在敌方上半
-	// {
-	// 	if ((ball.position.y >= 217 && ball.position.y <= 337) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 8可射
-	// 		shot(8, 0);
-	// 	else
-	// 		control(8);
-	// 	if (Distance(ball.position, home3.position) <= 75) // 3可射
-	// 	{
-	// 		control(1); // 1
-	// 		control(2); // 2
-	// 		if (search1() < 4)
-	// 			shot(HOME3, 0); // 3射
-	// 		else
-	// 			control(3);
-	// 		for (int i = 4; i < 7; i++) // 4-6
-	// 			control(i);
-	// 		control(HOME7); // 7
-	// 		if (!canshot()) // 9，10
-	// 		{
-	// 			control(9);
-	// 			control(10);
-	// 		}
-	// 	}
-	// 	else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 313 && ball.position.y <= 337) // 2可射
-	// 	{
-
-	// 		control(1); // 1
-	// 		if (search1() < 4)
-	// 			shot(2, 0); // 2射
-	// 		else
-	// 			control(2);
-	// 		control(HOME3);				// 3
-	// 		for (int i = 4; i < 7; i++) // 4-6
-	// 			control(i);
-	// 		control(HOME7); // 7
-	// 		if (!canshot()) // 9，10
-	// 		{
-	// 			control(9);
-	// 			control(10);
-	// 		}
-	// 	}
-	// 	else							 // 其它情况
-	// 		for (int i = 1; i < 11; i++) // 1-10
-	// 			control(i);
-	// }
-	// else							 // 其它情况
-	// 	for (int i = 1; i < 11; i++) // 1-10
-	// 		control(i);
 }
 
 int CStrategySystem::cp_id() { // 中心球员 ID
