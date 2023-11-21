@@ -21,16 +21,23 @@ private:
 	void Possession(); // 控球
 	void Goalie();	   // 守门
 
-	int ball_erea();						   // 判断球在哪个区域
-	void spin(int which, bool isClockwise);	   // 自旋
+	CPoint *pos; // 球员位置
+	int cp_id();	// 中心球员 ID
+	void cp_pos();	// 中心球员位置
+	void cp_kick(); // 中心球员击球
+	int fm_id();	// 阵型 ID
+	void fm_gen();	// 阵型生成
+	void fp_move(); // 阵型球员移动
+
+	// void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
 	bool canshot();							   // 射？
 	int search1();							   // 查找在大区里的机器人
 	int search2();							   // 查找在小区里的机器人
-	void control(int which);
+	// void control(int which);
 	// void ccd(int which, double d, double j);									 // 曲线行驶
 	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
-	void navigate();
+	// void navigate();
 	void shot(int which, bool de);			 // 射门
 	void shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射
 
@@ -75,7 +82,7 @@ private:
 	Robot3 opponent;
 
 	bool flag;
-	std::vector<CPoint> Navigation;
+	// std::vector<CPoint> Navigation;
 
 	// void Think();
 
