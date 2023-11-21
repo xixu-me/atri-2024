@@ -16,29 +16,30 @@ public:
 #ifdef _DEBUG
 #endif // _DEBUG
 private:
-	void Penalty();											  // 罚球
-	void Freeball();										  // 争球
-	void Shot(int which, bool de);							  // 射门
-	void CStrategySystem::Shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射
-	void Possession();										  // 控球
-	void Goalie();											  // 守门
+	void Penalty();	   // 罚球
+	void Freeball();   // 争球
+	void Possession(); // 控球
+	void Goalie();	   // 守门
 
+	int ball_erea();						   // 判断球在哪个区域
 	void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
-	bool Canshot();							   // 射？
+	bool canshot();							   // 射？
 	int search1();							   // 查找在大区里的机器人
 	int search2();							   // 查找在小区里的机器人
 	void control(int which);
-	void ccd(int which, double d, double j);									 // 曲线行驶
+	// void ccd(int which, double d, double j);									 // 曲线行驶
 	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
-	void Navigate();
+	void navigate();
+	void shot(int which, bool de);			 // 射门
+	void shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
 	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
 	void Direction(int which, CPoint point);
-	void DirectionSE(int which, CPoint point); // 不进禁区版 Direction
-	void PositionSE(int which, CPoint point);  // 不进禁区版 Position
-	void Rush(int which, CPoint point);		   // 冲向某点
+	// void DirectionSE(int which, CPoint point); // 不进禁区版 Direction
+	void PositionSE(int which, CPoint point); // 不进禁区版 Position
+	void Rush(int which, CPoint point);		  // 冲向某点
 
 	int Status(); // 判断状态
 

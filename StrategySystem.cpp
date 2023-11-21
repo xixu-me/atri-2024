@@ -160,15 +160,6 @@ void CStrategySystem::Penalty() {
 // 	else {
 // 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
 // 	}
-// 	// Direction(HOME2, ball.position);
-// 	// Direction(HOME3, ball.position);
-// 	// Direction(HOME4, ball.position);
-// 	// Direction(HOME5, ball.position);
-// 	// Direction(HOME6, ball.position);
-// 	// Direction(HOME7, ball.position);
-// 	// Direction(HOME8, ball.position);
-// 	// Direction(HOME9, ball.position);
-// 	// Direction(HOME10, ball.position);
 // }
 
 void CStrategySystem::Penalty() {
@@ -207,6 +198,15 @@ void CStrategySystem::Penalty() {
 				Velocity(1, 127, rw);
 		}
 	}
+	Direction(HOME2, ball.position);
+	Direction(HOME3, ball.position);
+	Direction(HOME4, ball.position);
+	Direction(HOME5, ball.position);
+	Direction(HOME6, ball.position);
+	Direction(HOME7, ball.position);
+	Direction(HOME8, ball.position);
+	Direction(HOME9, ball.position);
+	Direction(HOME10, ball.position);
 }
 
 // 争球
@@ -327,8 +327,125 @@ void CStrategySystem::spin(int which, bool isClockwise) { // 自旋
 		Velocity(which, -127, 127);
 }
 
-// 射门
-void CStrategySystem::Shot(int which, bool de) // 0向下门框射
+// 控球
+void CStrategySystem::Possession() {
+	navigate();
+	/*for(int i=1;i<11;i++)
+	{
+		Navigation[i]=ball.position;
+	}*/
+
+	// if (ball.position.x < 290) {
+	// 	Canshot();
+	// 	for (int i = 1; i < 9; i++) {
+	// 	control(i);
+	// }
+	// }
+	// else
+	// 	for (int i = 1; i < 11; i++) {
+	// 		control(i);
+	// 	}
+
+	// bool a, b;
+	if (ball.position.y >= 337 && ball.position.x < 290) // 球在敌方下半
+	{
+		if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 7可射
+			shot(7, 1);																																						 // 7射
+		else
+			control(7);
+
+		if (Distance(ball.position, home2.position) <= 75) // 2可射
+		{
+			control(1); // 1
+			if (search1() < 4)
+				shot(HOME2, 1); // 2射
+			else
+				control(2);
+			for (int i = 3; i < 7; i++) // 3-6
+				control(i);
+			control(1);		// 8
+			if (!canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481 && ball.position.y >= 505) // 3可射
+		{
+			control(1); // 1
+			control(2); // 2
+			if (search1() < 4)
+				shot(HOME3, 0); // 3射
+			else
+				control(3);
+			for (int i = 4; i < 7; i++) // 4-6
+				control(i);
+			control(8);		// 8
+			if (!canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else							 // 其它情况
+			for (int i = 1; i < 11; i++) // 1-10
+				control(i);
+	}
+	else if (ball.position.y < 481 && ball.position.x < 290) // 球在敌方上半
+	{
+		if ((ball.position.y >= 217 && ball.position.y <= 337) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 8可射
+			shot(8, 0);
+		else
+			control(8);
+		if (Distance(ball.position, home3.position) <= 75) // 3可射
+		{
+			control(1); // 1
+			control(2); // 2
+			if (search1() < 4)
+				shot(HOME3, 0); // 3射
+			else
+				control(3);
+			for (int i = 4; i < 7; i++) // 4-6
+				control(i);
+			control(HOME7); // 7
+			if (!canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 313 && ball.position.y <= 337) // 2可射
+		{
+
+			control(1); // 1
+			if (search1() < 4)
+				shot(2, 0); // 2射
+			else
+				control(2);
+			control(HOME3);				// 3
+			for (int i = 4; i < 7; i++) // 4-6
+				control(i);
+			control(HOME7); // 7
+			if (!canshot()) // 9，10
+			{
+				control(9);
+				control(10);
+			}
+		}
+		else							 // 其它情况
+			for (int i = 1; i < 11; i++) // 1-10
+				control(i);
+	}
+	else							 // 其它情况
+		for (int i = 1; i < 11; i++) // 1-10
+			control(i);
+}
+
+int CStrategySystem::ball_erea() {
+	
+}
+
+void CStrategySystem::shot(int which, bool de) // 0向下门框射
 {
 	Robot2 *robot;
 	switch (which) {
@@ -402,7 +519,7 @@ void CStrategySystem::Shot(int which, bool de) // 0向下门框射
 		Position(which, t3); // 机器人到足够近的点t3
 }
 
-bool CStrategySystem::Canshot() // 射？
+bool CStrategySystem::canshot() // 射？
 {
 	bool t; // 判断球在敌方上半还是下半；0为下半
 	CPoint D1, D2, t4;
@@ -441,13 +558,13 @@ bool CStrategySystem::Canshot() // 射？
 		D2.y = 409;
 		if (Distance(ball.position, home9.position) <= 116 && ball.position.y >= 409 && ball.position.y <= 481) // 9可射
 		{
-			Shot(HOME9, 0);
+			shot(HOME9, 0);
 			Direction(HOME10, D1);
 		}
 		else if (Distance(ball.position, home10.position) <= 168 && ball.position.y < 409 && ball.position.y >= 265) // 10可射
 		{
 			Direction(HOME9, D2);
-			Shot(HOME10, 0);
+			shot(HOME10, 0);
 		}
 		else { // 9，10到预定位置
 			Direction(HOME10, D1);
@@ -463,13 +580,13 @@ bool CStrategySystem::Canshot() // 射？
 		D2.y = 409;
 		if (Distance(ball.position, home9.position) <= 116 && ball.position.y <= 409 && ball.position.y >= 337) // 9可射
 		{
-			Shot(HOME9, 1);
+			shot(HOME9, 1);
 			Direction(HOME10, D1);
 		}
 		else if (Distance(ball.position, home10.position) <= 164 && ball.position.y > 409 && ball.position.y <= 556) // 10可射
 		{
 			Direction(HOME9, D2);
-			Shot(HOME10, 1);
+			shot(HOME10, 1);
 		}
 		else { // 9，10到预定位置
 			Direction(HOME10, D1);
@@ -494,7 +611,8 @@ bool CStrategySystem::Canshot() // 射？
 	// 	Position(HOME9, D2);
 	// }
 }
-void CStrategySystem::Shot(int which, bool de, CPoint t) // 把球向t点射,de向上还是向下射
+
+void CStrategySystem::shot(int which, bool de, CPoint t) // 把球向t点射,de向上还是向下射
 {
 	Robot2 *robot;
 	switch (which) {
@@ -563,6 +681,7 @@ void CStrategySystem::Shot(int which, bool de, CPoint t) // 把球向t点射,de�
 	else
 		Position(which, t3); // 机器人到足够近的点t3
 }
+
 void CStrategySystem::shot1(int which, double o, CPoint t) { // 直射
 	Robot2 *robot;
 	switch (which) {
@@ -598,7 +717,7 @@ void CStrategySystem::shot1(int which, double o, CPoint t) { // 直射
 	if((t1.x>=65&&1.x<=103&&t1.y>=247&&t1.y<=577)||(t2.x+1==))
 }*/
 
-void CStrategySystem::Navigate() // 给人要去的位置坐标导航（预判）
+void CStrategySystem::navigate() // 给人要去的位置坐标导航（预判）
 {
 	CPoint robot[11];
 	robot[1] = home1.position;
@@ -1082,7 +1201,7 @@ void CStrategySystem::control(int which) {
 	//	robot = &hgoalie;
 	//	break;
 	// }
-	DirectionSE(which, Navigation[which]);
+	PositionSE(which, Navigation[which]);
 }
 int CStrategySystem::search1() // 查找在大区里的机器人
 {
@@ -1109,6 +1228,7 @@ int CStrategySystem::search1() // 查找在大区里的机器人
 		sum++;
 	return sum;
 }
+
 int CStrategySystem::search2() // 查找在小区里的机器人
 {
 	int sum;
@@ -1134,118 +1254,7 @@ int CStrategySystem::search2() // 查找在小区里的机器人
 		sum++;
 	return sum;
 }
-void CStrategySystem::Possession() {
-	Navigate();
-	/*for(int i=1;i<11;i++)
-	{
-		Navigation[i]=ball.position;
-	}*/
 
-	// if (ball.position.x < 290) {
-	// 	Canshot();
-	// 	for (int i = 1; i < 9; i++) {
-	// 	control(i);
-	// }
-	// }
-	// else
-	// 	for (int i = 1; i < 11; i++) {
-	// 		control(i);
-	// 	}
-
-	// bool a, b;
-	if (ball.position.y >= 337 && ball.position.x < 290) // 球在敌方下半
-	{
-		if ((ball.position.y >= 481 && ball.position.y <= 607) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 7可射
-			Shot(7, 1);																																						 // 7射
-		else
-			control(7);
-
-		if (Distance(ball.position, home2.position) <= 75) // 2可射
-		{
-			control(1); // 1
-			if (search1() < 4)
-				Shot(HOME2, 1); // 2射
-			else
-				control(2);
-			for (int i = 3; i < 7; i++) // 3-6
-				control(i);
-			control(1);		// 8
-			if (!Canshot()) // 9，10
-			{
-				control(9);
-				control(10);
-			}
-		}
-		else if (Distance(ball.position, home3.position) <= 75 && ball.position.y <= 481 && ball.position.y >= 505) // 3可射
-		{
-			control(1); // 1
-			control(2); // 2
-			if (search1() < 4)
-				Shot(HOME3, 0); // 3射
-			else
-				control(3);
-			for (int i = 4; i < 7; i++) // 4-6
-				control(i);
-			control(8);		// 8
-			if (!Canshot()) // 9，10
-			{
-				control(9);
-				control(10);
-			}
-		}
-		else							 // 其它情况
-			for (int i = 1; i < 11; i++) // 1-10
-				control(i);
-	}
-	else if (ball.position.y < 481 && ball.position.x < 290) // 球在敌方上半
-	{
-		if ((ball.position.y >= 217 && ball.position.y <= 337) || (ball.position.x - ball.oldPosition.x <= 5 && ball.position.y - ball.oldPosition.y <= 5) && search1() < 4) // 8可射
-			Shot(8, 0);
-		else
-			control(8);
-		if (Distance(ball.position, home3.position) <= 75) // 3可射
-		{
-			control(1); // 1
-			control(2); // 2
-			if (search1() < 4)
-				Shot(HOME3, 0); // 3射
-			else
-				control(3);
-			for (int i = 4; i < 7; i++) // 4-6
-				control(i);
-			control(HOME7); // 7
-			if (!Canshot()) // 9，10
-			{
-				control(9);
-				control(10);
-			}
-		}
-		else if (Distance(ball.position, home2.position) <= 75 && ball.position.y >= 313 && ball.position.y <= 337) // 2可射
-		{
-
-			control(1); // 1
-			if (search1() < 4)
-				Shot(2, 0); // 2射
-			else
-				control(2);
-			control(HOME3);				// 3
-			for (int i = 4; i < 7; i++) // 4-6
-				control(i);
-			control(HOME7); // 7
-			if (!Canshot()) // 9，10
-			{
-				control(9);
-				control(10);
-			}
-		}
-		else							 // 其它情况
-			for (int i = 1; i < 11; i++) // 1-10
-				control(i);
-	}
-	else							 // 其它情况
-		for (int i = 1; i < 11; i++) // 1-10
-			control(i);
-}
 // 守门
 void CStrategySystem::Goalie() {
 	int gx = ball.position.x >= 873 && (ball.position.y <= 217 || ball.position.y >= 607) || ball.position.x >= 950 ? 965 : 950;
@@ -1393,103 +1402,6 @@ void CStrategySystem::Direction(int which, CPoint point) {
 
 	point.x = 2 * point.x - robot->position.x;
 	point.y = 2 * point.y - robot->position.y;
-
-	point.x = point.x < boundRect.left ? boundRect.left : point.x;
-	point.x = point.x > boundRect.right ? boundRect.right : point.x;
-	point.y = point.y < boundRect.top ? boundRect.top : point.y;
-	point.y = point.y > boundRect.bottom ? boundRect.bottom : point.y;
-
-	dx = point.x - robot->position.x;
-	dy = point.y - robot->position.y;
-
-	distance_e = sqrt(1.0 * dx * dx + 1.0 * dy * dy);
-
-	if (dx == 0 && dy == 0)
-		desired_angle = 90;
-	else
-		desired_angle = (int)(180.0 / M_PI * atan2((double)(dy), (double)(dx)));
-
-	theta_e = desired_angle - robot->angle;
-
-	while (theta_e > 180)
-		theta_e -= 360;
-	while (theta_e < -180)
-		theta_e += 360;
-
-	if (theta_e < -90) {
-		theta_e += 180;
-		distance_e = -distance_e;
-	}
-	else if (theta_e > 90) {
-		theta_e -= 180;
-		distance_e = -distance_e;
-	}
-
-	vL = (int)(5. * (100.0 / 1000.0 * distance_e + 40.0 / 90.0 * theta_e));
-	vR = (int)(5. * (100.0 / 1000.0 * distance_e - 40.0 / 90.0 * theta_e));
-
-	Velocity(which, vL, vR);
-}
-
-void CStrategySystem::DirectionSE(int which, CPoint point) {
-	Robot2 *robot;
-	double distance_e;
-	int dx, dy, desired_angle, theta_e, vL, vR;
-
-	switch (which) {
-	case HOME1:
-		robot = &home1;
-		break;
-	case HOME2:
-		robot = &home2;
-		break;
-	case HOME3:
-		robot = &home3;
-		break;
-	case HOME4:
-		robot = &home4;
-		break;
-	case HOME5:
-		robot = &home5;
-		break;
-	case HOME6:
-		robot = &home6;
-		break;
-	case HOME7:
-		robot = &home7;
-		break;
-	case HOME8:
-		robot = &home8;
-		break;
-	case HOME9:
-		robot = &home9;
-		break;
-	case HOME10:
-		robot = &home10;
-		break;
-	case HGOALIE:
-		robot = &hgoalie;
-		break;
-	}
-
-	point.x = 2 * point.x - robot->position.x;
-	point.y = 2 * point.y - robot->position.y;
-
-	if (point.x >= 873 && point.y >= 217 && point.y <= 607)
-		if (robot->position.x >= 873) {
-			if (robot->position.y <= 217) {
-				point.x = robot->position.x - (robot->position.x - point.x) * (217 - robot->position.y) / (point.y - robot->position.y);
-				point.y = 217;
-			}
-			else if (robot->position.y >= 607) {
-				point.x = robot->position.x - (robot->position.x - point.x) * (607 - robot->position.y) / (point.y - robot->position.y);
-				point.y = 607;
-			}
-		}
-		else {
-			point.x = 873;
-			point.y = robot->position.y - (robot->position.y - point.y) * (873 - robot->position.x) / (point.x - robot->position.x);
-		}
 
 	point.x = point.x < boundRect.left ? boundRect.left : point.x;
 	point.x = point.x > boundRect.right ? boundRect.right : point.x;
@@ -2306,12 +2218,13 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 }
 
 CStrategySystem::CStrategySystem(int id) {
-	int t = 11;
+	int t = 10;
 	while (t--) {
-		Navigation.push_back(ball.position);
+		Navigation.push_back(CPoint(515, 409));
 	}
 
 	flag = true;
+
 	m_OurTeam = id;
 	boundRect.SetRect(65, 95, 965, 723);
 	if (id)
