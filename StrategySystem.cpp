@@ -329,6 +329,14 @@ double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int
 
 // 控球
 void CStrategySystem::Possession() {
+	if (cp_id()) {
+		cp_pos();
+		cp_kick();
+		fm_gen();
+		fp_move();
+	}
+	else { // TODO 无中心球员
+	}
 	// navigate();
 	/*for(int i=1;i<11;i++)
 	{
@@ -530,7 +538,7 @@ int CStrategySystem::fm_id() { // 阵型 ID
 	}
 }
 
-void CStrategySystem::fm_gen() { // 阵型生成
+void CStrategySystem::fm_gen() { // TODO 阵型生成
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
@@ -551,7 +559,7 @@ void CStrategySystem::fm_gen() { // 阵型生成
 	}
 }
 
-void CStrategySystem::fp_move() { // 阵型球员移动
+void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
