@@ -1,8 +1,8 @@
 #include "general.h"
-#include <vector>
 
 #ifndef _INSIDE_VISUAL_CPP_STRATEGYSYSTEM
 #define _INSIDE_VISUAL_CPP_STRATEGYSYSTEM
+
 class CStrategySystem : public CObject {
 	DECLARE_DYNAMIC(CStrategySystem)
 public:
@@ -21,10 +21,10 @@ private:
 	void Possession(); // 控球
 	void Goalie();	   // 守门
 
-	CPoint *pos; // 球员位置
-	int cp_id();	// 中心球员 ID
-	void cp_pos();	// 中心球员位置
-	void cp_kick(); // 中心球员击球
+	CPoint *pos;	// 球员位置
+	int cp_id();	// 中央球员 ID
+	void cp_pos();	// 中央球员位置
+	void cp_kick(); // 中央球员击球
 	int fm_id();	// 阵型 ID
 	void fm_gen();	// 阵型生成
 	void fp_move(); // 阵型球员移动

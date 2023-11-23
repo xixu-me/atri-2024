@@ -447,11 +447,11 @@ void CStrategySystem::Possession() {
 		fm_gen();
 		fp_move();
 	}
-	else { // TODO 无中心球员
+	else { // TODO 无中央球员
 	}
 }
 
-int CStrategySystem::cp_id() { // 中心球员 ID
+int CStrategySystem::cp_id() { // 中央球员 ID
 	int id = 0;
 	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 	if (fm_id() == 1) {
@@ -470,6 +470,32 @@ int CStrategySystem::cp_id() { // 中心球员 ID
 	else if (fm_id() == 2) {
 		for (int i = 0; i < 10; i++) {
 			if (cur_pos[i].y <= ball.position.y)
+				cur_pos[i] = CPoint(-965, -723);
+		}
+		double min = 10000;
+		for (int i = 0; i < 10; i++) {
+			if (Distance(cur_pos[i], ball.position) < min) {
+				min = Distance(cur_pos[i], ball.position);
+				id = i + 1;
+			}
+		}
+	}
+	else if (fm_id() == 7) {
+		for (int i = 0; i < 10; i++) {
+			if (cur_pos[i].y <= ball.position.x)
+				cur_pos[i] = CPoint(-965, -723);
+		}
+		double min = 10000;
+		for (int i = 0; i < 10; i++) {
+			if (Distance(cur_pos[i], ball.position) < min) {
+				min = Distance(cur_pos[i], ball.position);
+				id = i + 1;
+			}
+		}
+	}
+	else if (fm_id() == 8) {
+		for (int i = 0; i < 10; i++) {
+			if (cur_pos[i].y >= ball.position.x)
 				cur_pos[i] = CPoint(-965, -723);
 		}
 		double min = 10000;
