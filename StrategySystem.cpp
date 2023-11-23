@@ -589,6 +589,54 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 8) {
 	}
 	else if (fm_id() == 9) {
+		pos[1].y=ball.y;pos[1].x=900;
+		pos[2].x=pos[1].x;
+		if(ball.y>409)//球在下面
+		{
+			pos[2].y=pos[1].y-40;
+		}
+		else if(ball.y<=409)//球在上面
+		{
+			pos[2].y=pos[1].y+40;
+		}
+		if(ball.x<873)//球在禁区外
+		{
+		pos[3].x=ball.x;	pos[3].y=ball.y+55;//球下面
+		pos[4].x=ball.x;	pos[4].y=ball.y-55;//球上面
+		if(ball.x<850)
+		{
+			pos[5].x=ball.x+20; pos[5].y=ball.y;//正对球
+		}
+		else
+		{
+			pos[5].x=870; pos[5].y=ball.y;//正对球
+		}
+		pos[6].x=870;		pos[6].y=ball.y+50;
+		pos[7].x=870;		pos[7].y=ball.y-50;
+		pos[8].x=870;		pos[8].y=ball.y+65;
+		pos[9].x=870;		pos[9].y=ball.y-65;
+		}
+		else if(ball.x>873)//球在禁区里,球员不进禁区
+		{
+		pos[3].x=870;		  pos[3].y=ball.y+50;//球下面
+		pos[4].x=870;		  pos[4].y=ball.y-50//球上面
+		pos[5].x=pos[1].x-80; pos[5].y=ball.y;//正对球
+		if(ball.y>409)//球在下面
+		{
+			pos[6].x=900;	      pos[6].y=610;
+			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
+			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
+			pos[9].x=870;		  pos[9].y=ball.y-100;
+		}
+		if(ball.y<=409)//球在下面
+		{
+			pos[6].x=900;	      pos[6].y=210;
+			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
+			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
+			pos[9].x=870;		  pos[9].y=ball.y+100;
+		}
+
+		}
 	}
 }
 
