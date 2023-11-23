@@ -447,11 +447,11 @@ void CStrategySystem::Possession() {
 		fm_gen();
 		fp_move();
 	}
-	else { // TODO 无中心球员
+	else { // TODO 无中央球员
 	}
 }
 
-int CStrategySystem::cp_id() { // 中心球员 ID
+int CStrategySystem::cp_id() { // 中央球员 ID
 	int id = 0;
 	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 	if (fm_id() == 1) {
@@ -470,6 +470,32 @@ int CStrategySystem::cp_id() { // 中心球员 ID
 	else if (fm_id() == 2) {
 		for (int i = 0; i < 10; i++) {
 			if (cur_pos[i].y <= ball.position.y)
+				cur_pos[i] = CPoint(-965, -723);
+		}
+		double min = 10000;
+		for (int i = 0; i < 10; i++) {
+			if (Distance(cur_pos[i], ball.position) < min) {
+				min = Distance(cur_pos[i], ball.position);
+				id = i + 1;
+			}
+		}
+	}
+	else if (fm_id() == 7) {
+		for (int i = 0; i < 10; i++) {
+			if (cur_pos[i].y <= ball.position.x)
+				cur_pos[i] = CPoint(-965, -723);
+		}
+		double min = 10000;
+		for (int i = 0; i < 10; i++) {
+			if (Distance(cur_pos[i], ball.position) < min) {
+				min = Distance(cur_pos[i], ball.position);
+				id = i + 1;
+			}
+		}
+	}
+	else if (fm_id() == 8) {
+		for (int i = 0; i < 10; i++) {
+			if (cur_pos[i].y >= ball.position.x)
 				cur_pos[i] = CPoint(-965, -723);
 		}
 		double min = 10000;
@@ -542,6 +568,7 @@ int CStrategySystem::fm_id() { // 阵型 ID
 }
 
 void CStrategySystem::fm_gen() { // TODO 阵型生成
+	// 孙徐
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
@@ -577,17 +604,69 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 		}
 		else if(ball)
 	}
+
+	// 王徐
 	else if (fm_id() == 4) {
 	}
 	else if (fm_id() == 5) {
 	}
 	else if (fm_id() == 6) {
 	}
+
+	// 景缪
 	else if (fm_id() == 7) {
 	}
 	else if (fm_id() == 8) {
 	}
 	else if (fm_id() == 9) {
+		pos[1].y=ball.y;pos[1].x=900;
+		pos[2].x=pos[1].x;
+		if(ball.y>409)//球在下面
+		{
+			pos[2].y=pos[1].y-40;
+		}
+		else if(ball.y<=409)//球在上面
+		{
+			pos[2].y=pos[1].y+40;
+		}
+		if(ball.x<873)//球在禁区外
+		{
+		pos[3].x=ball.x;	pos[3].y=ball.y+55;//球下面
+		pos[4].x=ball.x;	pos[4].y=ball.y-55;//球上面
+		if(ball.x<850)
+		{
+			pos[5].x=ball.x+20; pos[5].y=ball.y;//正对球
+		}
+		else
+		{
+			pos[5].x=870; pos[5].y=ball.y;//正对球
+		}
+		pos[6].x=870;		pos[6].y=ball.y+50;
+		pos[7].x=870;		pos[7].y=ball.y-50;
+		pos[8].x=870;		pos[8].y=ball.y+65;
+		pos[9].x=870;		pos[9].y=ball.y-65;
+		}
+		else if(ball.x>873)//球在禁区里,球员不进禁区
+		{
+		pos[3].x=870;		  pos[3].y=ball.y+50;//球下面
+		pos[4].x=870;		  pos[4].y=ball.y-50//球上面
+		pos[5].x=pos[1].x-80; pos[5].y=ball.y;//正对球
+		if(ball.y>409)//球在下面
+		{
+			pos[6].x=900;	      pos[6].y=610;
+			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
+			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
+			pos[9].x=870;		  pos[9].y=ball.y-100;
+		}
+		if(ball.y<=409)//球在下面
+		{
+			pos[6].x=900;	      pos[6].y=210;
+			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
+			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
+			pos[9].x=870;		  pos[9].y=ball.y+100;
+		}
+
+		}
 	}
 }
 
