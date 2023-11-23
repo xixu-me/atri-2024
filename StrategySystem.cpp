@@ -567,18 +567,23 @@ int CStrategySystem::fm_id() { // 阵型 ID
 }
 
 void CStrategySystem::fm_gen() { // TODO 阵型生成
+	// 孙徐
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
 	}
+
+	// 王徐
 	else if (fm_id() == 4) {
 	}
 	else if (fm_id() == 5) {
 	}
 	else if (fm_id() == 6) {
 	}
+
+	// 景缪
 	else if (fm_id() == 7) {
 	}
 	else if (fm_id() == 8) {
