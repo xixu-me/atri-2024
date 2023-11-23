@@ -515,25 +515,25 @@ void CStrategySystem::cp_kick() { // TODO 中心球员击球
 
 int CStrategySystem::fm_id() { // 阵型 ID
 	if (ball.position.x < 290) {
-		if (ball.position.y > 217)
+		if (ball.position.y < 217)
 			return 1;
-		else if (ball.position.y >= 607)
+		else if (ball.position.y <= 607)
 			return 3;
 		else
 			return 2;
 	}
 	else if (ball.position.x > 740) {
-		if (ball.position.y > 217)
+		if (ball.position.y < 217)
 			return 4;
-		else if (ball.position.y >= 607)
+		else if (ball.position.y <= 607)
 			return 6;
 		else
 			return 5;
 	}
 	else {
-		if (ball.position.y > 217)
+		if (ball.position.y < 217)
 			return 7;
-		else if (ball.position.y >= 607)
+		else if (ball.position.y <= 607)
 			return 9;
 		else
 			return 8;
