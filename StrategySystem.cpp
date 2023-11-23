@@ -507,6 +507,7 @@ void CStrategySystem::cp_kick() { // TODO 中心球员击球
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
+		Shot(fm_id);
 	}
 	else {
 		Direction(cp_id(), ball.position);
@@ -546,6 +547,35 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
+		if(ball.position.x>=157&&ball.position.x<=590&&ball.positiony<=409)
+		{
+			//内圈
+			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
+			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
+			pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
+			pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
+			pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
+			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
+			//内圈
+			pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
+			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
+			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
+		}
+		else if (ball.position.x >= 157 && ball.position.x <= 590 && ball.positiony > )
+		{
+			// 内圈
+			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
+			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
+			pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
+			pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
+			pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
+			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
+			// 内圈
+			pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
+			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
+			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
+		}
+		else if(ball)
 	}
 	else if (fm_id() == 4) {
 	}
