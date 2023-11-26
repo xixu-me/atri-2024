@@ -506,6 +506,38 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 			}
 		}
 	}
+	else if(fm_id==3)
+	{
+		if(ball.position.x>=157&&ball.position.x<=290)
+		{
+			for (int i = 0; i < 10; i++) 
+			{
+				if (cur_pos[i].x < ball.position.x)
+					cur_pos[i] = CPoint(-965, -723);
+			}
+			double min = 10000;
+			for (int i = 0; i < 10; i++) {
+				if (Distance(cur_pos[i], ball.position) < min) {
+					min = Distance(cur_pos[i], ball.position);
+					id = i + 1;
+				}
+			}
+		}
+		else if (ball.position.x >= 65 && ball.position.x < 157)//球在禁区用y轴最近
+		{
+			double min = 10000;
+			for (int i = 0; i < 10; i++) {
+				if (cur_pos[i].x < ball.position.x)
+					cur_pos[i] = CPoint(-965, -723);
+			}
+			for (int i = 0; i < 10; i++) {
+				if (fabs(ball.position.y-cur_pos[i].y) < min) {
+					min = fabs(ball.position.y - cur_pos[i].y);
+					id = i + 1;
+				}
+			}
+		}
+	}
 	else {
 		for (int i = 0; i < 10; i++) {
 			if (cur_pos[i].x <= ball.position.x)
@@ -574,7 +606,7 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		if(ball.position.x>=157&&ball.position.x<=590&&ball.positiony<=409)
+		if(ball.position.x>=157&&ball.position.x<=290&&ball.positiony<=409)
 		{
 			//内圈
 			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
@@ -588,7 +620,7 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 		}
-		else if (ball.position.x >= 157 && ball.position.x <= 590 && ball.positiony > )
+		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y >409 )
 		{
 			// 内圈
 			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
@@ -602,7 +634,38 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 		}
-		else if(ball)
+		else if(ball.position.x<157&&ball.position.y>=217&&ball.position.y<=409)//球在上半
+		{
+			pos[1] = CPoint(142, pos[0].y - 12);
+			pos[2] = CPoint(142, pos[0].y + 12);
+
+			pos[3] = CPoint(170, pos[0].y - 15);
+			pos[4] = CPoint(170, pos[0].y + 15);
+			pos[5] = CPoint(185, pos[0].y - 12);
+			if (pos[0].y - 50<157)
+				pos[6] = CPoint(ball.position.x+12, 225);
+			else 
+				pos[6] = CPoint(170, pos[0].y - 50);
+			pos[7] = CPoint(ball.position.x, 225);
+			pos[8] = CPoint(170, pos[0].y + 45);
+			pos[9] = CPoint(170, pos[0].y + 405);
+		}
+		else if(ball.position.x<157&&ball.position.y>=217&&ball.position.y>409)//球在下半
+		{
+			pos[1] = CPoint(142, pos[0].y - 12);
+			pos[2] = CPoint(142, pos[0].y + 12);
+
+			pos[3] = CPoint(170, pos[0].y - 15);
+			pos[4] = CPoint(170, pos[0].y + 15);
+			pos[5] = CPoint(185, pos[0].y + 12);
+			if (pos[0].y + 50 >607)
+				pos[6] = CPoint(ball.position.x + 12, 615);
+			else
+				pos[6] = CPoint(170, pos[0].y + 50);
+			pos[7] = CPoint(ball.position.x, 615);
+			pos[8] = CPoint(170, pos[0].y - 45);
+			pos[9] = CPoint(170, pos[0].y - 405);
+		}
 	}
 
 	// 王徐
@@ -676,6 +739,35 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
+		
+		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.positiony <= 409)
+		{
+			int a[11][2] = 
+			{ 
+				{},
+				{ 1, Distance(ball.position, home1.position) },
+				{ 2, Distance(ball.position, home2.position) },
+				{ 3, Distance(ball.position, home3.position) },
+				{ 4, Distance(ball.position, home4.position) },
+				{ 5, Distance(ball.position, home5.position) },
+				{ 6, Distance(ball.position, home6.position) },
+				{ 7, Distance(ball.position, home7.position) },
+				{ 8, Distance(ball.position, home8.position) },
+				{ 9, Distance(ball.position, home10.position) },
+				{ 10, Distance(ball.position, home10.position) },
+			}
+		}
+		int i, j;
+		for (i = 1; i <= 10;i++)
+		{
+			for (j = i + 1; j <= 10;j++)
+			{
+				int t[2];
+				t[1] = a[i][0];
+				t[2] = a[i][1];
+				a[]
+			}
+		}
 	}
 	else if (fm_id() == 4) {
 	}
