@@ -745,7 +745,8 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	}
 }
 
-void CStrategySystem::fp_move() { // TODO 阵型球员移动
+void CStrategySystem::fp_move() 
+{ // TODO 阵型球员移动
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
@@ -779,6 +780,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 			}
 		}
 	}
+	}
 	else if (fm_id() == 4) {
 	}
 	else if (fm_id() == 5) {
@@ -793,7 +795,8 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	}
 }
 
-void CStrategySystem::shot(int which, bool de) { // 0向下门框射
+void CStrategySystem::shot(int which, bool de) // 0向下门框射
+{ 
 	Robot2 *robot;
 	switch (which) {
 	case HOME1:
