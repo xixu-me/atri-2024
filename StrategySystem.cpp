@@ -604,8 +604,26 @@ int CStrategySystem::fm_id() { // 阵型 ID
 void CStrategySystem::fm_gen() { // TODO 阵型生成
 	// 孙徐
 	if (fm_id() == 1) {
+		pos[1] = CPoint(pos[0].x, pos[0].y - 10);
+		pos[2] = CPoint(pos[0].x + 10, pos[0].y - 10);
+		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
+		pos[4] = CPoint(pos[0].x + 20, pos[0].y);
+		pos[5] = CPoint(pos[0].x + 10, pos[0].y + 10);
+		pos[6] = CPoint(pos[0].x + 20, pos[0].y + 10);
+		pos[7] = CPoint(pos[0].x + 10, pos[0].y + 20);
+		pos[8] = CPoint(170, 409);
+		pos[9] = CPoint(170, 556);
 	}
 	else if (fm_id() == 2) {
+		pos[1] = CPoint(pos[0].x, pos[0].y + 10);
+		pos[2] = CPoint(pos[0].x + 10, pos[0].y + 10);
+		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
+		pos[4] = CPoint(pos[0].x + 20, pos[0].y);
+		pos[5] = CPoint(pos[0].x + 10, pos[0].y - 10);
+		pos[6] = CPoint(pos[0].x + 20, pos[0].y - 10);
+		pos[7] = CPoint(pos[0].x + 10, pos[0].y - 20);
+		pos[8] = CPoint(170, 409);
+		pos[9] = CPoint(170, 265);
 	}
 	else if (fm_id() == 3) {
 		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
