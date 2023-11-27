@@ -506,12 +506,9 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 			}
 		}
 	}
-	else if (fm_id() == 3)
-	{
-		if(ball.position.x>=157&&ball.position.x<=290)
-		{
-			for (int i = 0; i < 10; i++) 
-			{
+	else if (fm_id() == 3) {
+		if (ball.position.x >= 157 && ball.position.x <= 290) {
+			for (int i = 0; i < 10; i++) {
 				if (cur_pos[i].x < ball.position.x)
 					cur_pos[i] = CPoint(-965, -723);
 			}
@@ -523,7 +520,7 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 				}
 			}
 		}
-		else if (ball.position.x >= 65 && ball.position.x < 157)//球在禁区用y轴最近
+		else if (ball.position.x >= 65 && ball.position.x < 157) // 球在禁区用y轴最近
 		{
 			double min = 10000;
 			for (int i = 0; i < 10; i++) {
@@ -531,7 +528,7 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 					cur_pos[i] = CPoint(-965, -723);
 			}
 			for (int i = 0; i < 10; i++) {
-				if (fabs(ball.position.y-cur_pos[i].y) < min) {
+				if (fabs(ball.position.y - cur_pos[i].y) < min) {
 					min = fabs(ball.position.y - cur_pos[i].y);
 					id = i + 1;
 				}
@@ -570,7 +567,7 @@ void CStrategySystem::cp_kick() { // TODO 中心球员击球
 		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
 			shot(cp_id(), 0, CPoint(45, 361));
 		else
-			Dirextion(cp_id(), CPoint(170, ball.position.y));
+			Direction(cp_id(), CPoint(170, ball.position.y));
 	}
 	else {
 		Direction(cp_id(), ball.position);
@@ -611,22 +608,20 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		if(ball.position.x>=157&&ball.position.x<=290&&ball.position.y<=409)
-		{
-			//内圈
+		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
+			// 内圈
 			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
 			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
 			pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
 			pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
 			pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
 			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
-			//内圈
+			// 内圈
 			pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
 			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 		}
-		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y >409 )
-		{
+		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 			// 内圈
 			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
 			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
@@ -639,31 +634,31 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 		}
-		else if(ball.position.x<157&&ball.position.y>=217&&ball.position.y<=409)//球在上半
+		else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 		{
-			pos[1] = CPoint(142, pos[0].y - 12);
-			pos[2] = CPoint(142, pos[0].y + 12);
+			pos[1] = CPoint(142, pos[0].y - 20);
+			pos[2] = CPoint(142, pos[0].y + 20);
 
-			pos[3] = CPoint(170, pos[0].y - 15);
-			pos[4] = CPoint(170, pos[0].y + 15);
+			pos[3] = CPoint(170, pos[0].y - 20);
+			pos[4] = CPoint(170, pos[0].y + 20);
 			pos[5] = CPoint(185, pos[0].y - 12);
-			if (pos[0].y - 50<157)
-				pos[6] = CPoint(ball.position.x+12, 225);
-			else 
+			if (pos[0].y - 50 < 157)
+				pos[6] = CPoint(ball.position.x + 12, 225);
+			else
 				pos[6] = CPoint(170, pos[0].y - 50);
 			pos[7] = CPoint(ball.position.x, 225);
 			pos[8] = CPoint(170, pos[0].y + 45);
 			pos[9] = CPoint(170, pos[0].y + 405);
 		}
-		else if(ball.position.x<157&&ball.position.y>=217&&ball.position.y>409)//球在下半
+		else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 		{
-			pos[1] = CPoint(142, pos[0].y - 12);
-			pos[2] = CPoint(142, pos[0].y + 12);
+			pos[1] = CPoint(142, pos[0].y - 20);
+			pos[2] = CPoint(142, pos[0].y + 20);
 
-			pos[3] = CPoint(170, pos[0].y - 15);
-			pos[4] = CPoint(170, pos[0].y + 15);
+			pos[3] = CPoint(170, pos[0].y - 20);
+			pos[4] = CPoint(170, pos[0].y + 20);
 			pos[5] = CPoint(185, pos[0].y + 12);
-			if (pos[0].y + 50 >607)
+			if (pos[0].y + 50 > 607)
 				pos[6] = CPoint(ball.position.x + 12, 615);
 			else
 				pos[6] = CPoint(170, pos[0].y + 50);
@@ -687,82 +682,84 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 8) {
 	}
 	else if (fm_id() == 9) {
-		pos[1].y=ball.position.y;pos[1].x=900;
-		pos[2].x=pos[1].x;
-		if(ball.position.y>409)//球在下面
+		pos[1].y = ball.position.y;
+		pos[1].x = 900;
+		pos[2].x = pos[1].x;
+		if (ball.position.y > 409) // 球在下面
 		{
-			pos[2].y=pos[1].y-40;
+			pos[2].y = pos[1].y - 40;
 		}
-		else if(ball.position.y<=409)//球在上面
+		else if (ball.position.y <= 409) // 球在上面
 		{
-			pos[2].y=pos[1].y+40;
+			pos[2].y = pos[1].y + 40;
 		}
-		if(ball.position.x<873)//球在禁区外
+		if (ball.position.x < 873) // 球在禁区外
 		{
 			pos[3].x = ball.position.x;
 			pos[3].y = ball.position.y + 55; // 球下面
 			pos[4].x = ball.position.x;
 			pos[4].y = ball.position.y - 55; // 球上面
-			if (ball.position.x < 850)
-		{
+			if (ball.position.x < 850) {
 				pos[5].x = ball.position.x + 20;
 				pos[5].y = ball.position.y; // 正对球
-		}
-		else
-		{
-			pos[5].x = 870;
-			pos[5].y = ball.position.y; // 正对球
-		}
-		pos[6].x = 870;
-		pos[6].y = ball.position.y + 50;
-		pos[7].x = 870;
-		pos[7].y = ball.position.y - 50;
-		pos[8].x = 870;
-		pos[8].y = ball.position.y + 65;
-		pos[9].x = 870;
-		pos[9].y = ball.position.y - 65;
+			}
+			else {
+				pos[5].x = 870;
+				pos[5].y = ball.position.y; // 正对球
+			}
+			pos[6].x = 870;
+			pos[6].y = ball.position.y + 50;
+			pos[7].x = 870;
+			pos[7].y = ball.position.y - 50;
+			pos[8].x = 870;
+			pos[8].y = ball.position.y + 65;
+			pos[9].x = 870;
+			pos[9].y = ball.position.y - 65;
 		}
 		else if (ball.position.x > 873) // 球在禁区里,球员不进禁区
 		{
-		pos[3].x = 870;
-		pos[3].y = ball.position.y + 50; // 球下面
-		pos[4].x = 870;
-		pos[4].y = ball.position.y - 50; // 球上面
-		pos[5].x=pos[1].x-80; pos[5].y=ball.position.y;//正对球
-		if (ball.position.y > 409)	// 球在下面
-		{
-			pos[6].x=900;	      pos[6].y=610;
-			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
-			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
-			pos[9].x = 870;
-			pos[9].y = ball.position.y - 100;
-		}
-		if (ball.position.y <= 409) // 球在下面
-		{
-			pos[6].x=900;	      pos[6].y=210;
-			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
-			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
-			pos[9].x = 870;
-			pos[9].y = ball.position.y + 100;
-		}
-
+			pos[3].x = 870;
+			pos[3].y = ball.position.y + 50; // 球下面
+			pos[4].x = 870;
+			pos[4].y = ball.position.y - 50; // 球上面
+			pos[5].x = pos[1].x - 80;
+			pos[5].y = ball.position.y; // 正对球
+			if (ball.position.y > 409)	// 球在下面
+			{
+				pos[6].x = 900;
+				pos[6].y = 610;
+				pos[7].x = pos[5].x;
+				pos[7].y = pos[5].y - 70;
+				pos[8].x = pos[5].x;
+				pos[8].y = pos[5].y + 70;
+				pos[9].x = 870;
+				pos[9].y = ball.position.y - 100;
+			}
+			if (ball.position.y <= 409) // 球在下面
+			{
+				pos[6].x = 900;
+				pos[6].y = 210;
+				pos[7].x = pos[5].x;
+				pos[7].y = pos[5].y - 70;
+				pos[8].x = pos[5].x;
+				pos[8].y = pos[5].y + 70;
+				pos[9].x = 870;
+				pos[9].y = ball.position.y + 100;
+			}
 		}
 	}
 }
 
-void CStrategySystem::fp_move() 
-{ // TODO 阵型球员移动
+void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		
-		if (ball.position.x >= 157 && ball.position.x <= 290)
-		{
+
+		if (ball.position.x >= 157 && ball.position.x <= 290) {
 			struct infor a[11];
-			for (int i = 1; i <= 10;i++)
-			{
+			for (int i = 1; i <= 10; i++) {
 				a[i].num = i;
 				Robot2 *robot;
 				switch (i) {
@@ -802,12 +799,9 @@ void CStrategySystem::fp_move()
 				}
 				a[i].dis = Distance(ball.position, robot->position);
 			}
-			for (int i = 1; i <= 10;i++)
-			{
-				for (int j = i+1; j <= 10;j++)
-				{
-					if(a[i]>a[j])
-					{
+			for (int i = 1; i <= 10; i++) {
+				for (int j = i + 1; j <= 10; j++) {
+					if (a[i].dis > a[j].dis) {
 						struct infor t;
 						t = a[i];
 						a[i] = a[j];
@@ -815,13 +809,163 @@ void CStrategySystem::fp_move()
 					}
 				}
 			}
-			for (i = 1; i <= 10;i++)
-				if(a[i].num!=cp_id())
+			for (int i = 1; i <= 10; i++)
+				if (a[i].num != cp_id())
 					Direction(a[i].num, pos[i - 1]);
 		}
-		else if(ball.position.x<157&&ball.position.y<=409)
-		{
-			if()
+		else if (pos[0].y <= 409 && ball.position.x < 157) {
+			struct infor a[11];
+			for (int i = 1; i <= 10; i++) {
+				a[i].num = i;
+				Robot2 *robot;
+				switch (i) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
+				}
+				a[i].dis = fabs(ball.position.y - robot->position.y);
+			}
+			for (int i = 1; i <= 10; i++) {
+				for (int j = i + 1; j <= 10; j++) {
+					if (a[i].dis > a[j].dis) {
+						struct infor t;
+						t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+				}
+			}
+			if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
+				shot(a[2].num, 0);
+			else
+				Direction(a[2].num, pos[1]);
+			if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
+				shot(a[3].num, 0);
+			else
+				Direction(a[3].num, pos[2]);
+			if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
+				shot(a[9].num, 1);
+			else
+				Direction(a[9].num, pos[8]);
+			if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
+				shot(a[10].num, 1);
+			else
+				Direction(a[10].num, pos[9]);
+			if (ball.position.x < 313 && search1() <= 3)
+				shot(a[8].num, 0);
+			else
+				Direction(a[8].num, pos[7]);
+			for (int i = 1; i <= 10; i++) {
+				if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
+					Direction(a[i].num, pos[i - 1]);
+			}
+		}
+		else {
+			struct infor a[11];
+			for (int i = 1; i <= 10; i++) {
+				a[i].num = i;
+				Robot2 *robot;
+				switch (i) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
+				}
+				a[i].dis = fabs(ball.position.y - robot->position.y);
+			}
+			for (int i = 1; i <= 10; i++) {
+				for (int j = i + 1; j <= 10; j++) {
+					if (a[i].dis > a[j].dis) {
+						struct infor t;
+						t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+				}
+			}
+			if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
+				shot(a[2].num, 1);
+			else
+				Direction(a[2].num, pos[1]);
+			if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
+				shot(a[3].num, 1);
+			else
+				Direction(a[3].num, pos[2]);
+			if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
+				shot(a[9].num, 0);
+			else
+				Direction(a[9].num, pos[8]);
+			if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
+				shot(a[10].num, 0);
+			else
+				Direction(a[10].num, pos[9]);
+			if (ball.position.x < 31 && search1() <= 33)
+				shot(a[8].num, 1);
+			else
+				Direction(a[8].num, pos[7]);
+			for (int i = 1; i <= 10; i++) {
+				if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
+					Direction(a[i].num, pos[i - 1]);
+			}
 		}
 	}
 	else if (fm_id() == 4) {
@@ -837,9 +981,49 @@ void CStrategySystem::fp_move()
 	else if (fm_id() == 9) {
 	}
 }
+CPoint CStrategySystem::coor(int which) // 返回机器人的位置
+{
+	Robot2 *robot;
+	switch (which) {
+	case HOME1:
+		robot = &home1;
+		break;
+	case HOME2:
+		robot = &home2;
+		break;
+	case HOME3:
+		robot = &home3;
+		break;
+	case HOME4:
+		robot = &home4;
+		break;
+	case HOME5:
+		robot = &home5;
+		break;
+	case HOME6:
+		robot = &home6;
+		break;
+	case HOME7:
+		robot = &home7;
+		break;
+	case HOME8:
+		robot = &home8;
+		break;
+	case HOME9:
+		robot = &home9;
+		break;
+	case HOME10:
+		robot = &home10;
+		break;
+	case HGOALIE:
+		robot = &hgoalie;
+		break;
+	}
+	return robot->position;
+}
 
 void CStrategySystem::shot(int which, bool de) // 0向下门框射
-{ 
+{
 	Robot2 *robot;
 	switch (which) {
 	case HOME1:
@@ -1049,21 +1233,18 @@ void CStrategySystem::shot(int which, bool de, CPoint t) // 把球向t点射,de�
 	t1.y = ball.position.y;
 	if (de == 0) {
 		O = atan(fabs(ball.position.y - t.y) / fabs(ball.position.x - t.x));
-		if(ball.position.x<=515)
-		{
+		if (ball.position.x <= 515) {
 			t3.x = t1.x + cos(O) * 34;
 			t3.y = t1.y - sin(O) * 34;
 		}
-		else 
-		{
+		else {
 			t3.x = t1.x - cos(O) * 34;
 			t3.y = t1.y - sin(O) * 34;
 		}
 	}
 	else if (de == 1) {
 		O = atan(fabs(ball.position.y - t.y) / fabs(ball.position.x - t.x)); // fabs(Angle(ball.position,t4));
-		if (ball.position.x <= 515)
-		{	
+		if (ball.position.x <= 515) {
 			t3.x = t1.x + cos(O) * 34;
 			t3.y = t1.y + sin(O) * 34;
 		}
@@ -2630,7 +2811,7 @@ CStrategySystem::CStrategySystem(int id) {
 	// 	Navigation.push_back(CPoint(515, 409));
 	// }
 
-	pos = new CPoint  [10];
+	pos = new CPoint[10];
 
 	flag = true;
 

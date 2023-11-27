@@ -28,6 +28,7 @@ private:
 	int fm_id();	// 阵型 ID
 	void fm_gen();	// 阵型生成
 	void fp_move(); // 阵型球员移动
+	CPoint coor(int which);//返回机器人的位置
 
 	// void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
