@@ -565,7 +565,12 @@ void CStrategySystem::cp_kick() { // TODO 中心球员击球
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		//Shot(fm_id);
+		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
+			shot(cp_id(), 0, CPoint(45, 457));
+		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
+			shot(cp_id(), 0, CPoint(45, 361));
+		else
+			Dirextion(cp_id(), CPoint(170, ball.position.y));
 	}
 	else {
 		Direction(cp_id(), ball.position);
@@ -753,33 +758,71 @@ void CStrategySystem::fp_move()
 	}
 	else if (fm_id() == 3) {
 		
-		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
+		if (ball.position.x >= 157 && ball.position.x <= 290)
 		{
-		int a[11][2] = {
-			{},
-			{ 1, Distance(ball.position, home1.position) },
-			{ 2, Distance(ball.position, home2.position) },
-			{ 3, Distance(ball.position, home3.position) },
-			{ 4, Distance(ball.position, home4.position) },
-			{ 5, Distance(ball.position, home5.position) },
-			{ 6, Distance(ball.position, home6.position) },
-			{ 7, Distance(ball.position, home7.position) },
-			{ 8, Distance(ball.position, home8.position) },
-			{ 9, Distance(ball.position, home10.position) },
-			{ 10, Distance(ball.position, home10.position) },
-		};	
-		int i, j;
-		for (i = 1; i <= 10;i++)
-		{
-			for (j = i + 1; j <= 10;j++)
+			struct infor a[11];
+			for (int i = 1; i <= 10;i++)
 			{
-				int t[2];
-				t[1] = a[i][0];
-				t[2] = a[i][1];
-				//a[]
+				a[i].num = i;
+				Robot2 *robot;
+				switch (i) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
+				}
+				a[i].dis = Distance(ball.position, robot->position);
 			}
+			for (int i = 1; i <= 10;i++)
+			{
+				for (int j = i+1; j <= 10;j++)
+				{
+					if(a[i]>a[j])
+					{
+						struct infor t;
+						t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+				}
+			}
+			for (i = 1; i <= 10;i++)
+				if(a[i].num!=cp_id())
+					Direction(a[i].num, pos[i - 1]);
 		}
-	}
+		else if(ball.position.x<157&&ball.position.y<=409)
+		{
+			if()
+		}
 	}
 	else if (fm_id() == 4) {
 	}
@@ -1000,21 +1043,34 @@ void CStrategySystem::shot(int which, bool de, CPoint t) // 把球向t点射,de�
 		robot = &hgoalie;
 		break;
 	}
-	double O, O1;
+	double O;
 	CPoint t1, t2, t3; // t1球，t2机器人,t3机器人要移动到的点
 	t1.x = ball.position.x;
 	t1.y = ball.position.y;
 	if (de == 0) {
 		O = atan(fabs(ball.position.y - t.y) / fabs(ball.position.x - t.x));
-		O1 = 180 - O;
-		t3.x = t1.x + cos(O) * 34;
-		t3.y = t1.y - sin(O) * 34;
+		if(ball.position.x<=515)
+		{
+			t3.x = t1.x + cos(O) * 34;
+			t3.y = t1.y - sin(O) * 34;
+		}
+		else 
+		{
+			t3.x = t1.x - cos(O) * 34;
+			t3.y = t1.y - sin(O) * 34;
+		}
 	}
 	else if (de == 1) {
 		O = atan(fabs(ball.position.y - t.y) / fabs(ball.position.x - t.x)); // fabs(Angle(ball.position,t4));
-		O1 = 180 + O;
-		t3.x = t1.x + cos(O) * 34;
-		t3.y = t1.y + sin(O) * 34;
+		if (ball.position.x <= 515)
+		{	
+			t3.x = t1.x + cos(O) * 34;
+			t3.y = t1.y + sin(O) * 34;
+		}
+		else {
+			t3.x = t1.x - cos(O) * 34;
+			t3.y = t1.y + sin(O) * 34;
+		}
 	}
 	if (Distance(robot->position, ball.position) <= 35 && (fabs(Angle(ball.position, t3) - Angle(robot->position, t3))) <= 2) {
 		if (de == 1) {
