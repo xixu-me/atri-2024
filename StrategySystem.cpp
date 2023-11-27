@@ -506,7 +506,7 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 			}
 		}
 	}
-	else if(fm_id==3)
+	else if (fm_id() == 3)
 	{
 		if(ball.position.x>=157&&ball.position.x<=290)
 		{
@@ -565,7 +565,7 @@ void CStrategySystem::cp_kick() { // TODO 中心球员击球
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		Shot(fm_id);
+		//Shot(fm_id);
 	}
 	else {
 		Direction(cp_id(), ball.position);
@@ -606,7 +606,7 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-		if(ball.position.x>=157&&ball.position.x<=290&&ball.positiony<=409)
+		if(ball.position.x>=157&&ball.position.x<=290&&ball.position.y<=409)
 		{
 			//内圈
 			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
@@ -682,51 +682,63 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 8) {
 	}
 	else if (fm_id() == 9) {
-		pos[1].y=ball.y;pos[1].x=900;
+		pos[1].y=ball.position.y;pos[1].x=900;
 		pos[2].x=pos[1].x;
-		if(ball.y>409)//球在下面
+		if(ball.position.y>409)//球在下面
 		{
 			pos[2].y=pos[1].y-40;
 		}
-		else if(ball.y<=409)//球在上面
+		else if(ball.position.y<=409)//球在上面
 		{
 			pos[2].y=pos[1].y+40;
 		}
-		if(ball.x<873)//球在禁区外
+		if(ball.position.x<873)//球在禁区外
 		{
-		pos[3].x=ball.x;	pos[3].y=ball.y+55;//球下面
-		pos[4].x=ball.x;	pos[4].y=ball.y-55;//球上面
-		if(ball.x<850)
+			pos[3].x = ball.position.x;
+			pos[3].y = ball.position.y + 55; // 球下面
+			pos[4].x = ball.position.x;
+			pos[4].y = ball.position.y - 55; // 球上面
+			if (ball.position.x < 850)
 		{
-			pos[5].x=ball.x+20; pos[5].y=ball.y;//正对球
+				pos[5].x = ball.position.x + 20;
+				pos[5].y = ball.position.y; // 正对球
 		}
 		else
 		{
-			pos[5].x=870; pos[5].y=ball.y;//正对球
+			pos[5].x = 870;
+			pos[5].y = ball.position.y; // 正对球
 		}
-		pos[6].x=870;		pos[6].y=ball.y+50;
-		pos[7].x=870;		pos[7].y=ball.y-50;
-		pos[8].x=870;		pos[8].y=ball.y+65;
-		pos[9].x=870;		pos[9].y=ball.y-65;
+		pos[6].x = 870;
+		pos[6].y = ball.position.y + 50;
+		pos[7].x = 870;
+		pos[7].y = ball.position.y - 50;
+		pos[8].x = 870;
+		pos[8].y = ball.position.y + 65;
+		pos[9].x = 870;
+		pos[9].y = ball.position.y - 65;
 		}
-		else if(ball.x>873)//球在禁区里,球员不进禁区
+		else if (ball.position.x > 873) // 球在禁区里,球员不进禁区
 		{
-		pos[3].x=870;		  pos[3].y=ball.y+50;//球下面
-		pos[4].x=870;		  pos[4].y=ball.y-50//球上面
-		pos[5].x=pos[1].x-80; pos[5].y=ball.y;//正对球
-		if(ball.y>409)//球在下面
+		pos[3].x = 870;
+		pos[3].y = ball.position.y + 50; // 球下面
+		pos[4].x = 870;
+		pos[4].y = ball.position.y - 50; // 球上面
+		pos[5].x=pos[1].x-80; pos[5].y=ball.position.y;//正对球
+		if (ball.position.y > 409)	// 球在下面
 		{
 			pos[6].x=900;	      pos[6].y=610;
 			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
 			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
-			pos[9].x=870;		  pos[9].y=ball.y-100;
+			pos[9].x = 870;
+			pos[9].y = ball.position.y - 100;
 		}
-		if(ball.y<=409)//球在下面
+		if (ball.position.y <= 409) // 球在下面
 		{
 			pos[6].x=900;	      pos[6].y=210;
 			pos[7].x=pos[5].x;	  pos[7].y=pos[5].y-70;
 			pos[8].x=pos[5].x;	  pos[8].y=pos[5].y+70;
-			pos[9].x=870;		  pos[9].y=ball.y+100;
+			pos[9].x = 870;
+			pos[9].y = ball.position.y + 100;
 		}
 
 		}
@@ -740,23 +752,21 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	}
 	else if (fm_id() == 3) {
 		
-		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.positiony <= 409)
+		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
 		{
-			int a[11][2] = 
-			{ 
-				{},
-				{ 1, Distance(ball.position, home1.position) },
-				{ 2, Distance(ball.position, home2.position) },
-				{ 3, Distance(ball.position, home3.position) },
-				{ 4, Distance(ball.position, home4.position) },
-				{ 5, Distance(ball.position, home5.position) },
-				{ 6, Distance(ball.position, home6.position) },
-				{ 7, Distance(ball.position, home7.position) },
-				{ 8, Distance(ball.position, home8.position) },
-				{ 9, Distance(ball.position, home10.position) },
-				{ 10, Distance(ball.position, home10.position) },
-			}
-		}
+		int a[11][2] = {
+			{},
+			{ 1, Distance(ball.position, home1.position) },
+			{ 2, Distance(ball.position, home2.position) },
+			{ 3, Distance(ball.position, home3.position) },
+			{ 4, Distance(ball.position, home4.position) },
+			{ 5, Distance(ball.position, home5.position) },
+			{ 6, Distance(ball.position, home6.position) },
+			{ 7, Distance(ball.position, home7.position) },
+			{ 8, Distance(ball.position, home8.position) },
+			{ 9, Distance(ball.position, home10.position) },
+			{ 10, Distance(ball.position, home10.position) },
+		};	
 		int i, j;
 		for (i = 1; i <= 10;i++)
 		{
@@ -765,7 +775,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 				int t[2];
 				t[1] = a[i][0];
 				t[2] = a[i][1];
-				a[]
+				//a[]
 			}
 		}
 	}
@@ -2561,7 +2571,7 @@ CStrategySystem::CStrategySystem(int id) {
 	// 	Navigation.push_back(CPoint(515, 409));
 	// }
 
-	pos = new CPoint[10];
+	pos = new CPoint  [10];
 
 	flag = true;
 

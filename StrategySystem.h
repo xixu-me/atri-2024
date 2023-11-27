@@ -81,7 +81,12 @@ private:
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
 
+	struct infor{
+		int num;//球员编号
+		int dis;//球员到球的距离
+	};
 	bool flag;
+
 	// std::vector<CPoint> Navigation;
 
 	// void Think();
