@@ -693,6 +693,15 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 5) {
 	}
 	else if (fm_id() == 6) {
+		pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
+		pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
+		pos[3] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
+		pos[4] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-45.0 * PI / 180.0) * 40);
+		pos[5] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+		pos[6] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
+		pos[7] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
+		pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
+		pos[9] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
 	}
 
 	// 景缪
@@ -1053,16 +1062,42 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	else if (fm_id() == 5) {
 	}
 	else if (fm_id() == 6) {
+		int d[10];
+		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+		for (int i = 0; i <= 9; i++) {
+			if (i == cp_id() - 1) {
+				d[i] = 1e5;
+			}
+			d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
+		}
+		int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		for (int i = 1; i <= 10; i++) {
+			int j;
+			for (j = 0; j < 10 - i; j++) {
+				if (d[j] > d[j + 1]) {
+					int tmp = d[j];
+					d[j] = d[j + 1];
+					d[j + 1] = tmp;
+					tmp = p[j];
+					p[j] = p[j + 1];
+					p[j + 1] = tmp;
+				}
+			}
+		}
+		for (int i = 0; i <= 9; i++) {
+			if (p[i] = cp_id() - 1)
+				continue;
+			Direction(p[i], pos[i]);
+		}
 	}
 	else if (fm_id() == 7) {
-		double adou[11];
-		int xz[11];
-		int n = 0;
+		double adou[15];
+		int xz[15];
+		int n = 1;
 		xz[n] = cp_id();
-		int pp[11];
+		int pp[15];
 		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
 		{
-
 			for (int u = 1; u <= 10; u++) {
 				Robot2 *robot;
 				switch (u) {
@@ -1096,13 +1131,11 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 				case HOME10:
 					robot = &home10;
 					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
 				}
 				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
 				pp[u] = u;
 			}
+
 			// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
 			for (int u = 1; u <= 10; u++)
 				for (int j = u + 1; j <= 10; j++)
@@ -1116,7 +1149,8 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 						adou[u] = adou[j];
 						adou[j] = t;
 					}
-			for (int u = 1; u <= 10; u++)
+			for (int u = 1; u <= 10; u++) {
+				int o = 0;
 				for (int j = 1; j <= n; j++) {
 					if (pp[u] == xz[j]) // 是记录人员
 					{
@@ -1124,22 +1158,26 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 					}
 					if (j == n) // 不是记录人员
 					{
-						Direction(i, pos[i]);
+						Direction(pp[u], pos[i]);
 						n++;
 						xz[n] = pp[u];
+						o = 1;
 					}
 				}
+				if (o == 1)
+					break;
+			}
 		}
 		// if (Distance(pos[i], ball.position)<5)
 		//	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
 		// 否则就保持一定速度在点位待机
 	}
 	else if (fm_id() == 8) {
-		double adou[11];
-		int xz[11];
-		int n = 0;
+		double adou[15];
+		int xz[15];
+		int n = 1;
 		xz[n] = cp_id();
-		int pp[11];
+		int pp[15];
 		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
 		{
 
@@ -1176,9 +1214,6 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 				case HOME10:
 					robot = &home10;
 					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
 				}
 				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
 				pp[u] = u;
@@ -1196,7 +1231,8 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 						adou[u] = adou[j];
 						adou[j] = t;
 					}
-			for (int u = 1; u <= 10; u++)
+			for (int u = 1; u <= 10; u++) {
+				int o = 0;
 				for (int j = 1; j <= n; j++) {
 					if (pp[u] == xz[j]) // 是记录人员
 					{
@@ -1204,11 +1240,15 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 					}
 					if (j == n) // 不是记录人员
 					{
-						Direction(i, pos[i]);
+						Direction(pp[u], pos[i]);
 						n++;
 						xz[n] = pp[u];
+						o = 1;
 					}
 				}
+				if (o == 1)
+					break;
+			}
 		}
 		// if (Distance(pos[i], ball.position)<5)
 		//	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
