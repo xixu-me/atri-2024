@@ -865,9 +865,9 @@ void CStrategySystem::fp_rp() { // 阵型球员相对中央球员的位置
 // 	double ang;  // (-π, π]
 // };
 
-void CStrategySystem::fp_sort(int h = 0, int t = 0) { // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
+void CStrategySystem::fp_sort(int h, int t) { // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
 	RelPos r;
-	if (!h & !t) {
+	if (!h && !t) {
 		for (int i = 1; i < 10; i++) {
 			for (int j = 0; j < 10 - i; j++) {
 				if (rp[j].dis > rp[j + 1].dis) {
@@ -1271,7 +1271,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 			Direction(p[i], pos[i + 1]);
 		}
 	}
-	else if (fm_id() == 7) {
+	/*else if (fm_id() == 7) {
 		double adou[15];
 		int xz[15];
 		int n = 1;
@@ -1434,7 +1434,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		// if (Distance(pos[i], ball.position)<5)
 		//	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
 		//  否则就保持一定速度在点位待机
-	}
+	}*/
 	else if (fm_id() == 9) {
 		struct infor a[10];
 		Robot2 *robot;
