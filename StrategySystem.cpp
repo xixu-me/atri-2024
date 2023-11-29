@@ -696,8 +696,56 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 
 	// 景缪
 	else if (fm_id() == 7) {
+		if (ball.position.x > 873) {
+			pos[1] = CPoint(pos[0].x + 3, pos[0].y - 3);
+			pos[2] = CPoint(pos[0].x + 1, pos[0].y + 5);
+			pos[3] = CPoint(pos[0].x + 5, pos[0].y + 20);
+			pos[4] = CPoint(pos[0].x, pos[0].y + 20);
+			pos[5] = CPoint(pos[0].x - 10, pos[0].y + 20);
+			pos[6] = CPoint(pos[0].x - 20, pos[0].y + 20);
+			pos[7] = CPoint(896, 217);
+			pos[8] = CPoint(919, 217);
+			pos[9] = CPoint(942, 217);
+		}
+		else {
+			pos[1] = CPoint(pos[0].x + 5, pos[0].y);
+			pos[2] = CPoint(pos[0].x - 5, pos[0].y);
+			pos[3] = CPoint(pos[0].x - 10, pos[0].y + 10);
+			pos[4] = CPoint(pos[0].x - 10, pos[0].y + 5);
+			pos[5] = CPoint(pos[0].x - 5, pos[0].y + 10);
+			pos[6] = CPoint(pos[0].x - 5, pos[0].y + 5);
+			int n1 = 643 > ball.position.x ? 623 : ball.position.x;
+			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
+			pos[7] = CPoint(n1, 217);
+			pos[8] = CPoint(n2, 217);
+			pos[9] = CPoint(939, 217);
+		}
 	}
 	else if (fm_id() == 8) {
+		if (ball.position.x > 873) {
+			pos[1] = CPoint(pos[0].x + 3, pos[0].y + 3);
+			pos[2] = CPoint(pos[0].x + 1, pos[0].y - 5);
+			pos[3] = CPoint(pos[0].x + 5, pos[0].y - 20);
+			pos[4] = CPoint(pos[0].x, pos[0].y - 20);
+			pos[5] = CPoint(pos[0].x - 10, pos[0].y - 20);
+			pos[6] = CPoint(pos[0].x - 20, pos[0].y - 20);
+			pos[7] = CPoint(896, 608);
+			pos[8] = CPoint(919, 608);
+			pos[9] = CPoint(942, 608);
+		}
+		else {
+			pos[1] = CPoint(pos[0].x + 5, pos[0].y);
+			pos[2] = CPoint(pos[0].x - 5, pos[0].y);
+			pos[3] = CPoint(pos[0].x - 10, pos[0].y - 10);
+			pos[4] = CPoint(pos[0].x - 10, pos[0].y - 5);
+			pos[5] = CPoint(pos[0].x - 5, pos[0].y - 10);
+			pos[6] = CPoint(pos[0].x - 5, pos[0].y - 5);
+			int n1 = 643 > ball.position.x ? 643 : ball.position.x;
+			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
+			pos[7] = CPoint(n1, 608);
+			pos[8] = CPoint(n2, 608);
+			pos[9] = CPoint(939, 608);
+		}
 	}
 	else if (fm_id() == 9) {
 		pos[1].y = ball.position.y;
@@ -993,12 +1041,167 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	else if (fm_id() == 6) {
 	}
 	else if (fm_id() == 7) {
+		double adou[11];
+		int xz[11];
+		int n = 0;
+		xz[n] = cp_id();
+		int pp[11];
+		for (int i = 1; i <= 10; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		{
+			Robot2 *robot;
+			switch (i) {
+			case HOME1:
+				robot = &home1;
+				break;
+			case HOME2:
+				robot = &home2;
+				break;
+			case HOME3:
+				robot = &home3;
+				break;
+			case HOME4:
+				robot = &home4;
+				break;
+			case HOME5:
+				robot = &home5;
+				break;
+			case HOME6:
+				robot = &home6;
+				break;
+			case HOME7:
+				robot = &home7;
+				break;
+			case HOME8:
+				robot = &home8;
+				break;
+			case HOME9:
+				robot = &home9;
+				break;
+			case HOME10:
+				robot = &home10;
+				break;
+			case HGOALIE:
+				robot = &hgoalie;
+				break;
+			}
+			for (int u = 1; u <= 10; u++) {
+				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+				pp[u] = u;
+			}
+			// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+			for (int u = 1; u <= 10; u++)
+				for (int j = u + 1; j <= 10; j++)
+					if (adou[u] > adou[j]) {
+						double t;
+						int m;
+						m = pp[u];
+						pp[u] = pp[j];
+						pp[j] = m;
+						t = adou[u];
+						adou[u] = adou[j];
+						adou[j] = t;
+					}
+			for (int u = 1; u <= 10; u++)
+				for (int j = 1; j <= n; j++) {
+					if (pp[u] == xz[j]) // 是记录人员
+					{
+						break;
+					}
+					if (j == n) // 不是记录人员
+					{
+						Direction(i, pos[i]);
+						n++;
+						xz[n] = pp[u];
+					}
+				}
+		}
+		// if (Distance(pos[i], ball.position)<5)
+		//	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
+		// 否则就保持一定速度在点位待机
 	}
 	else if (fm_id() == 8) {
+		double adou[11];
+		int xz[11];
+		int n = 0;
+		xz[n] = cp_id();
+		int pp[11];
+		for (int i = 1; i <= 10; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		{
+			Robot2 *robot;
+			switch (i) {
+			case HOME1:
+				robot = &home1;
+				break;
+			case HOME2:
+				robot = &home2;
+				break;
+			case HOME3:
+				robot = &home3;
+				break;
+			case HOME4:
+				robot = &home4;
+				break;
+			case HOME5:
+				robot = &home5;
+				break;
+			case HOME6:
+				robot = &home6;
+				break;
+			case HOME7:
+				robot = &home7;
+				break;
+			case HOME8:
+				robot = &home8;
+				break;
+			case HOME9:
+				robot = &home9;
+				break;
+			case HOME10:
+				robot = &home10;
+				break;
+			case HGOALIE:
+				robot = &hgoalie;
+				break;
+			}
+			for (int u = 1; u <= 10; u++) {
+				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+				pp[u] = u;
+			}
+			// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+			for (int u = 1; u <= 10; u++)
+				for (int j = u + 1; j <= 10; j++)
+					if (adou[u] > adou[j]) {
+						double t;
+						int m;
+						m = pp[u];
+						pp[u] = pp[j];
+						pp[j] = m;
+						t = adou[u];
+						adou[u] = adou[j];
+						adou[j] = t;
+					}
+			for (int u = 1; u <= 10; u++)
+				for (int j = 1; j <= n; j++) {
+					if (pp[u] == xz[j]) // 是记录人员
+					{
+						break;
+					}
+					if (j == n) // 不是记录人员
+					{
+						Direction(i, pos[i]);
+						n++;
+						xz[n] = pp[u];
+					}
+				}
+		}
+		// if (Distance(pos[i], ball.position)<5)
+		//	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
+		//  否则就保持一定速度在点位待机
 	}
 	else if (fm_id() == 9) {
 	}
 }
+
 CPoint CStrategySystem::coor(int which) // 返回机器人的位置
 {
 	Robot2 *robot;
