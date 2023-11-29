@@ -1255,6 +1255,63 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		//  否则就保持一定速度在点位待机
 	}
 	else if (fm_id() == 9) {
+		struct infor a[10];
+		Robot2 *robot;
+		for (int j = 1; j <= 9; j++) {
+			for (int i = 1; i <= 9; i++) {
+				a[i].num = i;
+				a[i].dis = -1;
+				switch (i) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				}
+				if (a[i].dis == -1)
+					a[i].dis = Distance(pos[j], robot->position); // 机器人到点位的距离
+			}
+			int min = a[1].dis;
+			int p = 1;					 // 最近的球员编号
+			for (int l = 2; l <= 9; l++) // 选出最近的机器人
+			{
+				if (min <= a[l].dis) {
+					a[l].dis = -1;
+				}
+				else {
+					min = a[l].dis;
+					a[p].dis = -1;
+					p = l;
+				}
+			}
+			if (a[p].num != cp_id())		 // 不是中心球员
+				Direction(a[p].num, pos[j]); // 移动到最近的点位
+		}
 	}
 }
 
