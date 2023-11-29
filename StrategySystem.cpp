@@ -608,10 +608,10 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 		pos[1] = CPoint(pos[0].x, pos[0].y - 10);
 		pos[2] = CPoint(pos[0].x + 10, pos[0].y - 10);
 		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-		pos[4] = CPoint(pos[0].x + 20, pos[0].y);
-		pos[5] = CPoint(pos[0].x + 10, pos[0].y + 10);
-		pos[6] = CPoint(pos[0].x + 20, pos[0].y + 10);
-		pos[7] = CPoint(pos[0].x + 10, pos[0].y + 20);
+		pos[6] = CPoint(pos[0].x + 20, pos[0].y);
+		pos[4] = CPoint(pos[0].x + 10, pos[0].y + 10);
+		pos[7] = CPoint(pos[0].x + 20, pos[0].y + 10);
+		pos[5] = CPoint(pos[0].x + 10, pos[0].y + 20);
 		pos[8] = CPoint(170, 409);
 		pos[9] = CPoint(170, 556);
 	}
@@ -619,10 +619,10 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 		pos[1] = CPoint(pos[0].x, pos[0].y + 10);
 		pos[2] = CPoint(pos[0].x + 10, pos[0].y + 10);
 		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-		pos[4] = CPoint(pos[0].x + 20, pos[0].y);
-		pos[5] = CPoint(pos[0].x + 10, pos[0].y - 10);
-		pos[6] = CPoint(pos[0].x + 20, pos[0].y - 10);
-		pos[7] = CPoint(pos[0].x + 10, pos[0].y - 20);
+		pos[6] = CPoint(pos[0].x + 20, pos[0].y);
+		pos[4] = CPoint(pos[0].x + 10, pos[0].y - 10);
+		pos[7] = CPoint(pos[0].x + 20, pos[0].y - 10);
+		pos[5] = CPoint(pos[0].x + 10, pos[0].y - 20);
 		pos[8] = CPoint(170, 409);
 		pos[9] = CPoint(170, 265);
 	}
@@ -689,8 +689,26 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 
 	// 王徐
 	else if (fm_id() == 4) {
+		pos[1] = CPoint(ball.position.x + (int)cos(45.0 * PI / 180.0) * 20, ball.position.y + (int)sin(45.0 * PI / 180.0) * 20);
+		pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
+		pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+		pos[4] = CPoint(pos[0].x + (int)cos(15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(15.0 * PI / 180.0) * 40);
+		pos[5] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(30.0 * PI / 180.0) * 40);
+		pos[6] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
+		pos[7] = CPoint(pos[0].x + (int)cos(50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(50.0 * PI / 180.0) * 60);
+		pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
+		pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
 	}
 	else if (fm_id() == 5) {
+		pos[1] = CPoint(ball.position.x + (int)cos(0.0 * PI / 180.0) * 20, ball.position.y + (int)sin(0.0 * PI / 180.0) * 20);
+		pos[2] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
+		pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+		pos[4] = CPoint(pos[0].x + (int)cos(-15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-15.0 * PI / 180.0) * 40);
+		pos[5] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 40);
+		pos[6] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(6 - 45.0 * PI / 180.0) * 40);
+		pos[7] = CPoint(pos[0].x + (int)cos(-50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-50.0 * PI / 180.0) * 60);
+		pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
+		pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
 	}
 	else if (fm_id() == 6) {
 		pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
@@ -840,10 +858,63 @@ void CStrategySystem::fp_rp() { // 阵型球员相对中央球员的位置
 	}
 }
 
+// 阵型球员相对中央球员的位置结构体
+// struct RelPos {
+// 	int id;
+// 	double dis;
+// 	double ang;  // (-π, π]
+// };
+
+void CStrategySystem::fp_sort(int h = 0, int t = 0) { // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
+	RelPos r;
+	if (!h & !t) {
+		for (int i = 1; i < 10; i++) {
+			for (int j = 0; j < 10 - i; j++) {
+				if (rp[j].dis > rp[j + 1].dis) {
+					r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
+				}
+			}
+		}
+	}
+	else {
+		for (int i = h + 1; i < t; i++) {
+			for (int j = h; j < t - i; j++) {
+				if (rp[j].dis > rp[j + 1].dis) {
+					r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
+				}
+			}
+		}
+	}
+}
+
 void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	if (fm_id() == 1) {
+		fp_sort();
+		fp_sort(0, 5);
+		Direction(rp[0].id, pos[1]);
+		Direction(rp[1].id, pos[2]);
+		Direction(rp[2].id, pos[3]);
+		Direction(rp[3].id, pos[4]);
+		Direction(rp[4].id, pos[5]);
+		fp_sort(5, 7);
+		Direction(rp[5].id, pos[6]);
+		Direction(rp[6].id, pos[7]);
+		Direction(rp[7].id, pos[8]);
+		Direction(rp[8].id, pos[9]);
 	}
 	else if (fm_id() == 2) {
+		fp_sort();
+		fp_sort(0, 5);
+		Direction(rp[5].id, pos[1]);
+		Direction(rp[4].id, pos[2]);
+		Direction(rp[3].id, pos[3]);
+		Direction(rp[2].id, pos[4]);
+		Direction(rp[1].id, pos[5]);
+		fp_sort(5, 7);
+		Direction(rp[7].id, pos[6]);
+		Direction(rp[6].id, pos[7]);
+		Direction(rp[7].id, pos[8]);
+		Direction(rp[8].id, pos[9]);
 	}
 	else if (fm_id() == 3) {
 		if (ball.position.x >= 157 && ball.position.x <= 290) {
@@ -1058,8 +1129,118 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		}
 	}
 	else if (fm_id() == 4) {
+		double d[10], dy[10];
+		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+		for (int i = 0; i <= 9; i++) {
+			if (i == cp_id() - 1) {
+				d[i] = 1e5;
+			}
+			else {
+				d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
+			}
+		}
+		int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		for (int i = 1; i <= 10; i++) {
+			for (int j = 0; j < 10 - i; j++) {
+				if (d[j] > d[j + 1]) {
+					int tmp = d[j];
+					d[j] = d[j + 1];
+					d[j + 1] = tmp;
+					tmp = p1[j];
+					p1[j] = p1[j + 1];
+					p1[j + 1] = tmp;
+				}
+			}
+		}
+		Direction(p1[0], pos[0]);
+		Direction(p1[1], pos[1]);
+		for (int i = 0; i <= 9; i++) {
+			if (i == cp_id() - 1) {
+				dy[i] = 1e5;
+			}
+			else {
+				dy[p1[i]] = 217 - cur_pos[i].y;
+			}
+		}
+		dy[p1[0]] = 1e5;
+		dy[p1[1]] = 1e5;
+		int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
+		for (int i = 1; i <= 10; i++) {
+			for (int j = 0; j < 10 - i; j++) {
+				if (dy[j] > dy[j + 1]) {
+					int tmp = d[j];
+					dy[j] = dy[j + 1];
+					dy[j + 1] = tmp;
+					tmp = p2[j];
+					p2[j] = p2[j + 1];
+					p2[j + 1] = tmp;
+				}
+			}
+		}
+		Direction(p2[0], pos[9]);
+		Direction(p2[1], pos[8]);
+		Direction(p2[2], pos[7]);
+		Direction(p2[3], pos[6]);
+		Direction(p2[4], pos[5]);
+		Direction(p2[5], pos[4]);
+		Direction(p2[6], pos[3]);
 	}
 	else if (fm_id() == 5) {
+		double d[10], dy[10];
+		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+		for (int i = 0; i <= 9; i++) {
+			if (i == cp_id() - 1) {
+				d[i] = 1e5;
+			}
+			else {
+				d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
+			}
+		}
+		int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		for (int i = 1; i <= 10; i++) {
+			for (int j = 0; j < 10 - i; j++) {
+				if (d[j] > d[j + 1]) {
+					int tmp = d[j];
+					d[j] = d[j + 1];
+					d[j + 1] = tmp;
+					tmp = p1[j];
+					p1[j] = p1[j + 1];
+					p1[j + 1] = tmp;
+				}
+			}
+		}
+		Direction(p1[0], pos[0]);
+		Direction(p1[1], pos[1]);
+		for (int i = 0; i <= 9; i++) {
+			if (i == cp_id() - 1) {
+				dy[i] = 1e5;
+			}
+			else {
+				dy[p1[i]] = cur_pos[i].y - 607;
+			}
+		}
+		dy[p1[0]] = 1e5;
+		dy[p1[1]] = 1e5;
+		int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
+		for (int i = 1; i <= 10; i++) {
+			for (int j = 0; j < 10 - i; j++) {
+				if (dy[j] > dy[j + 1]) {
+					int tmp = d[j];
+					dy[j] = dy[j + 1];
+					dy[j + 1] = tmp;
+					tmp = p2[j];
+					p2[j] = p2[j + 1];
+					p2[j + 1] = tmp;
+				}
+			}
+		}
+		Direction(p2[0], pos[9]);
+		Direction(p2[1], pos[8]);
+		Direction(p2[2], pos[7]);
+		Direction(p2[3], pos[6]);
+		Direction(p2[4], pos[5]);
+		Direction(p2[5], pos[4]);
+		Direction(p2[6], pos[3]);
 	}
 	else if (fm_id() == 6) {
 		int d[10];
@@ -1087,7 +1268,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		for (int i = 0; i <= 9; i++) {
 			if (p[i] = cp_id() - 1)
 				continue;
-			Direction(p[i], pos[i]);
+			Direction(p[i], pos[i + 1]);
 		}
 	}
 	else if (fm_id() == 7) {
