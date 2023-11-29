@@ -1491,7 +1491,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 				}
 			}
 			if (a[p].num != cp_id())		 // 不是中心球员
-				Direction(a[p].num, pos[j]); // 移动到最近的点位
+				PositionSE(a[p].num, pos[j]); // 移动到最近的点位
 		}
 	}
 }
