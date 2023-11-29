@@ -816,13 +816,26 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	}
 }
 
+void CStrategySystem::fp_rp() { // 阵型球员相对中央球员的位置
+	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+	for (int i = 0; i < 10; i++) {
+		if (rp[i].id == fm_id() - 1) {
+			rp[i].ang = 0;
+			rp[i].dis = 0;
+		}
+		else {
+			rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
+			rp[i].dis = Distance(cur_pos[i], pos[0]);
+		}
+	}
+}
+
 void CStrategySystem::fp_move() { // TODO 阵型球员移动
 	if (fm_id() == 1) {
 	}
 	else if (fm_id() == 2) {
 	}
 	else if (fm_id() == 3) {
-
 		if (ball.position.x >= 157 && ball.position.x <= 290) {
 			struct infor a[11];
 			for (int i = 1; i <= 10; i++) {
@@ -3033,6 +3046,7 @@ CStrategySystem::CStrategySystem(int id) {
 	// }
 
 	pos = new CPoint[10];
+	rp = new RelPos[10];
 
 	flag = true;
 

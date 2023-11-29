@@ -3,6 +3,13 @@
 #ifndef _INSIDE_VISUAL_CPP_STRATEGYSYSTEM
 #define _INSIDE_VISUAL_CPP_STRATEGYSYSTEM
 
+// 阵型球员相对中央球员的位置结构体
+struct RelPos {
+	int id;
+	double dis;
+	double ang;
+};
+
 class CStrategySystem : public CObject {
 	DECLARE_DYNAMIC(CStrategySystem)
 public:
@@ -21,14 +28,17 @@ private:
 	void Possession(); // 控球
 	void Goalie();	   // 守门
 
-	CPoint *pos;	// 球员位置
-	int cp_id();	// 中央球员 ID
-	void cp_pos();	// 中央球员位置
-	void cp_kick(); // 中央球员击球
-	int fm_id();	// 阵型 ID
-	void fm_gen();	// 阵型生成
-	void fp_move(); // 阵型球员移动
-	CPoint coor(int which);//返回机器人的位置
+	CPoint *pos; // 球员位置
+	RelPos *rp;	 // 阵型球员相对中央球员的位置
+
+	int cp_id();			// 中央球员 ID
+	void cp_pos();			// 中央球员位置
+	void cp_kick();			// 中央球员击球
+	void fp_rp();			// 阵型球员相对中央球员的位置
+	int fm_id();			// 阵型 ID
+	void fm_gen();			// 阵型生成
+	void fp_move();			// 阵型球员移动
+	CPoint coor(int which); // 返回机器人的位置
 
 	// void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
@@ -82,9 +92,9 @@ private:
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
 
-	struct infor{
-		int num;//球员编号
-		int dis;//球员到球的距离
+	struct infor {
+		int num; // 球员编号
+		int dis; // 球员到球的距离
 	};
 	bool flag;
 
