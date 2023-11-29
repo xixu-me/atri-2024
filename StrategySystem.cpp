@@ -1060,45 +1060,46 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		int n = 0;
 		xz[n] = cp_id();
 		int pp[11];
-		for (int i = 1; i <= 10; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
 		{
-			Robot2 *robot;
-			switch (i) {
-			case HOME1:
-				robot = &home1;
-				break;
-			case HOME2:
-				robot = &home2;
-				break;
-			case HOME3:
-				robot = &home3;
-				break;
-			case HOME4:
-				robot = &home4;
-				break;
-			case HOME5:
-				robot = &home5;
-				break;
-			case HOME6:
-				robot = &home6;
-				break;
-			case HOME7:
-				robot = &home7;
-				break;
-			case HOME8:
-				robot = &home8;
-				break;
-			case HOME9:
-				robot = &home9;
-				break;
-			case HOME10:
-				robot = &home10;
-				break;
-			case HGOALIE:
-				robot = &hgoalie;
-				break;
-			}
+
 			for (int u = 1; u <= 10; u++) {
+				Robot2 *robot;
+				switch (u) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
+				}
 				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
 				pp[u] = u;
 			}
@@ -1139,45 +1140,46 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		int n = 0;
 		xz[n] = cp_id();
 		int pp[11];
-		for (int i = 1; i <= 10; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
 		{
-			Robot2 *robot;
-			switch (i) {
-			case HOME1:
-				robot = &home1;
-				break;
-			case HOME2:
-				robot = &home2;
-				break;
-			case HOME3:
-				robot = &home3;
-				break;
-			case HOME4:
-				robot = &home4;
-				break;
-			case HOME5:
-				robot = &home5;
-				break;
-			case HOME6:
-				robot = &home6;
-				break;
-			case HOME7:
-				robot = &home7;
-				break;
-			case HOME8:
-				robot = &home8;
-				break;
-			case HOME9:
-				robot = &home9;
-				break;
-			case HOME10:
-				robot = &home10;
-				break;
-			case HGOALIE:
-				robot = &hgoalie;
-				break;
-			}
+
 			for (int u = 1; u <= 10; u++) {
+				Robot2 *robot;
+				switch (u) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
+				}
 				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
 				pp[u] = u;
 			}
