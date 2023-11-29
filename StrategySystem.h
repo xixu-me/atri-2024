@@ -94,7 +94,7 @@ private:
 
 	struct infor {
 		int num; // 球员编号
-		int dis; // 球员到球的距离
+		double dis; // 球员到球的距离
 	};
 	bool flag;
 
