@@ -444,6 +444,7 @@ void CStrategySystem::Possession() {
 	if (cp_id()) {
 		cp_pos();
 		cp_kick();
+		fp_rp();
 		fm_gen();
 		fp_move();
 	}
