@@ -737,12 +737,12 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 			pos[9] = CPoint(942, 217);
 		}
 		else {
-			pos[1] = CPoint(pos[0].x + 5, pos[0].y);
-			pos[2] = CPoint(pos[0].x - 5, pos[0].y);
-			pos[3] = CPoint(pos[0].x - 10, pos[0].y + 10);
-			pos[4] = CPoint(pos[0].x - 10, pos[0].y + 5);
-			pos[5] = CPoint(pos[0].x - 5, pos[0].y + 10);
-			pos[6] = CPoint(pos[0].x - 5, pos[0].y + 5);
+			pos[1] = CPoint(pos[0].x + 3, pos[0].y - 5);
+			pos[2] = CPoint(pos[0].x + 3, pos[0].y + 5);
+			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 10);
+			pos[5] = CPoint(pos[0].x - 10, pos[0].y + 5);
+			pos[4] = CPoint(pos[0].x - 5, pos[0].y + 10);
+			pos[3] = CPoint(pos[0].x, pos[0].y + 10);
 			int n1 = 643 > ball.position.x ? 623 : ball.position.x;
 			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
 			pos[7] = CPoint(n1, 217);
@@ -763,12 +763,12 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 			pos[9] = CPoint(942, 608);
 		}
 		else {
-			pos[1] = CPoint(pos[0].x + 5, pos[0].y);
-			pos[2] = CPoint(pos[0].x - 5, pos[0].y);
-			pos[3] = CPoint(pos[0].x - 10, pos[0].y - 10);
-			pos[4] = CPoint(pos[0].x - 10, pos[0].y - 5);
-			pos[5] = CPoint(pos[0].x - 5, pos[0].y - 10);
-			pos[6] = CPoint(pos[0].x - 5, pos[0].y - 5);
+			pos[1] = CPoint(pos[0].x + 3, pos[0].y + 5);
+			pos[2] = CPoint(pos[0].x + 3, pos[0].y - 5);
+			pos[6] = CPoint(pos[0].x - 15, pos[0].y - 10);
+			pos[5] = CPoint(pos[0].x - 10, pos[0].y - 5);
+			pos[4] = CPoint(pos[0].x - 5, pos[0].y - 10);
+			pos[3] = CPoint(pos[0].x, pos[0].y - 10);
 			int n1 = 643 > ball.position.x ? 643 : ball.position.x;
 			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
 			pos[7] = CPoint(n1, 608);
@@ -1286,170 +1286,197 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		// 	Direction(p[i], pos[i + 1]);
 		// }
 	}
-	/*else if (fm_id() == 7) {
-		double adou[15];
-		int xz[15];
-		int n = 1;
-		xz[n] = cp_id();
-		int pp[15];
-		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
-		{
-			for (int u = 1; u <= 10; u++) {
-				Robot2 *robot;
-				switch (u) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				}
-				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
-				pp[u] = u;
-			}
+	else if (fm_id() == 7) {
+		fp_sort();
+		fp_sort(0, 2);
+		Direction(rp[0].id, pos[1]);
+		Direction(rp[1].id, pos[2]);
+		fp_sort(2, 6);
+		Direction(rp[2].id, pos[3]);
+		Direction(rp[3].id, pos[4]);
+		Direction(rp[4].id, pos[5]);
+		Direction(rp[5].id, pos[6]);
+		fp_sort(6, 9);
+		Direction(rp[6].id, pos[7]);
+		Direction(rp[7].id, pos[8]);
+		Direction(rp[8].id, pos[9]);
 
-			// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
-			for (int u = 1; u <= 10; u++)
-				for (int j = u + 1; j <= 10; j++)
-					if (adou[u] > adou[j]) {
-						double t;
-						int m;
-						m = pp[u];
-						pp[u] = pp[j];
-						pp[j] = m;
-						t = adou[u];
-						adou[u] = adou[j];
-						adou[j] = t;
-					}
-			for (int u = 1; u <= 10; u++) {
-				int o = 0;
-				for (int j = 1; j <= n; j++) {
-					if (pp[u] == xz[j]) // 是记录人员
-					{
-						break;
-					}
-					if (j == n) // 不是记录人员
-					{
-						Direction(pp[u], pos[i]);
-						n++;
-						xz[n] = pp[u];
-						o = 1;
-					}
-				}
-				if (o == 1)
-					break;
-			}
-		}
-		// if (Distance(pos[i], ball.position)<5)
-		//	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
-		// 否则就保持一定速度在点位待机
+		// double adou[15];
+		// int xz[15];
+		// int n = 1;
+		// xz[n] = cp_id();
+		// int pp[15];
+		// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		// {
+		// 	for (int u = 1; u <= 10; u++) {
+		// 		Robot2 *robot;
+		// 		switch (u) {
+		// 		case HOME1:
+		// 			robot = &home1;
+		// 			break;
+		// 		case HOME2:
+		// 			robot = &home2;
+		// 			break;
+		// 		case HOME3:
+		// 			robot = &home3;
+		// 			break;
+		// 		case HOME4:
+		// 			robot = &home4;
+		// 			break;
+		// 		case HOME5:
+		// 			robot = &home5;
+		// 			break;
+		// 		case HOME6:
+		// 			robot = &home6;
+		// 			break;
+		// 		case HOME7:
+		// 			robot = &home7;
+		// 			break;
+		// 		case HOME8:
+		// 			robot = &home8;
+		// 			break;
+		// 		case HOME9:
+		// 			robot = &home9;
+		// 			break;
+		// 		case HOME10:
+		// 			robot = &home10;
+		// 			break;
+		// 		}
+		// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+		// 		pp[u] = u;
+		// 	}
+
+		// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+		// 	for (int u = 1; u <= 10; u++)
+		// 		for (int j = u + 1; j <= 10; j++)
+		// 			if (adou[u] > adou[j]) {
+		// 				double t;
+		// 				int m;
+		// 				m = pp[u];
+		// 				pp[u] = pp[j];
+		// 				pp[j] = m;
+		// 				t = adou[u];
+		// 				adou[u] = adou[j];
+		// 				adou[j] = t;
+		// 			}
+		// 	for (int u = 1; u <= 10; u++) {
+		// 		int o = 0;
+		// 		for (int j = 1; j <= n; j++) {
+		// 			if (pp[u] == xz[j]) // 是记录人员
+		// 			{
+		// 				break;
+		// 			}
+		// 			if (j == n) // 不是记录人员
+		// 			{
+		// 				Direction(pp[u], pos[i]);
+		// 				n++;
+		// 				xz[n] = pp[u];
+		// 				o = 1;
+		// 			}
+		// 		}
+		// 		if (o == 1)
+		// 			break;
+		// 	}
+		// }
+		// // if (Distance(pos[i], ball.position)<5)
+		// //	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
+		// // 否则就保持一定速度在点位待机
 	}
 	else if (fm_id() == 8) {
-		double adou[15];
-		int xz[15];
-		int n = 1;
-		xz[n] = cp_id();
-		int pp[15];
-		for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
-		{
+		fp_sort();
+		fp_sort(0, 2);
+		Direction(rp[0].id, pos[1]);
+		Direction(rp[1].id, pos[2]);
+		fp_sort(2, 6);
+		Direction(rp[2].id, pos[3]);
+		Direction(rp[3].id, pos[4]);
+		Direction(rp[4].id, pos[5]);
+		Direction(rp[5].id, pos[6]);
+		fp_sort(6, 9);
+		Direction(rp[6].id, pos[7]);
+		Direction(rp[7].id, pos[8]);
+		Direction(rp[8].id, pos[9]);
+		// double adou[15];
+		// int xz[15];
+		// int n = 1;
+		// xz[n] = cp_id();
+		// int pp[15];
+		// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+		// {
 
-			for (int u = 1; u <= 10; u++) {
-				Robot2 *robot;
-				switch (u) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				}
-				adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
-				pp[u] = u;
-			}
-			// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
-			for (int u = 1; u <= 10; u++)
-				for (int j = u + 1; j <= 10; j++)
-					if (adou[u] > adou[j]) {
-						double t;
-						int m;
-						m = pp[u];
-						pp[u] = pp[j];
-						pp[j] = m;
-						t = adou[u];
-						adou[u] = adou[j];
-						adou[j] = t;
-					}
-			for (int u = 1; u <= 10; u++) {
-				int o = 0;
-				for (int j = 1; j <= n; j++) {
-					if (pp[u] == xz[j]) // 是记录人员
-					{
-						break;
-					}
-					if (j == n) // 不是记录人员
-					{
-						Direction(pp[u], pos[i]);
-						n++;
-						xz[n] = pp[u];
-						o = 1;
-					}
-				}
-				if (o == 1)
-					break;
-			}
-		}
-		// if (Distance(pos[i], ball.position)<5)
-		//	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
-		//  否则就保持一定速度在点位待机
-	}*/
+		// 	for (int u = 1; u <= 10; u++) {
+		// 		Robot2 *robot;
+		// 		switch (u) {
+		// 		case HOME1:
+		// 			robot = &home1;
+		// 			break;
+		// 		case HOME2:
+		// 			robot = &home2;
+		// 			break;
+		// 		case HOME3:
+		// 			robot = &home3;
+		// 			break;
+		// 		case HOME4:
+		// 			robot = &home4;
+		// 			break;
+		// 		case HOME5:
+		// 			robot = &home5;
+		// 			break;
+		// 		case HOME6:
+		// 			robot = &home6;
+		// 			break;
+		// 		case HOME7:
+		// 			robot = &home7;
+		// 			break;
+		// 		case HOME8:
+		// 			robot = &home8;
+		// 			break;
+		// 		case HOME9:
+		// 			robot = &home9;
+		// 			break;
+		// 		case HOME10:
+		// 			robot = &home10;
+		// 			break;
+		// 		}
+		// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+		// 		pp[u] = u;
+		// 	}
+		// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+		// 	for (int u = 1; u <= 10; u++)
+		// 		for (int j = u + 1; j <= 10; j++)
+		// 			if (adou[u] > adou[j]) {
+		// 				double t;
+		// 				int m;
+		// 				m = pp[u];
+		// 				pp[u] = pp[j];
+		// 				pp[j] = m;
+		// 				t = adou[u];
+		// 				adou[u] = adou[j];
+		// 				adou[j] = t;
+		// 			}
+		// 	for (int u = 1; u <= 10; u++) {
+		// 		int o = 0;
+		// 		for (int j = 1; j <= n; j++) {
+		// 			if (pp[u] == xz[j]) // 是记录人员
+		// 			{
+		// 				break;
+		// 			}
+		// 			if (j == n) // 不是记录人员
+		// 			{
+		// 				Direction(pp[u], pos[i]);
+		// 				n++;
+		// 				xz[n] = pp[u];
+		// 				o = 1;
+		// 			}
+		// 		}
+		// 		if (o == 1)
+		// 			break;
+		// 	}
+		// }
+		// // if (Distance(pos[i], ball.position)<5)
+		// //	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
+		// //  否则就保持一定速度在点位待机
+	}
 	else if (fm_id() == 9) {
 		struct infor a[10];
 		Robot2 *robot;
