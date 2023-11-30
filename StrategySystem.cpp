@@ -2403,18 +2403,39 @@ int CStrategySystem::search2() // 查找在小区里的机器人
 // 守门
 void CStrategySystem::Goalie() {
 	int gx = ball.position.x >= 873 && (ball.position.y <= 217 || ball.position.y >= 607) || ball.position.x >= 950 ? 965 : 950;
-	// int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+	int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
-	if (ball.position.x >= 927 && (ball.position.y >= 313 && ball.position.y <= 505 && ball.position.x < hgoalie.position.x || ball.position.y <= 247 && ball.position.y >= 313 || ball.position.y >= 505 && ball.position.y <= 577))
-		Position(HGOALIE, ball.position);
-	else {
-		if (ball.position.y < 313)
-			Direction(HGOALIE, CPoint(gx, 313));
-		else if (ball.position.y > 505)
-			Direction(HGOALIE, CPoint(gx, 505));
-		else
-			Direction(HGOALIE, CPoint(gx, ball.position.y));
-	}
+	if (ball.position.x > 515)
+		// if (ball.position.x < ball.oldPosition.x)
+		if (Distance(ball.position, ball.oldPosition) >= 5) {
+			if (gy < 313)
+				Direction(HGOALIE, CPoint(gx, 313));
+			else if (gy > 505)
+				Direction(HGOALIE, CPoint(gx, 505));
+			else
+				Direction(HGOALIE, CPoint(gx, gy));
+		}
+		else {
+			if (ball.position.y < 313)
+				Direction(HGOALIE, CPoint(gx, 313));
+			else if (ball.position.y > 505)
+				Direction(HGOALIE, CPoint(gx, 505));
+			else
+				Direction(HGOALIE, CPoint(gx, ball.position.y));
+		}
+
+	ball.oldPosition = ball.position;
+
+	// static bool flag = false;
+	// if (ball.position.x >= 735 && ball.position.x <= 745 && ball.position.y >= 394 && ball.position.y <= 424) {
+	// }
+
+	// if (ball.position.x >= 927 && ball.position.y > 313 && ball.position.y < 505) { // TODO 罚球状态时
+	// 	Direction(HGOALIE, ball.position);											// TODO 旋
+	// }
+	// else {
+
+	//}
 
 	// static double dy;
 	// static bool flag;
@@ -3133,131 +3154,94 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 	Robot2 ho10, Robot2 hgo, Robot3 opp) {
 	if (m_nGameArea == GAME_RIGHT) {
 		ball.position = bal.position;
-		ball.oldPosition = bal.oldPosition;
 		ball.angle = bal.angle;
 
 		home1.position = ho1.position;
-		home1.oldPosition = ho1.oldPosition;
 		home1.angle = ho1.angle;
 
 		home2.position = ho2.position;
-		home2.oldPosition = ho2.oldPosition;
 		home2.angle = ho2.angle;
 
 		home3.position = ho3.position;
-		home3.oldPosition = ho3.oldPosition;
 		home3.angle = ho3.angle;
 
 		home4.position = ho4.position;
-		home4.oldPosition = ho4.oldPosition;
 		home4.angle = ho4.angle;
 
 		home5.position = ho5.position;
-		home5.oldPosition = ho5.oldPosition;
 		home5.angle = ho5.angle;
 
 		home6.position = ho6.position;
-		home6.oldPosition = ho6.oldPosition;
 		home6.angle = ho6.angle;
 
 		home7.position = ho7.position;
-		home7.oldPosition = ho7.oldPosition;
 		home7.angle = ho7.angle;
 
 		home8.position = ho8.position;
-		home8.oldPosition = ho8.oldPosition;
 		home8.angle = ho8.angle;
 
 		home9.position = ho9.position;
-		home9.oldPosition = ho9.oldPosition;
 		home9.angle = ho9.angle;
 
 		home10.position = ho10.position;
-		home10.oldPosition = ho10.oldPosition;
 		home10.angle = ho10.angle;
 
 		hgoalie.position = hgo.position;
-		hgoalie.oldPosition = hgo.oldPosition;
 		hgoalie.angle = hgo.angle;
 
 		opponent.position1 = opp.position1;
-		opponent.oldPosition1 = opp.oldPosition1;
 		opponent.position2 = opp.position2;
-		opponent.oldPosition2 = opp.oldPosition2;
 		opponent.position3 = opp.position3;
-		opponent.oldPosition3 = opp.oldPosition3;
 		opponent.position4 = opp.position4;
-		opponent.oldPosition4 = opp.oldPosition4;
 		opponent.position5 = opp.position5;
-		opponent.oldPosition5 = opp.oldPosition5;
 		opponent.position6 = opp.position6;
-		opponent.oldPosition6 = opp.oldPosition6;
 		opponent.position7 = opp.position7;
-		opponent.oldPosition7 = opp.oldPosition7;
 		opponent.position8 = opp.position8;
-		opponent.oldPosition8 = opp.oldPosition8;
 		opponent.position9 = opp.position9;
-		opponent.oldPosition9 = opp.oldPosition9;
 		opponent.position10 = opp.position10;
-		opponent.oldPosition10 = opp.oldPosition10;
 		opponent.position11 = opp.position11;
-		opponent.oldPosition11 = opp.oldPosition11;
 	}
 	else {
 		ball.position.x = 1030 - bal.position.x;
-		ball.oldPosition.x = 1030 - bal.oldPosition.x;
 		ball.position.y = 818 - bal.position.y;
-		ball.oldPosition.y = 818 - bal.oldPosition.y;
 		if (ball.angle > 0)
 			ball.angle = bal.angle - 180;
 		else
 			ball.angle = 180 + bal.angle;
 
 		home1.position.x = 1030 - ho1.position.x;
-		home1.oldPosition.x = 1030 - ho1.oldPosition.x;
 		home1.position.y = 818 - ho1.position.y;
-		home1.oldPosition.y = 818 - ho1.oldPosition.y;
 		if (home1.angle > 0)
 			home1.angle = ho1.angle - 180;
 		else
 			home1.angle = 180 + ho1.angle;
 		home2.position.x = 1030 - ho2.position.x;
-		home2.oldPosition.x = 1030 - ho2.oldPosition.x;
 		home2.position.y = 818 - ho2.position.y;
-		home2.oldPosition.y = 818 - ho2.oldPosition.y;
 		if (home2.angle > 0)
 			home2.angle = ho2.angle - 180;
 		else
 			home2.angle = 180 + ho2.angle;
 		home3.position.x = 1030 - ho3.position.x;
-		home3.oldPosition.x = 1030 - ho3.oldPosition.x;
 		home3.position.y = 818 - ho3.position.y;
-		home3.oldPosition.y = 818 - ho3.oldPosition.y;
 		if (home3.angle > 0)
 			home3.angle = ho3.angle - 180;
 		else
 			home3.angle = 180 + ho3.angle;
 		home4.position.x = 1030 - ho4.position.x;
-		home4.oldPosition.x = 1030 - ho4.oldPosition.x;
 		home4.position.y = 818 - ho4.position.y;
-		home4.oldPosition.y = 818 - ho4.oldPosition.y;
 		if (home4.angle > 0)
 			home4.angle = ho4.angle - 180;
 		else
 			home4.angle = 180 + ho4.angle;
 		home5.position.x = 1030 - ho5.position.x;
-		home5.oldPosition.x = 1030 - ho5.oldPosition.x;
 		home5.position.y = 818 - ho5.position.y;
-		home5.oldPosition.y = 818 - ho5.oldPosition.y;
 		if (home5.angle > 0)
 			home5.angle = ho5.angle - 180;
 		else
 			home5.angle = 180 + ho5.angle;
 		//*/
 		home6.position.x = 1030 - ho6.position.x;
-		home6.oldPosition.x = 1030 - ho6.oldPosition.x;
 		home6.position.y = 818 - ho6.position.y;
-		home6.oldPosition.y = 818 - ho6.oldPosition.y;
 		///*
 		if (home6.angle > 0)
 			home6.angle = ho6.angle - 180;
@@ -3265,9 +3249,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			home6.angle = 180 + ho6.angle;
 		//*/
 		home7.position.x = 1030 - ho7.position.x;
-		home7.oldPosition.x = 1030 - ho7.oldPosition.x;
 		home7.position.y = 818 - ho7.position.y;
-		home7.oldPosition.y = 818 - ho7.oldPosition.y;
 		///*
 		if (home7.angle > 0)
 			home7.angle = ho7.angle - 180;
@@ -3275,9 +3257,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			home7.angle = 180 + ho7.angle;
 		//*/
 		home8.position.x = 1030 - ho8.position.x;
-		home8.oldPosition.x = 1030 - ho8.oldPosition.x;
 		home8.position.y = 818 - ho8.position.y;
-		home8.oldPosition.y = 818 - ho8.oldPosition.y;
 		///*
 		if (home8.angle > 0)
 			home8.angle = ho8.angle - 180;
@@ -3285,9 +3265,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			home8.angle = 180 + ho8.angle;
 		//*/
 		home9.position.x = 1030 - ho9.position.x;
-		home9.oldPosition.x = 1030 - ho9.oldPosition.x;
 		home9.position.y = 818 - ho9.position.y;
-		home9.oldPosition.y = 818 - ho9.oldPosition.y;
 		///*
 		if (home9.angle > 0)
 			home9.angle = ho9.angle - 180;
@@ -3295,9 +3273,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			home9.angle = 180 + ho9.angle;
 		//*/
 		home10.position.x = 1030 - ho10.position.x;
-		home10.oldPosition.x = 1030 - ho10.oldPosition.x;
 		home10.position.y = 818 - ho10.position.y;
-		home10.oldPosition.y = 818 - ho10.oldPosition.y;
 		///*
 		if (home10.angle > 0)
 			home10.angle = ho10.angle - 180;
@@ -3305,9 +3281,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			home10.angle = 180 + ho10.angle;
 		//*/
 		hgoalie.position.x = 1030 - hgo.position.x;
-		hgoalie.oldPosition.x = 1030 - hgo.oldPosition.x;
 		hgoalie.position.y = 818 - hgo.position.y;
-		hgoalie.oldPosition.y = 818 - hgo.oldPosition.y;
 		///*
 		if (hgoalie.angle > 0)
 			hgoalie.angle = hgo.angle - 180;
@@ -3315,50 +3289,28 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 			hgoalie.angle = 180 + hgo.angle;
 		//*/
 		opponent.position1.x = 1030 - opp.position1.x;
-		opponent.oldPosition1.x = 1030 - opp.oldPosition1.x;
 		opponent.position2.x = 1030 - opp.position2.x;
-		opponent.oldPosition2.x = 1030 - opp.oldPosition2.x;
 		opponent.position3.x = 1030 - opp.position3.x;
-		opponent.oldPosition3.x = 1030 - opp.oldPosition3.x;
 		opponent.position4.x = 1030 - opp.position4.x;
-		opponent.oldPosition4.x = 1030 - opp.oldPosition4.x;
 		opponent.position5.x = 1030 - opp.position5.x;
-		opponent.oldPosition5.x = 1030 - opp.oldPosition5.x;
 		opponent.position6.x = 1030 - opp.position6.x;
-		opponent.oldPosition6.x = 1030 - opp.oldPosition6.x;
 		opponent.position7.x = 1030 - opp.position7.x;
-		opponent.oldPosition7.x = 1030 - opp.oldPosition7.x;
 		opponent.position8.x = 1030 - opp.position8.x;
-		opponent.oldPosition8.x = 1030 - opp.oldPosition8.x;
 		opponent.position9.x = 1030 - opp.position9.x;
-		opponent.oldPosition9.x = 1030 - opp.oldPosition9.x;
 		opponent.position10.x = 1030 - opp.position10.x;
-		opponent.oldPosition10.x = 1030 - opp.oldPosition10.x;
 		opponent.position11.x = 1030 - opp.position11.x;
-		opponent.oldPosition11.x = 1030 - opp.oldPosition11.x;
 
 		opponent.position1.y = 818 - opp.position1.y;
-		opponent.oldPosition1.y = 818 - opp.oldPosition1.y;
 		opponent.position2.y = 818 - opp.position2.y;
-		opponent.oldPosition2.y = 818 - opp.oldPosition2.y;
 		opponent.position3.y = 818 - opp.position3.y;
-		opponent.oldPosition3.y = 818 - opp.oldPosition3.y;
 		opponent.position4.y = 818 - opp.position4.y;
-		opponent.oldPosition4.y = 818 - opp.oldPosition4.y;
 		opponent.position5.y = 818 - opp.position5.y;
-		opponent.oldPosition5.y = 818 - opp.oldPosition5.y;
 		opponent.position6.y = 818 - opp.position6.y;
-		opponent.oldPosition6.y = 818 - opp.oldPosition6.y;
 		opponent.position7.y = 818 - opp.position7.y;
-		opponent.oldPosition7.y = 818 - opp.oldPosition7.y;
 		opponent.position8.y = 818 - opp.position8.y;
-		opponent.oldPosition8.y = 818 - opp.oldPosition8.y;
 		opponent.position9.y = 818 - opp.position9.y;
-		opponent.oldPosition9.y = 818 - opp.oldPosition9.y;
 		opponent.position10.y = 818 - opp.position10.y;
-		opponent.oldPosition10.y = 818 - opp.oldPosition10.y;
 		opponent.position11.y = 818 - opp.position11.y;
-		opponent.oldPosition11.y = 818 - opp.oldPosition11.y;
 	}
 }
 
