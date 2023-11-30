@@ -558,11 +558,11 @@ void CStrategySystem::cp_pos() { // 中心球员位置
 }
 
 void CStrategySystem::cp_kick() { // TODO 中心球员击球
-  // if (fm_id() == 1) {
-  // }
-  // else if (fm_id() == 2) {
-  // }
-  // else
+								  // if (fm_id() == 1) {
+								  // }
+								  // else if (fm_id() == 2) {
+								  // }
+								  // else
 	if (fm_id() == 3) {
 		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
 			shot(cp_id(), 0, CPoint(45, 457));
@@ -2874,6 +2874,7 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
+	Goalie();
 	switch (Status()) {
 	case 1:
 		flag = true;
@@ -2890,7 +2891,6 @@ void CStrategySystem::Action() {
 		Possession();
 		break;
 	}
-	Goalie();
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
