@@ -2402,27 +2402,31 @@ int CStrategySystem::search2() // 查找在小区里的机器人
 
 // 守门
 void CStrategySystem::Goalie() {
+	if (is_start) {
+		ball.oldPosition = ball.position;
+		is_start = false;
+	}
+
 	int gx = ball.position.x >= 873 && (ball.position.y <= 217 || ball.position.y >= 607) || ball.position.x >= 950 ? 965 : 950;
 	int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
-	if (ball.position.x > 515)
-		// if (ball.position.x < ball.oldPosition.x)
-		if (Distance(ball.position, ball.oldPosition) >= 5) {
-			if (gy < 313)
-				Direction(HGOALIE, CPoint(gx, 313));
-			else if (gy > 505)
-				Direction(HGOALIE, CPoint(gx, 505));
-			else
-				Direction(HGOALIE, CPoint(gx, gy));
-		}
-		else {
-			if (ball.position.y < 313)
-				Direction(HGOALIE, CPoint(gx, 313));
-			else if (ball.position.y > 505)
-				Direction(HGOALIE, CPoint(gx, 505));
-			else
-				Direction(HGOALIE, CPoint(gx, ball.position.y));
-		}
+	// if (ball.position.x < ball.oldPosition.x)
+	if (Distance(ball.position, ball.oldPosition) >= 5) {
+		if (gy < 313)
+			Direction(HGOALIE, CPoint(gx, 313));
+		else if (gy > 505)
+			Direction(HGOALIE, CPoint(gx, 505));
+		else
+			Direction(HGOALIE, CPoint(gx, gy));
+	}
+	else {
+		if (ball.position.y < 313)
+			Direction(HGOALIE, CPoint(gx, 313));
+		else if (ball.position.y > 505)
+			Direction(HGOALIE, CPoint(gx, 505));
+		else
+			Direction(HGOALIE, CPoint(gx, ball.position.y));
+	}
 
 	ball.oldPosition = ball.position;
 
@@ -3319,6 +3323,8 @@ CStrategySystem::CStrategySystem(int id) {
 	// while (t--) {
 	// 	Navigation.push_back(CPoint(515, 409));
 	// }
+
+	is_start = true;
 
 	pos = new CPoint[10];
 	rp = new RelPos[10];
