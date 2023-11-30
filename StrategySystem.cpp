@@ -713,13 +713,13 @@ void CStrategySystem::fm_gen() { // TODO 阵型生成
 	else if (fm_id() == 6) {
 		pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
 		pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
-		pos[3] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
-		pos[4] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-45.0 * PI / 180.0) * 40);
-		pos[5] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
-		pos[6] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
-		pos[7] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
+		pos[5] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
+		pos[3] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-45.0 * PI / 180.0) * 40);
+		pos[4] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+		pos[9] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
+		pos[6] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
 		pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
-		pos[9] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
+		pos[7] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
 	}
 
 	// 景缪
@@ -1243,33 +1243,47 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 		Direction(p2[6], pos[3]);
 	}
 	else if (fm_id() == 6) {
-		int d[10];
-		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-		for (int i = 0; i <= 9; i++) {
-			if (i == cp_id() - 1) {
-				d[i] = 1e5;
-			}
-			d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
-		}
-		int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		for (int i = 1; i <= 10; i++) {
-			int j;
-			for (j = 0; j < 10 - i; j++) {
-				if (d[j] > d[j + 1]) {
-					int tmp = d[j];
-					d[j] = d[j + 1];
-					d[j + 1] = tmp;
-					tmp = p[j];
-					p[j] = p[j + 1];
-					p[j + 1] = tmp;
-				}
-			}
-		}
-		for (int i = 0; i <= 9; i++) {
-			if (p[i] = cp_id() - 1)
-				continue;
-			Direction(p[i], pos[i + 1]);
-		}
+		fp_sort();
+		fp_sort(0, 2);
+		Direction(rp[0].id, pos[1]);
+		Direction(rp[1].id, pos[2]);
+		fp_sort(2, 5);
+		Direction(rp[2].id, pos[3]);
+		Direction(rp[3].id, pos[4]);
+		Direction(rp[4].id, pos[5]);
+		fp_sort(5, 9);
+		Direction(rp[5].id, pos[6]);
+		Direction(rp[6].id, pos[7]);
+		Direction(rp[7].id, pos[8]);
+		Direction(rp[8].id, pos[9]);
+
+		// int d[10];
+		// CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+		// for (int i = 0; i <= 9; i++) {
+		// 	if (i == cp_id() - 1) {
+		// 		d[i] = 1e5;
+		// 	}
+		// 	d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
+		// }
+		// int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		// for (int i = 1; i <= 10; i++) {
+		// 	int j;
+		// 	for (j = 0; j < 10 - i; j++) {
+		// 		if (d[j] > d[j + 1]) {
+		// 			int tmp = d[j];
+		// 			d[j] = d[j + 1];
+		// 			d[j + 1] = tmp;
+		// 			tmp = p[j];
+		// 			p[j] = p[j + 1];
+		// 			p[j + 1] = tmp;
+		// 		}
+		// 	}
+		// }
+		// for (int i = 0; i <= 9; i++) {
+		// 	if (p[i] = cp_id() - 1)
+		// 		continue;
+		// 	Direction(p[i], pos[i + 1]);
+		// }
 	}
 	/*else if (fm_id() == 7) {
 		double adou[15];
@@ -1490,7 +1504,7 @@ void CStrategySystem::fp_move() { // TODO 阵型球员移动
 					p = l;
 				}
 			}
-			if (a[p].num != cp_id())		 // 不是中心球员
+			if (a[p].num != cp_id())		  // 不是中心球员
 				PositionSE(a[p].num, pos[j]); // 移动到最近的点位
 		}
 	}
@@ -3328,6 +3342,12 @@ CStrategySystem::CStrategySystem(int id) {
 
 	pos = new CPoint[10];
 	rp = new RelPos[10];
+
+	for (int i = 0; i < 10; i++) {
+		rp[i].ang = 0;
+		rp[i].dis = 0;
+		rp[i].id = i + 1;
+	}
 
 	flag = true;
 
