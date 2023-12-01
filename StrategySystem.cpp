@@ -2409,13 +2409,13 @@ void CStrategySystem::Goalie() {
 
 	static int xit;
 
-	if (ball.oldPosition.x < hgoalie.position.x && ball.position.x < hgoalie.position.x) {
-		// int xix = ball.position.x >= 730 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
-		int xix = ball.position.x >= 730 ? 965 : 950;
+	if (ball.position.x < hgoalie.position.x && Distance(ball.position, hgoalie.position) > 1) {
+		int xix = ball.position.x >= 730 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
+		// int xix = ball.position.x >= 730 ? 965 : 950;
 		int xiy = 409;
 
 		if (ball.position.x >= 600) {
-			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * xix + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - 7) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
 			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
 				if (ball.position.x >= 873) {
