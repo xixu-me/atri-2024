@@ -2417,7 +2417,7 @@ void CStrategySystem::Goalie() {
 			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * xix + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
 			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
-				if (ball.position.x >= 860) {
+				if (ball.position.x >= 873) {
 					if (ball.position.x >= 927) {
 						if (ball.position.y < 315)
 							xiy = 315;
