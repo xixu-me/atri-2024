@@ -2436,10 +2436,10 @@ void CStrategySystem::Goalie() {
 		// 	else
 		// 		gy -= 30;
 
-		if (ball.position.y < 318)
-			gy = 318;
-		else if (ball.position.y > 500)
-			gy = 500;
+		if (ball.position.y < 315)
+			gy = 315;
+		else if (ball.position.y > 503)
+			gy = 503;
 
 		Direction(HGOALIE, CPoint(gx, gy));
 	}
