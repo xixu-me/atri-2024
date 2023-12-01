@@ -2413,6 +2413,9 @@ void CStrategySystem::Goalie() {
 		Direction(HGOALIE, CPoint(gx, 409));
 	}
 	else {
+		if (ball.position.x <= 927 /*&&（罚球状态）*/) {
+			// 旋踢
+		}
 		if (Distance(ball.position, ball.oldPosition) >= 5) {
 			int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 			if (gy < 313)
