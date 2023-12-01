@@ -2411,30 +2411,24 @@ void CStrategySystem::Goalie() {
 
 	if (ball.position.x < hgoalie.position.x && Distance(ball.position, hgoalie.position) > 1) {
 		int xix = ball.position.x >= 873 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
-		int xiy = 409;
 
-		if (ball.position.x >= 600) {
-			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - 9) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+		int xid = 8;
+		if (abs(ball.position.y - ball.oldPosition.y) > 2)
+			xid = 10;
+		int xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - xid) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
-			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
-				if (ball.position.x >= 927 && ball.position.y >= 247 && ball.position.y <= 577) {
-					if (ball.position.y < 313)
-						xiy = 313;
-					else if (ball.position.y > 505)
-						xiy = 505;
-					else
-						xiy = ball.position.y;
-				}
+		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
+			if (ball.position.x >= 927 && ball.position.y >= 247 && ball.position.y <= 577) {
+				if (ball.position.y < 313)
+					xiy = 313;
+				else if (ball.position.y > 505)
+					xiy = 505;
 				else
-					xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
-
-				if ((xit / 4) % 2)
-					xiy += 30;
-				else
-					xiy -= 30;
+					xiy = ball.position.y;
 			}
-		}
-		else {
+			else
+				xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
+
 			if ((xit / 4) % 2)
 				xiy += 30;
 			else
