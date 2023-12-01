@@ -2410,7 +2410,8 @@ void CStrategySystem::Goalie() {
 	static int xit;
 
 	if (ball.oldPosition.x < hgoalie.position.x && ball.position.x < hgoalie.position.x) {
-		int xix = ball.position.x >= 730 && ((ball.position.y <= 313 || ball.position.y >= 505) || abs(ball.position.y - ball.oldPosition.y) > 2) || ball.position.x >= 940 ? 965 : 950;
+		// int xix = ball.position.x >= 730 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
+		int xix = ball.position.x >= 730 ? 965 : 940;
 		int xiy = 409;
 
 		if (ball.position.x >= 600) {
