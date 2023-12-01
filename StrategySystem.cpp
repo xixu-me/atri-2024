@@ -2418,38 +2418,43 @@ void CStrategySystem::Goalie() {
 			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - 8) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
 			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
-				
-				if (ball.position.x >= 863) {
-					if (ball.position.x >= 927) {
-						if (ball.position.y < 313)
-							xiy = 313;
-						else if (ball.position.y > 505)
-							xiy = 505;
-						else
-							xiy = ball.position.y;
-					}
-					else {
-						if (ball.position.y < 361)
-							xiy = 361;
-						else if (ball.position.y > 457)
-							xiy = 457;
-						else
-							xiy = ball.position.y;
+				xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
 
-						if ((xit / 4) % 2)
-							xiy += 30;
-						else
-							xiy -= 30;
-					}
-				}
-				else {
-					xiy = 409;
+				if ((xit / 4) % 2)
+					xiy += 30;
+				else
+					xiy -= 30;
+				// if (ball.position.x >= 863) {
+				// 	if (ball.position.x >= 927) {
+				// 		if (ball.position.y < 313)
+				// 			xiy = 313;
+				// 		else if (ball.position.y > 505)
+				// 			xiy = 505;
+				// 		else
+				// 			xiy = ball.position.y;
+				// 	}
+				// 	else {
+				// 		if (ball.position.y < 361)
+				// 			xiy = 361;
+				// 		else if (ball.position.y > 457)
+				// 			xiy = 457;
+				// 		else
+				// 			xiy = ball.position.y;
 
-					if ((xit / 4) % 2)
-						xiy += 30;
-					else
-						xiy -= 30;
-				}
+				// 		if ((xit / 4) % 2)
+				// 			xiy += 30;
+				// 		else
+				// 			xiy -= 30;
+				// 	}
+				// }
+				// else {
+				// 	xiy = 409;
+
+				// 	if ((xit / 4) % 2)
+				// 		xiy += 30;
+				// 	else
+				// 		xiy -= 30;
+				// }
 			}
 		}
 		else {
