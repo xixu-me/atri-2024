@@ -2409,7 +2409,7 @@ void CStrategySystem::Goalie() {
 
 	int gx = ball.position.x >= 740 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
 
-	if (ball.position.x >= 740 && (ball.position.y <= 313 && ball.position.y <= ball.oldPosition.y || ball.position.y >= 505 && ball.position.y >= ball.oldPosition.y) && ball.position.x <= ball.oldPosition.x) {
+	if (ball.position.x >= 740 && (ball.position.y <= 217 && ball.position.y <= ball.oldPosition.y || ball.position.y >= 607 && ball.position.y >= ball.oldPosition.y) && ball.position.x <= ball.oldPosition.x) {
 		Direction(HGOALIE, CPoint(gx, 409));
 	}
 	else {
