@@ -52,7 +52,7 @@ private:
 	// void navigate();
 	void shot(int which, bool de);			 // 射门;
 	void shot(int which, bool de, CPoint t); // 把球向t点射,de向上还是向下射,de=0从上向下射
-	bool is_start;							 // 是否刚开始
+	bool xistart;							 // 是否刚开始
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
 	double Angle(CPoint point1, CPoint point2);	   // 计算两点之间的角度
