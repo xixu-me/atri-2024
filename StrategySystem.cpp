@@ -2477,8 +2477,6 @@ void CStrategySystem::Goalie() {
 			xiy = 313;
 		else if (ball.position.y > 505)
 			xiy = 505;
-		else
-			xiy = ball.position.y;
 
 		if (xiy < 303 || xiy > 495)
 			Position(HGOALIE, CPoint(xix, xiy));
