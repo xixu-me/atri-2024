@@ -2408,26 +2408,28 @@ void CStrategySystem::Goalie() {
 	}
 
 	int gx = ball.position.x >= 740 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
-	int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
 	if (ball.position.x >= 740 && (ball.position.y <= 313 && ball.position.y <= ball.oldPosition.y || ball.position.y >= 505 && ball.position.y >= ball.oldPosition.y) && ball.position.x <= ball.oldPosition.x) {
 		Direction(HGOALIE, CPoint(gx, 409));
 	}
-	else if (Distance(ball.position, ball.oldPosition) >= 5) {
-		if (gy < 313)
-			Direction(HGOALIE, CPoint(gx, 313));
-		else if (gy > 505)
-			Direction(HGOALIE, CPoint(gx, 505));
-		else
-			Direction(HGOALIE, CPoint(gx, gy));
-	}
 	else {
-		if (ball.position.y < 313)
-			Direction(HGOALIE, CPoint(gx, 313));
-		else if (ball.position.y > 505)
-			Direction(HGOALIE, CPoint(gx, 505));
-		else
-			Direction(HGOALIE, CPoint(gx, ball.position.y));
+		if (Distance(ball.position, ball.oldPosition) >= 5) {
+			int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+			if (gy < 313)
+				Direction(HGOALIE, CPoint(gx, 313));
+			else if (gy > 505)
+				Direction(HGOALIE, CPoint(gx, 505));
+			else
+				Direction(HGOALIE, CPoint(gx, gy));
+		}
+		else {
+			if (ball.position.y < 313)
+				Direction(HGOALIE, CPoint(gx, 313));
+			else if (ball.position.y > 505)
+				Direction(HGOALIE, CPoint(gx, 505));
+			else
+				Direction(HGOALIE, CPoint(gx, ball.position.y));
+		}
 	}
 
 	ball.oldPosition = ball.position;
