@@ -2407,34 +2407,46 @@ void CStrategySystem::Goalie() {
 		is_start = false;
 	}
 
-	int gx = ball.position.x >= 740 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
+	static int t;
 
-	if (ball.position.x >= 740 && (ball.position.y <= 217 && ball.position.y <= ball.oldPosition.y || ball.position.y >= 607 && ball.position.y >= ball.oldPosition.y) && ball.position.x <= ball.oldPosition.x) {
-		Direction(HGOALIE, CPoint(gx, 409));
-	}
-	else {
-		// if (ball.position.x <= 927 /*&&（罚球状态）*/) { // TODO
-		//  旋踢
-		//}
-		// else
-		if (Distance(ball.position, ball.oldPosition) >= 5) {
-			int gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
-			if (gy < 313)
-				Direction(HGOALIE, CPoint(gx, 313));
-			else if (gy > 505)
-				Direction(HGOALIE, CPoint(gx, 505));
-			else
-				Direction(HGOALIE, CPoint(gx, gy));
+	if (ball.position.x < hgoalie.position.x) {
+		int gx = ball.position.x >= 730 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
+		int gy = 409;
+		//	int gx = 965;
+		if (ball.position.x >= 600) {
+			gy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * gx + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || gy < 313 || gy > 505) {
+				// if (ball.position.x >= 873 && ((ball.position.y < 313 && (ball.position.y < ball.oldPosition.y || ball.position.x < ball.oldPosition.x)) || (ball.position.y > 505 && (ball.position.y > ball.oldPosition.y || ball.position.x < ball.oldPosition.x)))) {
+				// 	gy = 409;
+				// }s
+				// else {
+				if (ball.position.y < 361)
+					gy = 361;
+				else if (ball.position.y > 457)
+					gy = 457;
+				else
+					gy = ball.position.y;
+				//}
+			}
 		}
-		else {
-			if (ball.position.y < 313)
-				Direction(HGOALIE, CPoint(gx, 313));
-			else if (ball.position.y > 505)
-				Direction(HGOALIE, CPoint(gx, 505));
-			else
-				Direction(HGOALIE, CPoint(gx, ball.position.y));
-		}
+
+		// if (gy != 315 && gy != 503)
+		// 	if ((t / 5) % 2)
+		// 		gy += 30;
+		// 	else
+		// 		gy -= 30;
+
+		if (ball.position.y < 318)
+			gy = 318;
+		else if (ball.position.y > 500)
+			gy = 500;
+
+		Direction(HGOALIE, CPoint(gx, gy));
 	}
+	else
+		Stop(HGOALIE);
+
+	t++;
 
 	ball.oldPosition = ball.position;
 
