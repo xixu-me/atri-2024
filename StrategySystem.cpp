@@ -2415,15 +2415,15 @@ void CStrategySystem::Goalie() {
 		int xiy = 409;
 
 		if (ball.position.x >= 600) {
-			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - 7) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
+			xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - 8) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 
 			if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
-				if (ball.position.x >= 873) {
+				if (ball.position.x >= 863) {
 					if (ball.position.x >= 927) {
-						if (ball.position.y < 315)
-							xiy = 315;
-						else if (ball.position.y > 503)
-							xiy = 503;
+						if (ball.position.y < 313)
+							xiy = 313;
+						else if (ball.position.y > 505)
+							xiy = 505;
 						else
 							xiy = ball.position.y;
 					}
@@ -2457,11 +2457,6 @@ void CStrategySystem::Goalie() {
 			else
 				xiy -= 30;
 		}
-
-		if (xiy < 316)
-			xiy = 316;
-		else if (xiy > 502)
-			xiy = 502;
 
 		Direction(HGOALIE, CPoint(xix, xiy));
 	}
