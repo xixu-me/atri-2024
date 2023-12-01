@@ -2420,12 +2420,26 @@ void CStrategySystem::Goalie() {
 				// 	gy = 409;
 				// }s
 				// else {
-				if (ball.position.y < 361)
-					gy = 361;
-				else if (ball.position.y > 457)
-					gy = 457;
+				if (ball.position.x >= 860) {
+					if (ball.position.x >= 927) {
+						if (ball.position.y < 315)
+							gy = 315;
+						else if (ball.position.y > 503)
+							gy = 503;
+						else
+							gy = ball.position.y;
+					}
+					else {
+						if (ball.position.y < 361)
+							gy = 361;
+						else if (ball.position.y > 457)
+							gy = 457;
+						else
+							gy = ball.position.y;
+					}
+				}
 				else
-					gy = ball.position.y;
+					gy = 409;
 				//}
 			}
 			if (gy < 315)
