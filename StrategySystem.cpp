@@ -2843,6 +2843,22 @@ int CStrategySystem::Status() {
 
 void CStrategySystem::Action() {
 	Goalie();
+	switch (Status()) {
+	case 1:
+		flag = true;
+		Penalty();
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+		Freeball();
+		break;
+	default:
+		flag = true;
+		Possession();
+		break;
+	}
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
