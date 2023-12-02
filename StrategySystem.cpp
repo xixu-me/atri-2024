@@ -2416,12 +2416,13 @@ void CStrategySystem::Goalie() {
 				else
 					xiy = ball.position.y;
 			}
-			else
+			else {
 				xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
 			if ((xit / 4) % 2)
 				xiy += 20;
 			else
 				xiy -= 20;
+}
 		}
 		else {
 			if (xii < 333 || xii > 485)
