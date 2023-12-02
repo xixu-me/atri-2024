@@ -2402,19 +2402,12 @@ int CStrategySystem::search2() // 查找在小区里的机器人
 
 // 守门
 void CStrategySystem::Goalie() {
-	if (xistart) {
-		ball.oldPosition = ball.position;
-		xistart = false;
-	}
+	if (xistart)
+		ball.oldPosition = ball.position, xistart = false;
 	static int xit;
-	if (ball.position.x < hgoalie.position.x && Distance(ball.position, hgoalie.position) > 1) {
-		int xix = ball.position.x >= 940 ? 965 : 950;
-		int xid = 8;
-		// TODO
-		// if (fabs(atan2(1.0 * (ball.position.y - ball.oldPosition.y), 1.0 * (ball.position.x - ball.oldPosition.x)) * 180.0 / M_PI) > 45 && ball.position.x >= 873)
-		// 	xid = 13;
-		int xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - xid) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
-		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
+	if (ball.position.x <= hgoalie.position.x) {
+		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
+		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xii < 313 || xii > 505) {
 			if (ball.position.x >= 927 && ball.position.y >= 247 && ball.position.y <= 577) {
 				if (ball.position.y < 313)
 					xiy = 313;
@@ -2426,14 +2419,16 @@ void CStrategySystem::Goalie() {
 			else
 				xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
 			if ((xit / 4) % 2)
-				xiy += 30;
+				xiy += 20;
 			else
-				xiy -= 30;
+				xiy -= 20;
 		}
-		if (xiy < 313)
-			xiy = 313;
-		else if (xiy > 505)
-			xiy = 505;
+		else {
+			if (xii < 333 || xii > 485)
+				xix = 950;
+			int xid = 5;
+			xiy = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * (xix - xid) + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
+		}
 		Direction(HGOALIE, CPoint(xix, xiy));
 	}
 	else
@@ -2848,22 +2843,6 @@ int CStrategySystem::Status() {
 
 void CStrategySystem::Action() {
 	Goalie();
-	switch (Status()) {
-	case 1:
-		flag = true;
-		Penalty();
-		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		Freeball();
-		break;
-	default:
-		flag = true;
-		Possession();
-		break;
-	}
 }
 
 void CStrategySystem::Angle(int which, int desired_angle) {
