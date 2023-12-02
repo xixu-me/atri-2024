@@ -2410,8 +2410,9 @@ void CStrategySystem::Goalie() {
 	if (ball.position.x < hgoalie.position.x && Distance(ball.position, hgoalie.position) > 1) {
 		int xix = ball.position.x >= 873 && (ball.position.y <= 313 || ball.position.y >= 505) || ball.position.x >= 940 ? 965 : 950;
 		int xid = 8;
-		if (abs(ball.position.y - ball.oldPosition.y) > 2)
-			xid = 10;
+		// TODO
+		// if (fabs(atan2(1.0 * (ball.position.y - ball.oldPosition.y), 1.0 * (ball.position.x - ball.oldPosition.x)) * 180.0 / M_PI) > 45 && ball.position.x >= 873)
+		// 	xid = 13;
 		int xiy = int(((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * (xix - xid) + (ball.oldPosition.y - ((ball.position.y - ball.oldPosition.y) * 1.0 / (ball.position.x - ball.oldPosition.x) * 1.0) * ball.oldPosition.x) + 0.5);
 		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xiy < 313 || xiy > 505) {
 			if (ball.position.x >= 927 && ball.position.y >= 247 && ball.position.y <= 577) {
