@@ -2430,6 +2430,8 @@ void CStrategySystem::Goalie() {
 			int xid = 5;
 			xiy = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * (xix - xid) + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
 		}
+		if (xiy <= 313 || xiy >= 505)
+			xix = 965;
 		Direction(HGOALIE, CPoint(xix, xiy));
 	}
 	else
