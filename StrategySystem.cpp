@@ -2421,14 +2421,15 @@ void CStrategySystem::Goalie() {
 					xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
 				else
 					xiy = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * (xix - xid) + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
-				if ((t / 4) % 2)
-					xiy += 20;
-				else
-					xiy -= 20;
+				if (ball.position.x <= 900 || ball.position.y < 313 || ball.position.y > 505)
+					if ((t / 4) % 2)
+						xiy += 30;
+					else
+						xiy -= 30;
 			}
 		}
 		else {
-			if (xii < 333 || xii > 485)
+			if (xii < 343 || xii > 475)
 				xix = 950;
 			xiy = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * (xix - xid) + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
 		}
