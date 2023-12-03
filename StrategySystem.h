@@ -94,12 +94,13 @@ private:
 	Robot2 home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, hgoalie;
 	Robot3 opponent;
 
+	bool start; // 是否刚开始
+	int t;		// 时间，即周期数
 	struct infor {
 		int num;	// 球员编号
 		double dis; // 球员到球的距离
 	};
 	bool flag;
-	bool xistart; // 是否刚开始
 
 	// std::vector<CPoint> Navigation;
 
