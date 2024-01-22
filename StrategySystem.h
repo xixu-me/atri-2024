@@ -28,8 +28,8 @@ private:
 	void Possession(); // 控球
 	void Goalie();	   // 守门
 
-	CPoint pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9; // 球员位置
-	RelPos rp0, rp1, rp2, rp3, rp4, rp5, rp6, rp7, rp8, rp9;		   // 阵型球员相对中央球员的位置
+	CPoint *pos; // 球员位置
+	RelPos *rp;	 // 阵型球员相对中央球员的位置
 
 	int cp_id();						// 中央球员 ID
 	void cp_pos();						// 中央球员位置
