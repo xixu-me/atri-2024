@@ -2404,12 +2404,7 @@ int CStrategySystem::search2() // 查找在小区里的机器人
 void CStrategySystem::Goalie() { // TODO 两侧卡顿
 	if (start)
 		ball.oldPosition = ball.position;
-	// static int xit;
-	// if (ball.position != ball.oldPosition)
-	// 	xit = 0;
-	// else
-	// 	xit++;
-	if (ball.position.x <= hgoalie.position.x) {
+	if (ball.position.x <= hgoalie.position.x || ball.position.y <= 313 || ball.position.y >= 505) {
 		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5), xid = 2;
 		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xii < 313 || xii > 505) {
 			if (ball.position.x >= 927 && ball.position.y >= 313 && ball.position.y <= 505) {
@@ -2441,12 +2436,6 @@ void CStrategySystem::Goalie() { // TODO 两侧卡顿
 				xix = 965;
 			xiy = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * (xix - xid) + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
 		}
-		// if (ball.position.x >= 900 && ball.position.y >= 313 && ball.position.y <= 505 && xit >= 10) // TODO 旋球
-		// if (shooter_pos().y > ball.position.y)
-		// 	Direction(HGOALIE, CPoint(ball.position.x + 1, ball.position.y + 1));
-		// else
-		// 	Direction(HGOALIE, CPoint(ball.position.x + 1, ball.position.y - 1));
-		// else
 		Direction(HGOALIE, CPoint(xix, xiy));
 	}
 	else
