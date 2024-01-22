@@ -21,6 +21,66 @@ extern int nKick;
 #define G_ANGLE_BOUND 60
 #define G_BOUND_BOUND 10
 
+// 守门
+void CStrategySystem::Goalie() { // TODO 两侧卡顿
+	if (start)
+		ball.oldPosition = ball.position;
+	if (ball.position.x <= hgoalie.position.x || ball.position.y <= 313 || ball.position.y >= 505) {
+		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5), xid = 0;
+		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xii < 313 || xii > 505) {
+			if (ball.position.x >= 927 && ball.position.y >= 313 && ball.position.y <= 505) {
+				xiy = ball.position.y;
+				if (xiy < 343 || xiy > 475)
+					xix = 965;
+			}
+			else {
+				xii = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * 965 + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
+				if (xii < 313 || xii > 505) {
+					xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
+					if (xiy < 343 || xiy > 475)
+						xix = 965;
+				}
+				else {
+					if (xii < 343 || xii > 475)
+						xix = 965;
+					xiy = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * (xix - xid) + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
+				}
+				if (ball.position.x <= 900 || ball.position.y < 313 || ball.position.y > 505)
+					if ((t / 4) % 2)
+						xiy += 30;
+					else
+						xiy -= 30;
+			}
+		}
+		else {
+			if (xii < 343 || xii > 475)
+				xix = 965;
+			xiy = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * (xix - xid) + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5);
+		}
+		Direction(HGOALIE, CPoint(xix, xiy));
+	}
+	else
+		Stop(HGOALIE);
+	ball.oldPosition = ball.position;
+}
+
+CPoint CStrategySystem::shooter_pos() { // 对方射门者位置
+	CPoint cur_pos[11]{ opponent.position1, opponent.position2, opponent.position3, opponent.position4, opponent.position5, opponent.position6, opponent.position7, opponent.position8, opponent.position9, opponent.position10, opponent.position11 };
+	for (int i = 0; i < 11; i++) {
+		if (cur_pos[i].x >= ball.position.x)
+			cur_pos[i] = CPoint(-965, -723);
+	}
+	int xii = 0;
+	double xid = Distance(cur_pos[0], ball.position);
+	for (int i = 1; i < 11; i++) {
+		if (Distance(cur_pos[i], ball.position) < xid) {
+			xid = Distance(cur_pos[i], ball.position);
+			xii = i;
+		}
+	}
+	return cur_pos[xii];
+}
+
 // 罚球
 // void CStrategySystem::Penalty() {
 // 	srand(time(nullptr));
