@@ -2405,7 +2405,7 @@ void CStrategySystem::Goalie() { // TODO 两侧卡顿
 	if (start)
 		ball.oldPosition = ball.position;
 	if (ball.position.x <= hgoalie.position.x || ball.position.y <= 313 || ball.position.y >= 505) {
-		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5), xid = 2;
+		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5), xid = 0;
 		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xii < 313 || xii > 505) {
 			if (ball.position.x >= 927 && ball.position.y >= 313 && ball.position.y <= 505) {
 				xiy = ball.position.y;
