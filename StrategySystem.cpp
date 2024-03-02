@@ -441,12 +441,924 @@ double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int
 // 		control(i);
 //}
 void CStrategySystem::Possession() {
+	CPoint pos[10];
+	RelPos rp[10];
+	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+
 	if (cp_id()) {
-		cp_pos();
-		cp_kick();
-		fp_rp();
-		fm_gen();
-		fp_move();
+		pos[0] = cur_pos[cp_id() - 1];
+
+		for (int i = 0; i < 10; i++) {
+			if (rp[i].id == fm_id() - 1) {
+				rp[i].ang = 0;
+				rp[i].dis = 0;
+			}
+			else {
+				rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
+				rp[i].dis = Distance(cur_pos[i], pos[0]);
+			}
+		}
+
+		// 孙徐
+		if (fm_id() == 1) {
+			Direction(cp_id(), ball.position);
+
+			pos[1] = CPoint(pos[0].x, pos[0].y - 10);
+			pos[2] = CPoint(pos[0].x + 10, pos[0].y - 10);
+			pos[3] = CPoint(pos[0].x + 10, pos[0].y);
+			pos[6] = CPoint(pos[0].x + 20, pos[0].y);
+			pos[4] = CPoint(pos[0].x + 10, pos[0].y + 10);
+			pos[7] = CPoint(pos[0].x + 20, pos[0].y + 10);
+			pos[5] = CPoint(pos[0].x + 10, pos[0].y + 20);
+			pos[8] = CPoint(170, 409);
+			pos[9] = CPoint(170, 556);
+
+			fp_sort(rp);
+			fp_sort(rp, 0, 5);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			fp_sort(rp, 5, 7);
+			Direction(rp[5].id, pos[6]);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+		}
+		else if (fm_id() == 2) {
+			Direction(cp_id(), ball.position);
+
+			pos[1] = CPoint(pos[0].x, pos[0].y + 10);
+			pos[2] = CPoint(pos[0].x + 10, pos[0].y + 10);
+			pos[3] = CPoint(pos[0].x + 10, pos[0].y);
+			pos[6] = CPoint(pos[0].x + 20, pos[0].y);
+			pos[4] = CPoint(pos[0].x + 10, pos[0].y - 10);
+			pos[7] = CPoint(pos[0].x + 20, pos[0].y - 10);
+			pos[5] = CPoint(pos[0].x + 10, pos[0].y - 20);
+			pos[8] = CPoint(170, 409);
+			pos[9] = CPoint(170, 265);
+
+			fp_sort(rp);
+			fp_sort(rp, 0, 5);
+			Direction(rp[5].id, pos[1]);
+			Direction(rp[4].id, pos[2]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[2].id, pos[4]);
+			Direction(rp[1].id, pos[5]);
+			fp_sort(rp, 5, 7);
+			Direction(rp[7].id, pos[6]);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+		}
+		else if (fm_id() == 3) {
+			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
+				shot(cp_id(), 0, CPoint(45, 457));
+			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
+				shot(cp_id(), 0, CPoint(45, 361));
+			else
+				Direction(cp_id(), CPoint(170, ball.position.y));
+
+			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
+				// 内圈
+				pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
+				pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
+				pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
+				pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
+				pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
+				pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
+				// 内圈
+				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
+				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
+				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
+			}
+			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
+				// 内圈
+				pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
+				pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
+				pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
+				pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
+				pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
+				pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
+				// 内圈
+				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
+				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
+				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
+			}
+			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
+			{
+				pos[1] = CPoint(142, pos[0].y - 20);
+				pos[2] = CPoint(142, pos[0].y + 20);
+
+				pos[3] = CPoint(170, pos[0].y - 20);
+				pos[4] = CPoint(170, pos[0].y + 20);
+				pos[5] = CPoint(185, pos[0].y - 12);
+				if (pos[0].y - 50 < 157)
+					pos[6] = CPoint(ball.position.x + 12, 225);
+				else
+					pos[6] = CPoint(170, pos[0].y - 50);
+				pos[7] = CPoint(ball.position.x, 225);
+				pos[8] = CPoint(170, pos[0].y + 45);
+				pos[9] = CPoint(170, pos[0].y + 405);
+			}
+			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
+			{
+				pos[1] = CPoint(142, pos[0].y - 20);
+				pos[2] = CPoint(142, pos[0].y + 20);
+
+				pos[3] = CPoint(170, pos[0].y - 20);
+				pos[4] = CPoint(170, pos[0].y + 20);
+				pos[5] = CPoint(185, pos[0].y + 12);
+				if (pos[0].y + 50 > 607)
+					pos[6] = CPoint(ball.position.x + 12, 615);
+				else
+					pos[6] = CPoint(170, pos[0].y + 50);
+				pos[7] = CPoint(ball.position.x, 615);
+				pos[8] = CPoint(170, pos[0].y - 45);
+				pos[9] = CPoint(170, pos[0].y - 405);
+			}
+
+			if (ball.position.x >= 157 && ball.position.x <= 290) {
+				struct infor a[11];
+				for (int i = 1; i <= 10; i++) {
+					a[i].num = i;
+					Robot2 *robot;
+					switch (i) {
+					case HOME1:
+						robot = &home1;
+						break;
+					case HOME2:
+						robot = &home2;
+						break;
+					case HOME3:
+						robot = &home3;
+						break;
+					case HOME4:
+						robot = &home4;
+						break;
+					case HOME5:
+						robot = &home5;
+						break;
+					case HOME6:
+						robot = &home6;
+						break;
+					case HOME7:
+						robot = &home7;
+						break;
+					case HOME8:
+						robot = &home8;
+						break;
+					case HOME9:
+						robot = &home9;
+						break;
+					case HOME10:
+						robot = &home10;
+						break;
+					case HGOALIE:
+						robot = &hgoalie;
+						break;
+					}
+					a[i].dis = Distance(ball.position, robot->position);
+				}
+				for (int i = 1; i <= 10; i++) {
+					for (int j = i + 1; j <= 10; j++) {
+						if (a[i].dis > a[j].dis) {
+							struct infor t;
+							t = a[i];
+							a[i] = a[j];
+							a[j] = t;
+						}
+					}
+				}
+				for (int i = 1; i <= 10; i++)
+					if (a[i].num != cp_id())
+						Direction(a[i].num, pos[i - 1]);
+			}
+			else if (pos[0].y <= 409 && ball.position.x < 157) {
+				struct infor a[11];
+				for (int i = 1; i <= 10; i++) {
+					a[i].num = i;
+					Robot2 *robot;
+					switch (i) {
+					case HOME1:
+						robot = &home1;
+						break;
+					case HOME2:
+						robot = &home2;
+						break;
+					case HOME3:
+						robot = &home3;
+						break;
+					case HOME4:
+						robot = &home4;
+						break;
+					case HOME5:
+						robot = &home5;
+						break;
+					case HOME6:
+						robot = &home6;
+						break;
+					case HOME7:
+						robot = &home7;
+						break;
+					case HOME8:
+						robot = &home8;
+						break;
+					case HOME9:
+						robot = &home9;
+						break;
+					case HOME10:
+						robot = &home10;
+						break;
+					case HGOALIE:
+						robot = &hgoalie;
+						break;
+					}
+					a[i].dis = fabs(ball.position.y - robot->position.y);
+				}
+				for (int i = 1; i <= 10; i++) {
+					for (int j = i + 1; j <= 10; j++) {
+						if (a[i].dis > a[j].dis) {
+							struct infor t;
+							t = a[i];
+							a[i] = a[j];
+							a[j] = t;
+						}
+					}
+				}
+				if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
+					shot(a[2].num, 0);
+				else
+					Direction(a[2].num, pos[1]);
+				if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
+					shot(a[3].num, 0);
+				else
+					Direction(a[3].num, pos[2]);
+				if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
+					shot(a[9].num, 1);
+				else
+					Direction(a[9].num, pos[8]);
+				if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
+					shot(a[10].num, 1);
+				else
+					Direction(a[10].num, pos[9]);
+				if (ball.position.x < 313 && search1() <= 3)
+					shot(a[8].num, 0);
+				else
+					Direction(a[8].num, pos[7]);
+				for (int i = 1; i <= 10; i++) {
+					if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
+						Direction(a[i].num, pos[i - 1]);
+				}
+			}
+			else {
+				struct infor a[11];
+				for (int i = 1; i <= 10; i++) {
+					a[i].num = i;
+					Robot2 *robot;
+					switch (i) {
+					case HOME1:
+						robot = &home1;
+						break;
+					case HOME2:
+						robot = &home2;
+						break;
+					case HOME3:
+						robot = &home3;
+						break;
+					case HOME4:
+						robot = &home4;
+						break;
+					case HOME5:
+						robot = &home5;
+						break;
+					case HOME6:
+						robot = &home6;
+						break;
+					case HOME7:
+						robot = &home7;
+						break;
+					case HOME8:
+						robot = &home8;
+						break;
+					case HOME9:
+						robot = &home9;
+						break;
+					case HOME10:
+						robot = &home10;
+						break;
+					case HGOALIE:
+						robot = &hgoalie;
+						break;
+					}
+					a[i].dis = fabs(ball.position.y - robot->position.y);
+				}
+				for (int i = 1; i <= 10; i++) {
+					for (int j = i + 1; j <= 10; j++) {
+						if (a[i].dis > a[j].dis) {
+							struct infor t;
+							t = a[i];
+							a[i] = a[j];
+							a[j] = t;
+						}
+					}
+				}
+				if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
+					shot(a[2].num, 1);
+				else
+					Direction(a[2].num, pos[1]);
+				if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
+					shot(a[3].num, 1);
+				else
+					Direction(a[3].num, pos[2]);
+				if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
+					shot(a[9].num, 0);
+				else
+					Direction(a[9].num, pos[8]);
+				if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
+					shot(a[10].num, 0);
+				else
+					Direction(a[10].num, pos[9]);
+				if (ball.position.x < 31 && search1() <= 33)
+					shot(a[8].num, 1);
+				else
+					Direction(a[8].num, pos[7]);
+				for (int i = 1; i <= 10; i++) {
+					if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
+						Direction(a[i].num, pos[i - 1]);
+				}
+			}
+		}
+
+		// 王徐
+		else if (fm_id() == 4) {
+			Direction(cp_id(), ball.position);
+
+			pos[1] = CPoint(ball.position.x + (int)cos(45.0 * PI / 180.0) * 20, ball.position.y + (int)sin(45.0 * PI / 180.0) * 20);
+			pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
+			pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+			pos[4] = CPoint(pos[0].x + (int)cos(15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(15.0 * PI / 180.0) * 40);
+			pos[5] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(30.0 * PI / 180.0) * 40);
+			pos[6] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
+			pos[7] = CPoint(pos[0].x + (int)cos(50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(50.0 * PI / 180.0) * 60);
+			pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
+			pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
+
+			double d[10], dy[10];
+			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+			for (int i = 0; i <= 9; i++) {
+				if (i == cp_id() - 1) {
+					d[i] = 1e5;
+				}
+				else {
+					d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
+				}
+			}
+			int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			for (int i = 1; i <= 10; i++) {
+				for (int j = 0; j < 10 - i; j++) {
+					if (d[j] > d[j + 1]) {
+						int tmp = d[j];
+						d[j] = d[j + 1];
+						d[j + 1] = tmp;
+						tmp = p1[j];
+						p1[j] = p1[j + 1];
+						p1[j + 1] = tmp;
+					}
+				}
+			}
+			Direction(p1[0], pos[0]);
+			Direction(p1[1], pos[1]);
+			for (int i = 0; i <= 9; i++) {
+				if (i == cp_id() - 1) {
+					dy[i] = 1e5;
+				}
+				else {
+					dy[p1[i]] = 217 - cur_pos[i].y;
+				}
+			}
+			dy[p1[0]] = 1e5;
+			dy[p1[1]] = 1e5;
+			int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
+			for (int i = 1; i <= 10; i++) {
+				for (int j = 0; j < 10 - i; j++) {
+					if (dy[j] > dy[j + 1]) {
+						int tmp = d[j];
+						dy[j] = dy[j + 1];
+						dy[j + 1] = tmp;
+						tmp = p2[j];
+						p2[j] = p2[j + 1];
+						p2[j + 1] = tmp;
+					}
+				}
+			}
+			Direction(p2[0], pos[9]);
+			Direction(p2[1], pos[8]);
+			Direction(p2[2], pos[7]);
+			Direction(p2[3], pos[6]);
+			Direction(p2[4], pos[5]);
+			Direction(p2[5], pos[4]);
+			Direction(p2[6], pos[3]);
+		}
+		else if (fm_id() == 5) {
+			Direction(cp_id(), ball.position);
+
+			pos[1] = CPoint(ball.position.x + (int)cos(0.0 * PI / 180.0) * 20, ball.position.y + (int)sin(0.0 * PI / 180.0) * 20);
+			pos[2] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
+			pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+			pos[4] = CPoint(pos[0].x + (int)cos(-15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-15.0 * PI / 180.0) * 40);
+			pos[5] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 40);
+			pos[6] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(6 - 45.0 * PI / 180.0) * 40);
+			pos[7] = CPoint(pos[0].x + (int)cos(-50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-50.0 * PI / 180.0) * 60);
+			pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
+			pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
+
+			double d[10], dy[10];
+			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+			for (int i = 0; i <= 9; i++) {
+				if (i == cp_id() - 1) {
+					d[i] = 1e5;
+				}
+				else {
+					d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
+				}
+			}
+			int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			for (int i = 1; i <= 10; i++) {
+				for (int j = 0; j < 10 - i; j++) {
+					if (d[j] > d[j + 1]) {
+						int tmp = d[j];
+						d[j] = d[j + 1];
+						d[j + 1] = tmp;
+						tmp = p1[j];
+						p1[j] = p1[j + 1];
+						p1[j + 1] = tmp;
+					}
+				}
+			}
+			Direction(p1[0], pos[0]);
+			Direction(p1[1], pos[1]);
+			for (int i = 0; i <= 9; i++) {
+				if (i == cp_id() - 1) {
+					dy[i] = 1e5;
+				}
+				else {
+					dy[p1[i]] = cur_pos[i].y - 607;
+				}
+			}
+			dy[p1[0]] = 1e5;
+			dy[p1[1]] = 1e5;
+			int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
+			for (int i = 1; i <= 10; i++) {
+				for (int j = 0; j < 10 - i; j++) {
+					if (dy[j] > dy[j + 1]) {
+						int tmp = d[j];
+						dy[j] = dy[j + 1];
+						dy[j + 1] = tmp;
+						tmp = p2[j];
+						p2[j] = p2[j + 1];
+						p2[j + 1] = tmp;
+					}
+				}
+			}
+			Direction(p2[0], pos[9]);
+			Direction(p2[1], pos[8]);
+			Direction(p2[2], pos[7]);
+			Direction(p2[3], pos[6]);
+			Direction(p2[4], pos[5]);
+			Direction(p2[5], pos[4]);
+			Direction(p2[6], pos[3]);
+		}
+		else if (fm_id() == 6) {
+			Direction(cp_id(), ball.position);
+
+			pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
+			pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
+			pos[5] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
+			pos[3] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-45.0 * PI / 180.0) * 40);
+			pos[4] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
+			pos[9] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
+			pos[6] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
+			pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
+			pos[7] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
+
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			fp_sort(rp, 2, 5);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			fp_sort(rp, 5, 9);
+			Direction(rp[5].id, pos[6]);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+
+			// int d[10];
+			// CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+			// for (int i = 0; i <= 9; i++) {
+			// 	if (i == cp_id() - 1) {
+			// 		d[i] = 1e5;
+			// 	}
+			// 	d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
+			// }
+			// int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			// for (int i = 1; i <= 10; i++) {
+			// 	int j;
+			// 	for (j = 0; j < 10 - i; j++) {
+			// 		if (d[j] > d[j + 1]) {
+			// 			int tmp = d[j];
+			// 			d[j] = d[j + 1];
+			// 			d[j + 1] = tmp;
+			// 			tmp = p[j];
+			// 			p[j] = p[j + 1];
+			// 			p[j + 1] = tmp;
+			// 		}
+			// 	}
+			// }
+			// for (int i = 0; i <= 9; i++) {
+			// 	if (p[i] = cp_id() - 1)
+			// 		continue;
+			// 	Direction(p[i], pos[i + 1]);
+			// }
+		}
+
+		// 景缪
+		else if (fm_id() == 7) {
+			Direction(cp_id(), ball.position);
+
+			if (ball.position.x > 873) {
+				pos[1] = CPoint(pos[0].x + 3, pos[0].y - 3);
+				pos[2] = CPoint(pos[0].x + 1, pos[0].y + 5);
+				pos[3] = CPoint(pos[0].x + 5, pos[0].y + 20);
+				pos[4] = CPoint(pos[0].x, pos[0].y + 20);
+				pos[5] = CPoint(pos[0].x - 10, pos[0].y + 20);
+				pos[6] = CPoint(pos[0].x - 20, pos[0].y + 20);
+				pos[7] = CPoint(896, 217);
+				pos[8] = CPoint(919, 217);
+				pos[9] = CPoint(942, 217);
+			}
+			else {
+				pos[1] = CPoint(pos[0].x + 3, pos[0].y - 5);
+				pos[2] = CPoint(pos[0].x + 3, pos[0].y + 5);
+				pos[6] = CPoint(pos[0].x - 15, pos[0].y + 10);
+				pos[5] = CPoint(pos[0].x - 10, pos[0].y + 5);
+				pos[4] = CPoint(pos[0].x - 5, pos[0].y + 10);
+				pos[3] = CPoint(pos[0].x, pos[0].y + 10);
+				int n1 = 643 > ball.position.x ? 623 : ball.position.x;
+				int n2 = 733 > ball.position.x ? 733 : ball.position.x;
+				pos[7] = CPoint(n1, 217);
+				pos[8] = CPoint(n2, 217);
+				pos[9] = CPoint(939, 217);
+			}
+
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			fp_sort(rp, 2, 6);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			Direction(rp[5].id, pos[6]);
+			fp_sort(rp, 6, 9);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+
+			// double adou[15];
+			// int xz[15];
+			// int n = 1;
+			// xz[n] = cp_id();
+			// int pp[15];
+			// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+			// {
+			// 	for (int u = 1; u <= 10; u++) {
+			// 		Robot2 *robot;
+			// 		switch (u) {
+			// 		case HOME1:
+			// 			robot = &home1;
+			// 			break;
+			// 		case HOME2:
+			// 			robot = &home2;
+			// 			break;
+			// 		case HOME3:
+			// 			robot = &home3;
+			// 			break;
+			// 		case HOME4:
+			// 			robot = &home4;
+			// 			break;
+			// 		case HOME5:
+			// 			robot = &home5;
+			// 			break;
+			// 		case HOME6:
+			// 			robot = &home6;
+			// 			break;
+			// 		case HOME7:
+			// 			robot = &home7;
+			// 			break;
+			// 		case HOME8:
+			// 			robot = &home8;
+			// 			break;
+			// 		case HOME9:
+			// 			robot = &home9;
+			// 			break;
+			// 		case HOME10:
+			// 			robot = &home10;
+			// 			break;
+			// 		}
+			// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+			// 		pp[u] = u;
+			// 	}
+
+			// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+			// 	for (int u = 1; u <= 10; u++)
+			// 		for (int j = u + 1; j <= 10; j++)
+			// 			if (adou[u] > adou[j]) {
+			// 				double t;
+			// 				int m;
+			// 				m = pp[u];
+			// 				pp[u] = pp[j];
+			// 				pp[j] = m;
+			// 				t = adou[u];
+			// 				adou[u] = adou[j];
+			// 				adou[j] = t;
+			// 			}
+			// 	for (int u = 1; u <= 10; u++) {
+			// 		int o = 0;
+			// 		for (int j = 1; j <= n; j++) {
+			// 			if (pp[u] == xz[j]) // 是记录人员
+			// 			{
+			// 				break;
+			// 			}
+			// 			if (j == n) // 不是记录人员
+			// 			{
+			// 				Direction(pp[u], pos[i]);
+			// 				n++;
+			// 				xz[n] = pp[u];
+			// 				o = 1;
+			// 			}
+			// 		}
+			// 		if (o == 1)
+			// 			break;
+			// 	}
+			// }
+			// // if (Distance(pos[i], ball.position)<5)
+			// //	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
+			// // 否则就保持一定速度在点位待机
+		}
+		else if (fm_id() == 8) {
+			Direction(cp_id(), ball.position);
+
+			if (ball.position.x > 873) {
+				pos[1] = CPoint(pos[0].x + 3, pos[0].y + 3);
+				pos[2] = CPoint(pos[0].x + 1, pos[0].y - 5);
+				pos[3] = CPoint(pos[0].x + 5, pos[0].y - 20);
+				pos[4] = CPoint(pos[0].x, pos[0].y - 20);
+				pos[5] = CPoint(pos[0].x - 10, pos[0].y - 20);
+				pos[6] = CPoint(pos[0].x - 20, pos[0].y - 20);
+				pos[7] = CPoint(896, 608);
+				pos[8] = CPoint(919, 608);
+				pos[9] = CPoint(942, 608);
+			}
+			else {
+				pos[1] = CPoint(pos[0].x + 3, pos[0].y + 5);
+				pos[2] = CPoint(pos[0].x + 3, pos[0].y - 5);
+				pos[6] = CPoint(pos[0].x - 15, pos[0].y - 10);
+				pos[5] = CPoint(pos[0].x - 10, pos[0].y - 5);
+				pos[4] = CPoint(pos[0].x - 5, pos[0].y - 10);
+				pos[3] = CPoint(pos[0].x, pos[0].y - 10);
+				int n1 = 643 > ball.position.x ? 643 : ball.position.x;
+				int n2 = 733 > ball.position.x ? 733 : ball.position.x;
+				pos[7] = CPoint(n1, 608);
+				pos[8] = CPoint(n2, 608);
+				pos[9] = CPoint(939, 608);
+			}
+
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			fp_sort(rp, 2, 6);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			Direction(rp[5].id, pos[6]);
+			fp_sort(rp, 6, 9);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+			// double adou[15];
+			// int xz[15];
+			// int n = 1;
+			// xz[n] = cp_id();
+			// int pp[15];
+			// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
+			// {
+
+			// 	for (int u = 1; u <= 10; u++) {
+			// 		Robot2 *robot;
+			// 		switch (u) {
+			// 		case HOME1:
+			// 			robot = &home1;
+			// 			break;
+			// 		case HOME2:
+			// 			robot = &home2;
+			// 			break;
+			// 		case HOME3:
+			// 			robot = &home3;
+			// 			break;
+			// 		case HOME4:
+			// 			robot = &home4;
+			// 			break;
+			// 		case HOME5:
+			// 			robot = &home5;
+			// 			break;
+			// 		case HOME6:
+			// 			robot = &home6;
+			// 			break;
+			// 		case HOME7:
+			// 			robot = &home7;
+			// 			break;
+			// 		case HOME8:
+			// 			robot = &home8;
+			// 			break;
+			// 		case HOME9:
+			// 			robot = &home9;
+			// 			break;
+			// 		case HOME10:
+			// 			robot = &home10;
+			// 			break;
+			// 		}
+			// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
+			// 		pp[u] = u;
+			// 	}
+			// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
+			// 	for (int u = 1; u <= 10; u++)
+			// 		for (int j = u + 1; j <= 10; j++)
+			// 			if (adou[u] > adou[j]) {
+			// 				double t;
+			// 				int m;
+			// 				m = pp[u];
+			// 				pp[u] = pp[j];
+			// 				pp[j] = m;
+			// 				t = adou[u];
+			// 				adou[u] = adou[j];
+			// 				adou[j] = t;
+			// 			}
+			// 	for (int u = 1; u <= 10; u++) {
+			// 		int o = 0;
+			// 		for (int j = 1; j <= n; j++) {
+			// 			if (pp[u] == xz[j]) // 是记录人员
+			// 			{
+			// 				break;
+			// 			}
+			// 			if (j == n) // 不是记录人员
+			// 			{
+			// 				Direction(pp[u], pos[i]);
+			// 				n++;
+			// 				xz[n] = pp[u];
+			// 				o = 1;
+			// 			}
+			// 		}
+			// 		if (o == 1)
+			// 			break;
+			// 	}
+			// }
+			// // if (Distance(pos[i], ball.position)<5)
+			// //	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
+			// //  否则就保持一定速度在点位待机
+		}
+		else if (fm_id() == 9) {
+			Direction(cp_id(), ball.position);
+
+			pos[1].y = ball.position.y;
+			pos[1].x = 900;
+			pos[2].x = pos[1].x;
+			if (ball.position.y > 409) // 球在下面
+			{
+				pos[2].y = pos[1].y - 40;
+			}
+			else if (ball.position.y <= 409) // 球在上面
+			{
+				pos[2].y = pos[1].y + 40;
+			}
+			if (ball.position.x < 873) // 球在禁区外
+			{
+				pos[3].x = ball.position.x;
+				pos[3].y = ball.position.y + 55; // 球下面
+				pos[4].x = ball.position.x;
+				pos[4].y = ball.position.y - 55; // 球上面
+				if (ball.position.x < 850) {
+					pos[5].x = ball.position.x + 20;
+					pos[5].y = ball.position.y; // 正对球
+				}
+				else {
+					pos[5].x = 870;
+					pos[5].y = ball.position.y; // 正对球
+				}
+				pos[6].x = 870;
+				pos[6].y = ball.position.y + 50;
+				pos[7].x = 870;
+				pos[7].y = ball.position.y - 50;
+				pos[8].x = 870;
+				pos[8].y = ball.position.y + 65;
+				pos[9].x = 870;
+				pos[9].y = ball.position.y - 65;
+			}
+			else if (ball.position.x > 873) // 球在禁区里,球员不进禁区
+			{
+				pos[3].x = 870;
+				pos[3].y = ball.position.y + 50; // 球下面
+				pos[4].x = 870;
+				pos[4].y = ball.position.y - 50; // 球上面
+				pos[5].x = pos[1].x - 80;
+				pos[5].y = ball.position.y; // 正对球
+				if (ball.position.y > 409)	// 球在下面
+				{
+					pos[6].x = 900;
+					pos[6].y = 610;
+					pos[7].x = pos[5].x;
+					pos[7].y = pos[5].y - 70;
+					pos[8].x = pos[5].x;
+					pos[8].y = pos[5].y + 70;
+					pos[9].x = 870;
+					pos[9].y = ball.position.y - 100;
+				}
+				if (ball.position.y <= 409) // 球在下面
+				{
+					pos[6].x = 900;
+					pos[6].y = 210;
+					pos[7].x = pos[5].x;
+					pos[7].y = pos[5].y - 70;
+					pos[8].x = pos[5].x;
+					pos[8].y = pos[5].y + 70;
+					pos[9].x = 870;
+					pos[9].y = ball.position.y + 100;
+				}
+
+				struct infor a[10];
+				Robot2 *robot;
+				for (int j = 1; j <= 9; j++) {
+					for (int i = 1; i <= 9; i++) {
+						a[i].num = i;
+						a[i].dis = -1;
+						switch (i) {
+						case HOME1:
+							robot = &home1;
+							break;
+						case HOME2:
+							robot = &home2;
+							break;
+						case HOME3:
+							robot = &home3;
+							break;
+						case HOME4:
+							robot = &home4;
+							break;
+						case HOME5:
+							robot = &home5;
+							break;
+						case HOME6:
+							robot = &home6;
+							break;
+						case HOME7:
+							robot = &home7;
+							break;
+						case HOME8:
+							robot = &home8;
+							break;
+						case HOME9:
+							robot = &home9;
+							break;
+						case HOME10:
+							robot = &home10;
+							break;
+						}
+						if (a[i].dis == -1)
+							a[i].dis = Distance(pos[j], robot->position); // 机器人到点位的距离
+					}
+					int min = a[1].dis;
+					int p = 1;					 // 最近的球员编号
+					for (int l = 2; l <= 9; l++) // 选出最近的机器人
+					{
+						if (min <= a[l].dis) {
+							a[l].dis = -1;
+						}
+						else {
+							min = a[l].dis;
+							a[p].dis = -1;
+							p = l;
+						}
+					}
+					if (a[p].num != cp_id())		  // 不是中心球员
+						PositionSE(a[p].num, pos[j]); // 移动到最近的点位
+				}
+			}
+		}
 	}
 	else { // TODO 无中央球员
 	}
@@ -552,30 +1464,6 @@ int CStrategySystem::cp_id() { // 中央球员 ID
 	return id;
 }
 
-void CStrategySystem::cp_pos() { // 中心球员位置
-	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-	pos[0] = cur_pos[cp_id() - 1];
-}
-
-void CStrategySystem::cp_kick() { // TODO 中心球员击球
-								  // if (fm_id() == 1) {
-								  // }
-								  // else if (fm_id() == 2) {
-								  // }
-								  // else
-	if (fm_id() == 3) {
-		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
-			shot(cp_id(), 0, CPoint(45, 457));
-		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
-			shot(cp_id(), 0, CPoint(45, 361));
-		else
-			Direction(cp_id(), CPoint(170, ball.position.y));
-	}
-	else {
-		Direction(cp_id(), ball.position);
-	}
-}
-
 int CStrategySystem::fm_id() { // 阵型 ID
 	if (ball.position.x < 290) {
 		if (ball.position.y < 217)
@@ -603,270 +1491,13 @@ int CStrategySystem::fm_id() { // 阵型 ID
 	}
 }
 
-void CStrategySystem::fm_gen() { // TODO 阵型生成
-	// 孙徐
-	if (fm_id() == 1) {
-		pos[1] = CPoint(pos[0].x, pos[0].y - 10);
-		pos[2] = CPoint(pos[0].x + 10, pos[0].y - 10);
-		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-		pos[6] = CPoint(pos[0].x + 20, pos[0].y);
-		pos[4] = CPoint(pos[0].x + 10, pos[0].y + 10);
-		pos[7] = CPoint(pos[0].x + 20, pos[0].y + 10);
-		pos[5] = CPoint(pos[0].x + 10, pos[0].y + 20);
-		pos[8] = CPoint(170, 409);
-		pos[9] = CPoint(170, 556);
-	}
-	else if (fm_id() == 2) {
-		pos[1] = CPoint(pos[0].x, pos[0].y + 10);
-		pos[2] = CPoint(pos[0].x + 10, pos[0].y + 10);
-		pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-		pos[6] = CPoint(pos[0].x + 20, pos[0].y);
-		pos[4] = CPoint(pos[0].x + 10, pos[0].y - 10);
-		pos[7] = CPoint(pos[0].x + 20, pos[0].y - 10);
-		pos[5] = CPoint(pos[0].x + 10, pos[0].y - 20);
-		pos[8] = CPoint(170, 409);
-		pos[9] = CPoint(170, 265);
-	}
-	else if (fm_id() == 3) {
-		if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
-			// 内圈
-			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
-			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
-			pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
-			pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
-			pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
-			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
-			// 内圈
-			pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
-			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
-			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
-		}
-		else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
-			// 内圈
-			pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
-			pos[2] = CPoint(pos[0].x + 15, pos[0].y - 40);
-			pos[3] = CPoint(pos[0].x + 40 * cos(30), pos[0].y - 40 * sin(30));
-			pos[4] = CPoint(pos[0].x + 40 * cos(30), pos[0].y + 40 * sin(40));
-			pos[5] = CPoint(pos[0].x + 15, pos[0].y + 40);
-			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 40);
-			// 内圈
-			pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
-			pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
-			pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
-		}
-		else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
-		{
-			pos[1] = CPoint(142, pos[0].y - 20);
-			pos[2] = CPoint(142, pos[0].y + 20);
-
-			pos[3] = CPoint(170, pos[0].y - 20);
-			pos[4] = CPoint(170, pos[0].y + 20);
-			pos[5] = CPoint(185, pos[0].y - 12);
-			if (pos[0].y - 50 < 157)
-				pos[6] = CPoint(ball.position.x + 12, 225);
-			else
-				pos[6] = CPoint(170, pos[0].y - 50);
-			pos[7] = CPoint(ball.position.x, 225);
-			pos[8] = CPoint(170, pos[0].y + 45);
-			pos[9] = CPoint(170, pos[0].y + 405);
-		}
-		else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
-		{
-			pos[1] = CPoint(142, pos[0].y - 20);
-			pos[2] = CPoint(142, pos[0].y + 20);
-
-			pos[3] = CPoint(170, pos[0].y - 20);
-			pos[4] = CPoint(170, pos[0].y + 20);
-			pos[5] = CPoint(185, pos[0].y + 12);
-			if (pos[0].y + 50 > 607)
-				pos[6] = CPoint(ball.position.x + 12, 615);
-			else
-				pos[6] = CPoint(170, pos[0].y + 50);
-			pos[7] = CPoint(ball.position.x, 615);
-			pos[8] = CPoint(170, pos[0].y - 45);
-			pos[9] = CPoint(170, pos[0].y - 405);
-		}
-	}
-
-	// 王徐
-	else if (fm_id() == 4) {
-		pos[1] = CPoint(ball.position.x + (int)cos(45.0 * PI / 180.0) * 20, ball.position.y + (int)sin(45.0 * PI / 180.0) * 20);
-		pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
-		pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
-		pos[4] = CPoint(pos[0].x + (int)cos(15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(15.0 * PI / 180.0) * 40);
-		pos[5] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(30.0 * PI / 180.0) * 40);
-		pos[6] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
-		pos[7] = CPoint(pos[0].x + (int)cos(50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(50.0 * PI / 180.0) * 60);
-		pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
-		pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
-	}
-	else if (fm_id() == 5) {
-		pos[1] = CPoint(ball.position.x + (int)cos(0.0 * PI / 180.0) * 20, ball.position.y + (int)sin(0.0 * PI / 180.0) * 20);
-		pos[2] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
-		pos[3] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
-		pos[4] = CPoint(pos[0].x + (int)cos(-15.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-15.0 * PI / 180.0) * 40);
-		pos[5] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 40);
-		pos[6] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(6 - 45.0 * PI / 180.0) * 40);
-		pos[7] = CPoint(pos[0].x + (int)cos(-50.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-50.0 * PI / 180.0) * 60);
-		pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
-		pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
-	}
-	else if (fm_id() == 6) {
-		pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
-		pos[2] = CPoint(ball.position.x + (int)cos(90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(90.0 * PI / 180.0) * 20);
-		pos[5] = CPoint(pos[0].x + (int)cos(45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(45.0 * PI / 180.0) * 40);
-		pos[3] = CPoint(pos[0].x + (int)cos(-45.0 * PI / 180.0) * 40, pos[0].y + (int)sin(-45.0 * PI / 180.0) * 40);
-		pos[4] = CPoint(pos[0].x + (int)cos(0.0 * PI / 180.0) * 40, pos[0].y + (int)sin(0.0 * PI / 180.0) * 40);
-		pos[9] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
-		pos[6] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
-		pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
-		pos[7] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
-	}
-
-	// 景缪
-	else if (fm_id() == 7) {
-		if (ball.position.x > 873) {
-			pos[1] = CPoint(pos[0].x + 3, pos[0].y - 3);
-			pos[2] = CPoint(pos[0].x + 1, pos[0].y + 5);
-			pos[3] = CPoint(pos[0].x + 5, pos[0].y + 20);
-			pos[4] = CPoint(pos[0].x, pos[0].y + 20);
-			pos[5] = CPoint(pos[0].x - 10, pos[0].y + 20);
-			pos[6] = CPoint(pos[0].x - 20, pos[0].y + 20);
-			pos[7] = CPoint(896, 217);
-			pos[8] = CPoint(919, 217);
-			pos[9] = CPoint(942, 217);
-		}
-		else {
-			pos[1] = CPoint(pos[0].x + 3, pos[0].y - 5);
-			pos[2] = CPoint(pos[0].x + 3, pos[0].y + 5);
-			pos[6] = CPoint(pos[0].x - 15, pos[0].y + 10);
-			pos[5] = CPoint(pos[0].x - 10, pos[0].y + 5);
-			pos[4] = CPoint(pos[0].x - 5, pos[0].y + 10);
-			pos[3] = CPoint(pos[0].x, pos[0].y + 10);
-			int n1 = 643 > ball.position.x ? 623 : ball.position.x;
-			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
-			pos[7] = CPoint(n1, 217);
-			pos[8] = CPoint(n2, 217);
-			pos[9] = CPoint(939, 217);
-		}
-	}
-	else if (fm_id() == 8) {
-		if (ball.position.x > 873) {
-			pos[1] = CPoint(pos[0].x + 3, pos[0].y + 3);
-			pos[2] = CPoint(pos[0].x + 1, pos[0].y - 5);
-			pos[3] = CPoint(pos[0].x + 5, pos[0].y - 20);
-			pos[4] = CPoint(pos[0].x, pos[0].y - 20);
-			pos[5] = CPoint(pos[0].x - 10, pos[0].y - 20);
-			pos[6] = CPoint(pos[0].x - 20, pos[0].y - 20);
-			pos[7] = CPoint(896, 608);
-			pos[8] = CPoint(919, 608);
-			pos[9] = CPoint(942, 608);
-		}
-		else {
-			pos[1] = CPoint(pos[0].x + 3, pos[0].y + 5);
-			pos[2] = CPoint(pos[0].x + 3, pos[0].y - 5);
-			pos[6] = CPoint(pos[0].x - 15, pos[0].y - 10);
-			pos[5] = CPoint(pos[0].x - 10, pos[0].y - 5);
-			pos[4] = CPoint(pos[0].x - 5, pos[0].y - 10);
-			pos[3] = CPoint(pos[0].x, pos[0].y - 10);
-			int n1 = 643 > ball.position.x ? 643 : ball.position.x;
-			int n2 = 733 > ball.position.x ? 733 : ball.position.x;
-			pos[7] = CPoint(n1, 608);
-			pos[8] = CPoint(n2, 608);
-			pos[9] = CPoint(939, 608);
-		}
-	}
-	else if (fm_id() == 9) {
-		pos[1].y = ball.position.y;
-		pos[1].x = 900;
-		pos[2].x = pos[1].x;
-		if (ball.position.y > 409) // 球在下面
-		{
-			pos[2].y = pos[1].y - 40;
-		}
-		else if (ball.position.y <= 409) // 球在上面
-		{
-			pos[2].y = pos[1].y + 40;
-		}
-		if (ball.position.x < 873) // 球在禁区外
-		{
-			pos[3].x = ball.position.x;
-			pos[3].y = ball.position.y + 55; // 球下面
-			pos[4].x = ball.position.x;
-			pos[4].y = ball.position.y - 55; // 球上面
-			if (ball.position.x < 850) {
-				pos[5].x = ball.position.x + 20;
-				pos[5].y = ball.position.y; // 正对球
-			}
-			else {
-				pos[5].x = 870;
-				pos[5].y = ball.position.y; // 正对球
-			}
-			pos[6].x = 870;
-			pos[6].y = ball.position.y + 50;
-			pos[7].x = 870;
-			pos[7].y = ball.position.y - 50;
-			pos[8].x = 870;
-			pos[8].y = ball.position.y + 65;
-			pos[9].x = 870;
-			pos[9].y = ball.position.y - 65;
-		}
-		else if (ball.position.x > 873) // 球在禁区里,球员不进禁区
-		{
-			pos[3].x = 870;
-			pos[3].y = ball.position.y + 50; // 球下面
-			pos[4].x = 870;
-			pos[4].y = ball.position.y - 50; // 球上面
-			pos[5].x = pos[1].x - 80;
-			pos[5].y = ball.position.y; // 正对球
-			if (ball.position.y > 409)	// 球在下面
-			{
-				pos[6].x = 900;
-				pos[6].y = 610;
-				pos[7].x = pos[5].x;
-				pos[7].y = pos[5].y - 70;
-				pos[8].x = pos[5].x;
-				pos[8].y = pos[5].y + 70;
-				pos[9].x = 870;
-				pos[9].y = ball.position.y - 100;
-			}
-			if (ball.position.y <= 409) // 球在下面
-			{
-				pos[6].x = 900;
-				pos[6].y = 210;
-				pos[7].x = pos[5].x;
-				pos[7].y = pos[5].y - 70;
-				pos[8].x = pos[5].x;
-				pos[8].y = pos[5].y + 70;
-				pos[9].x = 870;
-				pos[9].y = ball.position.y + 100;
-			}
-		}
-	}
-}
-
-void CStrategySystem::fp_rp() { // 阵型球员相对中央球员的位置
-	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-	for (int i = 0; i < 10; i++) {
-		if (rp[i].id == fm_id() - 1) {
-			rp[i].ang = 0;
-			rp[i].dis = 0;
-		}
-		else {
-			rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-			rp[i].dis = Distance(cur_pos[i], pos[0]);
-		}
-	}
-}
-
 // 阵型球员相对中央球员的位置结构体
 // struct RelPos {
 // 	int id;
 // 	double dis;
 // 	double ang;  // (-π, π]
 // };
-
-void CStrategySystem::fp_sort(int h, int t) { // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
+void CStrategySystem::fp_sort(RelPos *rp, int h, int t) { // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
 	RelPos r;
 	if (!h && !t) {
 		for (int i = 1; i < 10; i++) {
@@ -884,656 +1515,6 @@ void CStrategySystem::fp_sort(int h, int t) { // 阵型球员排序，h 为该�
 					r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
 				}
 			}
-		}
-	}
-}
-
-void CStrategySystem::fp_move() { // TODO 阵型球员移动
-	if (fm_id() == 1) {
-		fp_sort();
-		fp_sort(0, 5);
-		Direction(rp[0].id, pos[1]);
-		Direction(rp[1].id, pos[2]);
-		Direction(rp[2].id, pos[3]);
-		Direction(rp[3].id, pos[4]);
-		Direction(rp[4].id, pos[5]);
-		fp_sort(5, 7);
-		Direction(rp[5].id, pos[6]);
-		Direction(rp[6].id, pos[7]);
-		Direction(rp[7].id, pos[8]);
-		Direction(rp[8].id, pos[9]);
-	}
-	else if (fm_id() == 2) {
-		fp_sort();
-		fp_sort(0, 5);
-		Direction(rp[5].id, pos[1]);
-		Direction(rp[4].id, pos[2]);
-		Direction(rp[3].id, pos[3]);
-		Direction(rp[2].id, pos[4]);
-		Direction(rp[1].id, pos[5]);
-		fp_sort(5, 7);
-		Direction(rp[7].id, pos[6]);
-		Direction(rp[6].id, pos[7]);
-		Direction(rp[7].id, pos[8]);
-		Direction(rp[8].id, pos[9]);
-	}
-	else if (fm_id() == 3) {
-		if (ball.position.x >= 157 && ball.position.x <= 290) {
-			struct infor a[11];
-			for (int i = 1; i <= 10; i++) {
-				a[i].num = i;
-				Robot2 *robot;
-				switch (i) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
-				}
-				a[i].dis = Distance(ball.position, robot->position);
-			}
-			for (int i = 1; i <= 10; i++) {
-				for (int j = i + 1; j <= 10; j++) {
-					if (a[i].dis > a[j].dis) {
-						struct infor t;
-						t = a[i];
-						a[i] = a[j];
-						a[j] = t;
-					}
-				}
-			}
-			for (int i = 1; i <= 10; i++)
-				if (a[i].num != cp_id())
-					Direction(a[i].num, pos[i - 1]);
-		}
-		else if (pos[0].y <= 409 && ball.position.x < 157) {
-			struct infor a[11];
-			for (int i = 1; i <= 10; i++) {
-				a[i].num = i;
-				Robot2 *robot;
-				switch (i) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
-				}
-				a[i].dis = fabs(ball.position.y - robot->position.y);
-			}
-			for (int i = 1; i <= 10; i++) {
-				for (int j = i + 1; j <= 10; j++) {
-					if (a[i].dis > a[j].dis) {
-						struct infor t;
-						t = a[i];
-						a[i] = a[j];
-						a[j] = t;
-					}
-				}
-			}
-			if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
-				shot(a[2].num, 0);
-			else
-				Direction(a[2].num, pos[1]);
-			if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
-				shot(a[3].num, 0);
-			else
-				Direction(a[3].num, pos[2]);
-			if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
-				shot(a[9].num, 1);
-			else
-				Direction(a[9].num, pos[8]);
-			if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
-				shot(a[10].num, 1);
-			else
-				Direction(a[10].num, pos[9]);
-			if (ball.position.x < 313 && search1() <= 3)
-				shot(a[8].num, 0);
-			else
-				Direction(a[8].num, pos[7]);
-			for (int i = 1; i <= 10; i++) {
-				if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
-					Direction(a[i].num, pos[i - 1]);
-			}
-		}
-		else {
-			struct infor a[11];
-			for (int i = 1; i <= 10; i++) {
-				a[i].num = i;
-				Robot2 *robot;
-				switch (i) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
-				}
-				a[i].dis = fabs(ball.position.y - robot->position.y);
-			}
-			for (int i = 1; i <= 10; i++) {
-				for (int j = i + 1; j <= 10; j++) {
-					if (a[i].dis > a[j].dis) {
-						struct infor t;
-						t = a[i];
-						a[i] = a[j];
-						a[j] = t;
-					}
-				}
-			}
-			if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
-				shot(a[2].num, 1);
-			else
-				Direction(a[2].num, pos[1]);
-			if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
-				shot(a[3].num, 1);
-			else
-				Direction(a[3].num, pos[2]);
-			if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
-				shot(a[9].num, 0);
-			else
-				Direction(a[9].num, pos[8]);
-			if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
-				shot(a[10].num, 0);
-			else
-				Direction(a[10].num, pos[9]);
-			if (ball.position.x < 31 && search1() <= 33)
-				shot(a[8].num, 1);
-			else
-				Direction(a[8].num, pos[7]);
-			for (int i = 1; i <= 10; i++) {
-				if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
-					Direction(a[i].num, pos[i - 1]);
-			}
-		}
-	}
-	else if (fm_id() == 4) {
-		double d[10], dy[10];
-		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-		for (int i = 0; i <= 9; i++) {
-			if (i == cp_id() - 1) {
-				d[i] = 1e5;
-			}
-			else {
-				d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
-			}
-		}
-		int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		for (int i = 1; i <= 10; i++) {
-			for (int j = 0; j < 10 - i; j++) {
-				if (d[j] > d[j + 1]) {
-					int tmp = d[j];
-					d[j] = d[j + 1];
-					d[j + 1] = tmp;
-					tmp = p1[j];
-					p1[j] = p1[j + 1];
-					p1[j + 1] = tmp;
-				}
-			}
-		}
-		Direction(p1[0], pos[0]);
-		Direction(p1[1], pos[1]);
-		for (int i = 0; i <= 9; i++) {
-			if (i == cp_id() - 1) {
-				dy[i] = 1e5;
-			}
-			else {
-				dy[p1[i]] = 217 - cur_pos[i].y;
-			}
-		}
-		dy[p1[0]] = 1e5;
-		dy[p1[1]] = 1e5;
-		int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
-		for (int i = 1; i <= 10; i++) {
-			for (int j = 0; j < 10 - i; j++) {
-				if (dy[j] > dy[j + 1]) {
-					int tmp = d[j];
-					dy[j] = dy[j + 1];
-					dy[j + 1] = tmp;
-					tmp = p2[j];
-					p2[j] = p2[j + 1];
-					p2[j + 1] = tmp;
-				}
-			}
-		}
-		Direction(p2[0], pos[9]);
-		Direction(p2[1], pos[8]);
-		Direction(p2[2], pos[7]);
-		Direction(p2[3], pos[6]);
-		Direction(p2[4], pos[5]);
-		Direction(p2[5], pos[4]);
-		Direction(p2[6], pos[3]);
-	}
-	else if (fm_id() == 5) {
-		double d[10], dy[10];
-		CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-		for (int i = 0; i <= 9; i++) {
-			if (i == cp_id() - 1) {
-				d[i] = 1e5;
-			}
-			else {
-				d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
-			}
-		}
-		int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		for (int i = 1; i <= 10; i++) {
-			for (int j = 0; j < 10 - i; j++) {
-				if (d[j] > d[j + 1]) {
-					int tmp = d[j];
-					d[j] = d[j + 1];
-					d[j + 1] = tmp;
-					tmp = p1[j];
-					p1[j] = p1[j + 1];
-					p1[j + 1] = tmp;
-				}
-			}
-		}
-		Direction(p1[0], pos[0]);
-		Direction(p1[1], pos[1]);
-		for (int i = 0; i <= 9; i++) {
-			if (i == cp_id() - 1) {
-				dy[i] = 1e5;
-			}
-			else {
-				dy[p1[i]] = cur_pos[i].y - 607;
-			}
-		}
-		dy[p1[0]] = 1e5;
-		dy[p1[1]] = 1e5;
-		int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
-		for (int i = 1; i <= 10; i++) {
-			for (int j = 0; j < 10 - i; j++) {
-				if (dy[j] > dy[j + 1]) {
-					int tmp = d[j];
-					dy[j] = dy[j + 1];
-					dy[j + 1] = tmp;
-					tmp = p2[j];
-					p2[j] = p2[j + 1];
-					p2[j + 1] = tmp;
-				}
-			}
-		}
-		Direction(p2[0], pos[9]);
-		Direction(p2[1], pos[8]);
-		Direction(p2[2], pos[7]);
-		Direction(p2[3], pos[6]);
-		Direction(p2[4], pos[5]);
-		Direction(p2[5], pos[4]);
-		Direction(p2[6], pos[3]);
-	}
-	else if (fm_id() == 6) {
-		fp_sort();
-		fp_sort(0, 2);
-		Direction(rp[0].id, pos[1]);
-		Direction(rp[1].id, pos[2]);
-		fp_sort(2, 5);
-		Direction(rp[2].id, pos[3]);
-		Direction(rp[3].id, pos[4]);
-		Direction(rp[4].id, pos[5]);
-		fp_sort(5, 9);
-		Direction(rp[5].id, pos[6]);
-		Direction(rp[6].id, pos[7]);
-		Direction(rp[7].id, pos[8]);
-		Direction(rp[8].id, pos[9]);
-
-		// int d[10];
-		// CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-		// for (int i = 0; i <= 9; i++) {
-		// 	if (i == cp_id() - 1) {
-		// 		d[i] = 1e5;
-		// 	}
-		// 	d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
-		// }
-		// int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-		// for (int i = 1; i <= 10; i++) {
-		// 	int j;
-		// 	for (j = 0; j < 10 - i; j++) {
-		// 		if (d[j] > d[j + 1]) {
-		// 			int tmp = d[j];
-		// 			d[j] = d[j + 1];
-		// 			d[j + 1] = tmp;
-		// 			tmp = p[j];
-		// 			p[j] = p[j + 1];
-		// 			p[j + 1] = tmp;
-		// 		}
-		// 	}
-		// }
-		// for (int i = 0; i <= 9; i++) {
-		// 	if (p[i] = cp_id() - 1)
-		// 		continue;
-		// 	Direction(p[i], pos[i + 1]);
-		// }
-	}
-	else if (fm_id() == 7) {
-		fp_sort();
-		fp_sort(0, 2);
-		Direction(rp[0].id, pos[1]);
-		Direction(rp[1].id, pos[2]);
-		fp_sort(2, 6);
-		Direction(rp[2].id, pos[3]);
-		Direction(rp[3].id, pos[4]);
-		Direction(rp[4].id, pos[5]);
-		Direction(rp[5].id, pos[6]);
-		fp_sort(6, 9);
-		Direction(rp[6].id, pos[7]);
-		Direction(rp[7].id, pos[8]);
-		Direction(rp[8].id, pos[9]);
-
-		// double adou[15];
-		// int xz[15];
-		// int n = 1;
-		// xz[n] = cp_id();
-		// int pp[15];
-		// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
-		// {
-		// 	for (int u = 1; u <= 10; u++) {
-		// 		Robot2 *robot;
-		// 		switch (u) {
-		// 		case HOME1:
-		// 			robot = &home1;
-		// 			break;
-		// 		case HOME2:
-		// 			robot = &home2;
-		// 			break;
-		// 		case HOME3:
-		// 			robot = &home3;
-		// 			break;
-		// 		case HOME4:
-		// 			robot = &home4;
-		// 			break;
-		// 		case HOME5:
-		// 			robot = &home5;
-		// 			break;
-		// 		case HOME6:
-		// 			robot = &home6;
-		// 			break;
-		// 		case HOME7:
-		// 			robot = &home7;
-		// 			break;
-		// 		case HOME8:
-		// 			robot = &home8;
-		// 			break;
-		// 		case HOME9:
-		// 			robot = &home9;
-		// 			break;
-		// 		case HOME10:
-		// 			robot = &home10;
-		// 			break;
-		// 		}
-		// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
-		// 		pp[u] = u;
-		// 	}
-
-		// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
-		// 	for (int u = 1; u <= 10; u++)
-		// 		for (int j = u + 1; j <= 10; j++)
-		// 			if (adou[u] > adou[j]) {
-		// 				double t;
-		// 				int m;
-		// 				m = pp[u];
-		// 				pp[u] = pp[j];
-		// 				pp[j] = m;
-		// 				t = adou[u];
-		// 				adou[u] = adou[j];
-		// 				adou[j] = t;
-		// 			}
-		// 	for (int u = 1; u <= 10; u++) {
-		// 		int o = 0;
-		// 		for (int j = 1; j <= n; j++) {
-		// 			if (pp[u] == xz[j]) // 是记录人员
-		// 			{
-		// 				break;
-		// 			}
-		// 			if (j == n) // 不是记录人员
-		// 			{
-		// 				Direction(pp[u], pos[i]);
-		// 				n++;
-		// 				xz[n] = pp[u];
-		// 				o = 1;
-		// 			}
-		// 		}
-		// 		if (o == 1)
-		// 			break;
-		// 	}
-		// }
-		// // if (Distance(pos[i], ball.position)<5)
-		// //	PositionSE(pos[i], ball.position); // 在这个阵型这个点位处的球员就击球
-		// // 否则就保持一定速度在点位待机
-	}
-	else if (fm_id() == 8) {
-		fp_sort();
-		fp_sort(0, 2);
-		Direction(rp[0].id, pos[1]);
-		Direction(rp[1].id, pos[2]);
-		fp_sort(2, 6);
-		Direction(rp[2].id, pos[3]);
-		Direction(rp[3].id, pos[4]);
-		Direction(rp[4].id, pos[5]);
-		Direction(rp[5].id, pos[6]);
-		fp_sort(6, 9);
-		Direction(rp[6].id, pos[7]);
-		Direction(rp[7].id, pos[8]);
-		Direction(rp[8].id, pos[9]);
-		// double adou[15];
-		// int xz[15];
-		// int n = 1;
-		// xz[n] = cp_id();
-		// int pp[15];
-		// for (int i = 1; i <= 9; i++) // 按角度从小到大排序，然后最小的占据点位，并且后续将已分配的记名，不参与接下来的分配
-		// {
-
-		// 	for (int u = 1; u <= 10; u++) {
-		// 		Robot2 *robot;
-		// 		switch (u) {
-		// 		case HOME1:
-		// 			robot = &home1;
-		// 			break;
-		// 		case HOME2:
-		// 			robot = &home2;
-		// 			break;
-		// 		case HOME3:
-		// 			robot = &home3;
-		// 			break;
-		// 		case HOME4:
-		// 			robot = &home4;
-		// 			break;
-		// 		case HOME5:
-		// 			robot = &home5;
-		// 			break;
-		// 		case HOME6:
-		// 			robot = &home6;
-		// 			break;
-		// 		case HOME7:
-		// 			robot = &home7;
-		// 			break;
-		// 		case HOME8:
-		// 			robot = &home8;
-		// 			break;
-		// 		case HOME9:
-		// 			robot = &home9;
-		// 			break;
-		// 		case HOME10:
-		// 			robot = &home10;
-		// 			break;
-		// 		}
-		// 		adou[u] = atwo(robot->position.x, robot->position.y, ball.position.x, ball.position.y, pos[i].x, pos[i].y, ball.position.x, ball.position.y); // 先将值赋给adou
-		// 		pp[u] = u;
-		// 	}
-		// 	// 然后求adou里最小的，给pos[1]的坐标，并将球员号计入xz中
-		// 	for (int u = 1; u <= 10; u++)
-		// 		for (int j = u + 1; j <= 10; j++)
-		// 			if (adou[u] > adou[j]) {
-		// 				double t;
-		// 				int m;
-		// 				m = pp[u];
-		// 				pp[u] = pp[j];
-		// 				pp[j] = m;
-		// 				t = adou[u];
-		// 				adou[u] = adou[j];
-		// 				adou[j] = t;
-		// 			}
-		// 	for (int u = 1; u <= 10; u++) {
-		// 		int o = 0;
-		// 		for (int j = 1; j <= n; j++) {
-		// 			if (pp[u] == xz[j]) // 是记录人员
-		// 			{
-		// 				break;
-		// 			}
-		// 			if (j == n) // 不是记录人员
-		// 			{
-		// 				Direction(pp[u], pos[i]);
-		// 				n++;
-		// 				xz[n] = pp[u];
-		// 				o = 1;
-		// 			}
-		// 		}
-		// 		if (o == 1)
-		// 			break;
-		// 	}
-		// }
-		// // if (Distance(pos[i], ball.position)<5)
-		// //	PositionSE(pos[i], ball.position);//在这个阵型这个点位处的球员就击球
-		// //  否则就保持一定速度在点位待机
-	}
-	else if (fm_id() == 9) {
-		struct infor a[10];
-		Robot2 *robot;
-		for (int j = 1; j <= 9; j++) {
-			for (int i = 1; i <= 9; i++) {
-				a[i].num = i;
-				a[i].dis = -1;
-				switch (i) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				}
-				if (a[i].dis == -1)
-					a[i].dis = Distance(pos[j], robot->position); // 机器人到点位的距离
-			}
-			int min = a[1].dis;
-			int p = 1;					 // 最近的球员编号
-			for (int l = 2; l <= 9; l++) // 选出最近的机器人
-			{
-				if (min <= a[l].dis) {
-					a[l].dis = -1;
-				}
-				else {
-					min = a[l].dis;
-					a[p].dis = -1;
-					p = l;
-				}
-			}
-			if (a[p].num != cp_id())		  // 不是中心球员
-				PositionSE(a[p].num, pos[j]); // 移动到最近的点位
 		}
 	}
 }

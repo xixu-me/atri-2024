@@ -31,15 +31,10 @@ private:
 	CPoint *pos; // 球员位置
 	RelPos *rp;	 // 阵型球员相对中央球员的位置
 
-	int cp_id();						// 中央球员 ID
-	void cp_pos();						// 中央球员位置
-	void cp_kick();						// 中央球员击球
-	void fp_rp();						// 阵型球员相对中央球员的位置
-	void fp_sort(int h = 0, int t = 0); // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
-	int fm_id();						// 阵型 ID
-	void fm_gen();						// 阵型生成
-	void fp_move();						// 阵型球员移动
-	CPoint coor(int which);				// 返回机器人的位置
+	int cp_id();									// 中央球员 ID
+	void fp_sort(RelPos *rp, int h = 0, int t = 0); // 阵型球员排序，h 为该层前的球员数量，t 为包含该层后的球员数量
+	int fm_id();									// 阵型 ID
+	CPoint coor(int which);							// 返回机器人的位置
 
 	// void spin(int which, bool isClockwise);	   // 自旋
 	void shot1(int which, double o, CPoint t); // 直射
