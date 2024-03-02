@@ -1473,7 +1473,7 @@ int CStrategySystem::fm_id() { // 阵型 ID
 		else
 			return 2;
 	}
-	else if (ball.position.x > 740) {
+	else if (ball.position.x < 740) {
 		if (ball.position.y < 217)
 			return 4;
 		else if (ball.position.y <= 607)
