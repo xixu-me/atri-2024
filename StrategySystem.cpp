@@ -513,12 +513,12 @@ void CStrategySystem::Possession() {
 			Direction(rp[8].id, pos[9]);
 		}
 		else if (fm_id() == 3) {
-			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
-				shot(cp_id(), 0, CPoint(45, 457));
-			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
-				shot(cp_id(), 0, CPoint(45, 361));
-			else
-				Direction(cp_id(), CPoint(170, ball.position.y));
+			// if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
+			// 	shot(cp_id(), 0, CPoint(45, 457));
+			// else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
+			// 	shot(cp_id(), 0, CPoint(45, 361));
+			// else
+			// 	Direction(cp_id(), CPoint(170, ball.position.y));
 
 			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
 				// 内圈
@@ -532,6 +532,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
+				shot(cp_id(), 0, CPoint(45, 361));
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -545,6 +546,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
+				shot(cp_id(), 0, CPoint(45, 457));
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -561,6 +563,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 225);
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
+				shot(cp_id(), 0);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -577,218 +580,62 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 615);
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
+				shot(cp_id(), 1);
 			}
-
-			if (ball.position.x >= 157 && ball.position.x <= 290) {
-				struct infor a[11];
-				for (int i = 1; i <= 10; i++) {
-					a[i].num = i;
-					Robot2 *robot;
-					switch (i) {
-					case HOME1:
-						robot = &home1;
-						break;
-					case HOME2:
-						robot = &home2;
-						break;
-					case HOME3:
-						robot = &home3;
-						break;
-					case HOME4:
-						robot = &home4;
-						break;
-					case HOME5:
-						robot = &home5;
-						break;
-					case HOME6:
-						robot = &home6;
-						break;
-					case HOME7:
-						robot = &home7;
-						break;
-					case HOME8:
-						robot = &home8;
-						break;
-					case HOME9:
-						robot = &home9;
-						break;
-					case HOME10:
-						robot = &home10;
-						break;
-					case HGOALIE:
-						robot = &hgoalie;
-						break;
-					}
-					a[i].dis = Distance(ball.position, robot->position);
+			struct infor a[11];
+			for (int i = 1; i <= 10; i++) {
+				a[i].num = i;
+				Robot2 *robot;
+				switch (i) {
+				case HOME1:
+					robot = &home1;
+					break;
+				case HOME2:
+					robot = &home2;
+					break;
+				case HOME3:
+					robot = &home3;
+					break;
+				case HOME4:
+					robot = &home4;
+					break;
+				case HOME5:
+					robot = &home5;
+					break;
+				case HOME6:
+					robot = &home6;
+					break;
+				case HOME7:
+					robot = &home7;
+					break;
+				case HOME8:
+					robot = &home8;
+					break;
+				case HOME9:
+					robot = &home9;
+					break;
+				case HOME10:
+					robot = &home10;
+					break;
+				case HGOALIE:
+					robot = &hgoalie;
+					break;
 				}
-				for (int i = 1; i <= 10; i++) {
-					for (int j = i + 1; j <= 10; j++) {
-						if (a[i].dis > a[j].dis) {
-							struct infor t;
-							t = a[i];
-							a[i] = a[j];
-							a[j] = t;
-						}
-					}
-				}
-				for (int i = 1; i <= 10; i++)
-					if (a[i].num != cp_id())
-						Direction(a[i].num, pos[i - 1]);
+				a[i].dis = Distance(ball.position, robot->position);
 			}
-			else if (pos[0].y <= 409 && ball.position.x < 157) {
-				struct infor a[11];
-				for (int i = 1; i <= 10; i++) {
-					a[i].num = i;
-					Robot2 *robot;
-					switch (i) {
-					case HOME1:
-						robot = &home1;
-						break;
-					case HOME2:
-						robot = &home2;
-						break;
-					case HOME3:
-						robot = &home3;
-						break;
-					case HOME4:
-						robot = &home4;
-						break;
-					case HOME5:
-						robot = &home5;
-						break;
-					case HOME6:
-						robot = &home6;
-						break;
-					case HOME7:
-						robot = &home7;
-						break;
-					case HOME8:
-						robot = &home8;
-						break;
-					case HOME9:
-						robot = &home9;
-						break;
-					case HOME10:
-						robot = &home10;
-						break;
-					case HGOALIE:
-						robot = &hgoalie;
-						break;
-					}
-					a[i].dis = fabs(ball.position.y - robot->position.y);
-				}
-				for (int i = 1; i <= 10; i++) {
-					for (int j = i + 1; j <= 10; j++) {
-						if (a[i].dis > a[j].dis) {
-							struct infor t;
-							t = a[i];
-							a[i] = a[j];
-							a[j] = t;
-						}
-					}
-				}
-				if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
-					shot(a[2].num, 0);
-				else
-					Direction(a[2].num, pos[1]);
-				if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
-					shot(a[3].num, 0);
-				else
-					Direction(a[3].num, pos[2]);
-				if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
-					shot(a[9].num, 1);
-				else
-					Direction(a[9].num, pos[8]);
-				if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
-					shot(a[10].num, 1);
-				else
-					Direction(a[10].num, pos[9]);
-				if (ball.position.x < 313 && search1() <= 3)
-					shot(a[8].num, 0);
-				else
-					Direction(a[8].num, pos[7]);
-				for (int i = 1; i <= 10; i++) {
-					if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
-						Direction(a[i].num, pos[i - 1]);
+		for (int i = 1; i <= 10; i++) {
+			for (int j = i + 1; j <= 10; j++) {
+				if (a[i].dis > a[j].dis) {
+					struct infor t;
+					t = a[i];
+					a[i] = a[j];
+					a[j] = t;
 				}
 			}
-			else {
-				struct infor a[11];
-				for (int i = 1; i <= 10; i++) {
-					a[i].num = i;
-					Robot2 *robot;
-					switch (i) {
-					case HOME1:
-						robot = &home1;
-						break;
-					case HOME2:
-						robot = &home2;
-						break;
-					case HOME3:
-						robot = &home3;
-						break;
-					case HOME4:
-						robot = &home4;
-						break;
-					case HOME5:
-						robot = &home5;
-						break;
-					case HOME6:
-						robot = &home6;
-						break;
-					case HOME7:
-						robot = &home7;
-						break;
-					case HOME8:
-						robot = &home8;
-						break;
-					case HOME9:
-						robot = &home9;
-						break;
-					case HOME10:
-						robot = &home10;
-						break;
-					case HGOALIE:
-						robot = &hgoalie;
-						break;
-					}
-					a[i].dis = fabs(ball.position.y - robot->position.y);
-				}
-				for (int i = 1; i <= 10; i++) {
-					for (int j = i + 1; j <= 10; j++) {
-						if (a[i].dis > a[j].dis) {
-							struct infor t;
-							t = a[i];
-							a[i] = a[j];
-							a[j] = t;
-						}
-					}
-				}
-				if (ball.position.x < coor(a[2].num).x && ball.position.y > coor(a[2].num).x && Distance(ball.position, coor(a[2].num)) <= 77 && search1() <= 3)
-					shot(a[2].num, 1);
-				else
-					Direction(a[2].num, pos[1]);
-				if (ball.position.x < coor(a[3].num).x && ball.position.y > coor(a[3].num).x && Distance(ball.position, coor(a[3].num)) <= 77 && search1() <= 3)
-					shot(a[3].num, 1);
-				else
-					Direction(a[3].num, pos[2]);
-				if (ball.position.x > coor(a[1].num).x && ball.position.x < coor(a[9].num).x && search1() <= 3)
-					shot(a[9].num, 0);
-				else
-					Direction(a[9].num, pos[8]);
-				if (ball.position.x > coor(a[9].num).x && ball.position.x < coor(a[10].num).x && search1() <= 3)
-					shot(a[10].num, 0);
-				else
-					Direction(a[10].num, pos[9]);
-				if (ball.position.x < 31 && search1() <= 33)
-					shot(a[8].num, 1);
-				else
-					Direction(a[8].num, pos[7]);
-				for (int i = 1; i <= 10; i++) {
-					if (a[i].num != cp_id() && i != 2 && i != 3 && i != 9 && i != 10 && i != 8)
-						Direction(a[i].num, pos[i - 1]);
-				}
-			}
+		}
+		for (int i = 1; i <= 10; i++)
+			if (a[i].num != cp_id())
+				Direction(a[i].num, pos[i - 1]);
 		}
 
 		// 王徐
