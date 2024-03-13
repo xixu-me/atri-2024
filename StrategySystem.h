@@ -41,6 +41,7 @@ private:
 	bool canshot();							   // 射？
 	int search1();							   // 查找在大区里的机器人
 	int search2();							   // 查找在小区里的机器人
+	CPoint searchNear(int which);			   // 查找最近的机器人
 	// void control(int which);
 	// void ccd(int which, double d, double j);									 // 曲线行驶
 	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
