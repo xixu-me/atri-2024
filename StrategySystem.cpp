@@ -1269,18 +1269,18 @@ void CStrategySystem::Possession() {
 }
 
 //搜索最近球员位置
-CPoint CStrategySystem::searchNear(int which) {
-	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-	double ddd = 10000;
-	CPoint near;
-	for (int i = 0; i < 10; i++) {
-		if (Distance(cur_pos[i], ball.position) < ddd) {
-			ddd = Distance(cur_pos[i], ball.position);
-			near = cur_pos[i];
-		}
-	}
-	return near;
-}
+//CPoint CStrategySystem::searchNear(int which) {
+//	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+//	double ddd = 10000;
+//	CPoint near;
+//	for (int i = 0; i < 10; i++) {
+//		if (Distance(cur_pos[i], ball.position) < ddd) {
+//			ddd = Distance(cur_pos[i], ball.position);
+//			near = cur_pos[i];
+//		}
+//	}
+//	return near;
+//}
 
 // 中央球员 ID
 int CStrategySystem::cp_id() { 
