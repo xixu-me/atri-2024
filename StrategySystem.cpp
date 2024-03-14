@@ -1435,7 +1435,7 @@ void CStrategySystem::fp_sort(RelPos *rp, int h, int t) {
 	else {
 		for (int i = h + 1; i < t; i++) {
 			for (int j = h; j < t - i; j++) {
-				if (rp[j].dis > rp[j + 1].dis) {
+				if (rp[j].ang > rp[j + 1].ang) {
 					r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
 				}
 			}
