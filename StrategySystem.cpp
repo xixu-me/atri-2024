@@ -655,7 +655,20 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
 			pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
 
-			double d[10], dy[10];
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			fp_sort(rp, 2, 5);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			fp_sort(rp, 5, 9);
+			Direction(rp[5].id, pos[6]);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+			/*double d[10], dy[10];
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 			for (int i = 0; i <= 9; i++) {
 				if (i == cp_id() - 1) {
@@ -709,7 +722,7 @@ void CStrategySystem::Possession() {
 			Direction(p2[3], pos[6]);
 			Direction(p2[4], pos[5]);
 			Direction(p2[5], pos[4]);
-			Direction(p2[6], pos[3]);
+			Direction(p2[6], pos[3]);*/
 		}
 		else if (fm_id() == 5) {
 			Direction(cp_id(), ball.position);
@@ -724,7 +737,20 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
 			pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
 
-			double d[10], dy[10];
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
+			Direction(rp[0].id, pos[1]);
+			Direction(rp[1].id, pos[2]);
+			fp_sort(rp, 2, 5);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[3].id, pos[4]);
+			Direction(rp[4].id, pos[5]);
+			fp_sort(rp, 5, 9);
+			Direction(rp[5].id, pos[6]);
+			Direction(rp[6].id, pos[7]);
+			Direction(rp[7].id, pos[8]);
+			Direction(rp[8].id, pos[9]);
+			/*double d[10], dy[10];
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 			for (int i = 0; i <= 9; i++) {
 				if (i == cp_id() - 1) {
@@ -778,7 +804,7 @@ void CStrategySystem::Possession() {
 			Direction(p2[3], pos[6]);
 			Direction(p2[4], pos[5]);
 			Direction(p2[5], pos[4]);
-			Direction(p2[6], pos[3]);
+			Direction(p2[6], pos[3]);*/
 		}
 		else if (fm_id() == 6) {
 			Direction(cp_id(), ball.position);
