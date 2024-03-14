@@ -167,7 +167,7 @@ void CStrategySystem::Penalty() {
 	int x = rand() % 2;
 	int d = 21;
 	static bool faceR;
-	Direction(HOME1, CPoint(ball.position.x + 104, ball.position.y));
+	// Direction(HOME1, CPoint(ball.position.x + 104, ball.position.y));
 	if (x) {
 		if (Distance(home1.position, ball.position) > d) {
 			Direction(HOME1, ball.position);
