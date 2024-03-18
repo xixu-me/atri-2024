@@ -1,0 +1,266 @@
+﻿  StdAfx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“StdAfx.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\general.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“StdAfx.cpp”)
+  
+  Agentsock.cpp
+  BaseAgent.cpp
+D:\Code\FIRA-SimuroSot-11vs11-Client\Agentsock.cpp(52,29): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  (编译源文件“/Agentsock.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\Agentsock.cpp(56,12): warning C4996: 'gethostbyname': Use getaddrinfo() or GetAddrInfoW() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  (编译源文件“/Agentsock.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\Agentsock.cpp(78,20): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  (编译源文件“/Agentsock.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/BaseAgent.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\general.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/BaseAgent.cpp”)
+  
+  DSetupDlg.cpp
+  MainFrm.cpp
+  MicroClient.cpp
+D:\Code\FIRA-SimuroSot-11vs11-Client\MicroClient.cpp(63,2): warning C4996: 'CWinApp::Enable3dControlsStatic': CWinApp::Enable3dControlsStatic is no longer needed. You should remove this call.
+  (编译源文件“/MicroClient.cpp”)
+  
+  MicroClientDoc.cpp
+  MicroClientView.cpp
+  StrategySystem.cpp
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\general.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(166,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(179,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(194,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(224,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(248,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(272,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(296,11): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(530,55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(530,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(531,55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(531,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(535,58): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(535,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(536,56): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(536,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(537,58): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(537,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(544,55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(544,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(545,55): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(545,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(549,58): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(549,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(550,56): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(550,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(551,58): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(551,30): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(844,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1220,14): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1228,18): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1558,10): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1559,10): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1562,15): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1563,15): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1566,10): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1567,10): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1570,15): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1571,15): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1575,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1576,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1580,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1581,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1592,7): warning C4101: “t”: 未引用的局部变量
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1729,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1730,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1733,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1734,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1740,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1741,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1744,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1745,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1750,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1751,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1755,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1756,16): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1777,15): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(1859,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2526,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2652,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2656,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2664,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2670,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2679,35): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2685,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2693,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2697,35): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2707,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2713,31): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2721,31): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2725,32): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2736,31): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2740,35): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2748,35): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+D:\Code\FIRA-SimuroSot-11vs11-Client\StrategySystem.cpp(2754,31): warning C4244: “=”: 从“double”转换到“LONG”，可能丢失数据
+  (编译源文件“/StrategySystem.cpp”)
+  
+  TParseString.cpp
+  正在生成代码...
+  MicroClient.vcxproj -> D:\Code\FIRA-SimuroSot-11vs11-Client\Release\MicroClient.exe

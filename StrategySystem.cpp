@@ -516,13 +516,16 @@ void CStrategySystem::Possession() {
 			Direction(rp[8].id, pos[9]);
 		}
 		else if (fm_id() == 3) {
-			// if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409)
-			// 	shot(cp_id(), 0, CPoint(45, 457));
-			// else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409)
-			// 	shot(cp_id(), 0, CPoint(45, 361));
-			// else
-			// 	Direction(cp_id(), CPoint(170, ball.position.y));
-
+			for (int i = 0; i < 10; i++) {
+				if (rp[i].id == fm_id() - 1) {
+					rp[i].ang = 0;
+					rp[i].dis = 0;
+				}
+				else {
+					rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
+					rp[i].dis = Distance(cur_pos[i], pos[0]);
+				}
+			}
 			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
 				// 内圈
 				pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
@@ -536,6 +539,25 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 361));
+				for (int i = 0; i < 10; i++) {
+					if (rp[i].id == fm_id() - 1) {
+						rp[i].ang = 0;
+						rp[i].dis = 0;
+					}
+					else {
+						rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
+						rp[i].dis = Distance(cur_pos[i], pos[0]);
+					}
+				}
+				fp_sort(rp);
+				fp_sort(rp,0,6);
+				for (int i = 1; i <= 6; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
+				fp_sort(rp,6,10);
+				for (int i = 7; i <= 10; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -550,6 +572,15 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 457));
+				fp_sort(rp);
+				fp_sort(rp,0,6);
+				for (int i = 1; i <= 6; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
+				fp_sort(rp,6,10);
+				for (int i = 7; i <= 10; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -567,6 +598,15 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
 				shot(cp_id(), 0);
+				fp_sort(rp);
+				fp_sort(rp,0,2);
+				for (int i = 1; i <= 2; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
+				fp_sort(rp,3,10);
+				for (int i = 3; i <= 10; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -584,61 +624,16 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
 				shot(cp_id(), 1);
+				fp_sort(rp);
+				fp_sort(rp,0,2);
+				for (int i = 1; i <= 2; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
+				fp_sort(rp,3,10);
+				for (int i = 3; i <= 10; i++)
+					if (rp[i-1].id != cp_id())
+						Direction(rp[i-1].id, pos[i - 1]);
 			}
-			struct infor a[11];
-			for (int i = 1; i <= 10; i++) {
-				a[i].num = i;
-				Robot2 *robot;
-				switch (i) {
-				case HOME1:
-					robot = &home1;
-					break;
-				case HOME2:
-					robot = &home2;
-					break;
-				case HOME3:
-					robot = &home3;
-					break;
-				case HOME4:
-					robot = &home4;
-					break;
-				case HOME5:
-					robot = &home5;
-					break;
-				case HOME6:
-					robot = &home6;
-					break;
-				case HOME7:
-					robot = &home7;
-					break;
-				case HOME8:
-					robot = &home8;
-					break;
-				case HOME9:
-					robot = &home9;
-					break;
-				case HOME10:
-					robot = &home10;
-					break;
-				case HGOALIE:
-					robot = &hgoalie;
-					break;
-				}
-				a[i].dis = Distance(ball.position, robot->position);
-			}
-		for (int i = 1; i <= 10; i++) {
-			for (int j = i + 1; j <= 10; j++) {
-				if (a[i].dis > a[j].dis) {
-					struct infor t;
-					t = a[i];
-					a[i] = a[j];
-					a[j] = t;
-				}
-			}
-		}
-		for (int i = 1; i <= 10; i++)
-			if (a[i].num != cp_id())
-				Direction(a[i].num, pos[i - 1]);
 		}
 
 		// 王徐
