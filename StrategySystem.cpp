@@ -1250,15 +1250,15 @@ void CStrategySystem::Possession() {
 			pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
 
 			fp_sort(rp);
-			fp_sort(rp, 0, 2);
+			fp_sort(rp, 0, 3);
 			Direction(rp[0].id, pos[0]);
 			Direction(rp[1].id, pos[1]);
 			Direction(rp[2].id, pos[2]);
-			fp_sort(rp, 2, 5);
+			fp_sort(rp, 3, 6);
 			Direction(rp[3].id, pos[3]);
 			Direction(rp[4].id, pos[4]);
 			Direction(rp[5].id, pos[5]);
-			fp_sort(rp, 5, 9);
+			fp_sort(rp, 6, 10);
 			Direction(rp[6].id, pos[6]);
 			Direction(rp[7].id, pos[7]);
 			Direction(rp[8].id, pos[8]);
@@ -1278,15 +1278,15 @@ void CStrategySystem::Possession() {
 			pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
 
 			fp_sort(rp);
-			fp_sort(rp, 0, 2);
+			fp_sort(rp, 0, 3);
 			Direction(rp[0].id, pos[0]);
 			Direction(rp[1].id, pos[1]);
 			Direction(rp[2].id, pos[2]);
-			fp_sort(rp, 2, 5);
+			fp_sort(rp, 3, 6);
 			Direction(rp[3].id, pos[3]);
 			Direction(rp[4].id, pos[4]);
 			Direction(rp[5].id, pos[5]);
-			fp_sort(rp, 5, 9);
+			fp_sort(rp, 6, 10);
 			Direction(rp[6].id, pos[6]);
 			Direction(rp[7].id, pos[7]);
 			Direction(rp[8].id, pos[8]);
