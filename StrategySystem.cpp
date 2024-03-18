@@ -655,20 +655,7 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
 			pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
 
-			fp_sort(rp);
-			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
-			fp_sort(rp, 2, 5);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			fp_sort(rp, 5, 9);
-			Direction(rp[5].id, pos[6]);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
-			/*double d[10], dy[10];
+			double d[10], dy[10];
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 			for (int i = 0; i <= 9; i++) {
 				if (i == cp_id() - 1) {
@@ -722,7 +709,7 @@ void CStrategySystem::Possession() {
 			Direction(p2[3], pos[6]);
 			Direction(p2[4], pos[5]);
 			Direction(p2[5], pos[4]);
-			Direction(p2[6], pos[3]);*/
+			Direction(p2[6], pos[3]);
 		}
 		else if (fm_id() == 5) {
 			Direction(cp_id(), ball.position);
@@ -737,20 +724,7 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
 			pos[9] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
 
-			fp_sort(rp);
-			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
-			fp_sort(rp, 2, 5);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			fp_sort(rp, 5, 9);
-			Direction(rp[5].id, pos[6]);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
-			/*double d[10], dy[10];
+			double d[10], dy[10];//dy是球员新的
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 			for (int i = 0; i <= 9; i++) {
 				if (i == cp_id() - 1) {
@@ -760,13 +734,16 @@ void CStrategySystem::Possession() {
 					d[i] = Distance(cur_pos[i], cur_pos[cp_id() - 1]);
 				}
 			}
-			int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			int p1[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };//p1是球员新下标
 			for (int i = 1; i <= 10; i++) {
 				for (int j = 0; j < 10 - i; j++) {
 					if (d[j] > d[j + 1]) {
+						//根据球员与中心球员距离，按从小到大排列距离
 						int tmp = d[j];
 						d[j] = d[j + 1];
 						d[j + 1] = tmp;
+						
+						//距离交换后，下标同时交换
 						tmp = p1[j];
 						p1[j] = p1[j + 1];
 						p1[j + 1] = tmp;
@@ -785,6 +762,7 @@ void CStrategySystem::Possession() {
 			}
 			dy[p1[0]] = 1e5;
 			dy[p1[1]] = 1e5;
+			//p2
 			int p2[10] = { p1[0], p1[1], p1[2], p1[3], p1[4], p1[5], p1[6], p1[7], p1[8], p1[9] };
 			for (int i = 1; i <= 10; i++) {
 				for (int j = 0; j < 10 - i; j++) {
@@ -792,6 +770,8 @@ void CStrategySystem::Possession() {
 						int tmp = d[j];
 						dy[j] = dy[j + 1];
 						dy[j + 1] = tmp;
+						
+						// 距离交换后，下标同时交换
 						tmp = p2[j];
 						p2[j] = p2[j + 1];
 						p2[j + 1] = tmp;
@@ -804,7 +784,7 @@ void CStrategySystem::Possession() {
 			Direction(p2[3], pos[6]);
 			Direction(p2[4], pos[5]);
 			Direction(p2[5], pos[4]);
-			Direction(p2[6], pos[3]);*/
+			Direction(p2[6], pos[3]);
 		}
 		else if (fm_id() == 6) {
 			Direction(cp_id(), ball.position);
@@ -819,7 +799,7 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
 			pos[7] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
 
-			fp_sort(rp);
+			/*fp_sort(rp);
 			fp_sort(rp, 0, 2);
 			Direction(rp[0].id, pos[1]);
 			Direction(rp[1].id, pos[2]);
@@ -831,35 +811,35 @@ void CStrategySystem::Possession() {
 			Direction(rp[5].id, pos[6]);
 			Direction(rp[6].id, pos[7]);
 			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[8].id, pos[9]);*/
 
-			// int d[10];
-			// CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
-			// for (int i = 0; i <= 9; i++) {
-			// 	if (i == cp_id() - 1) {
-			// 		d[i] = 1e5;
-			// 	}
-			// 	d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
-			// }
-			// int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-			// for (int i = 1; i <= 10; i++) {
-			// 	int j;
-			// 	for (j = 0; j < 10 - i; j++) {
-			// 		if (d[j] > d[j + 1]) {
-			// 			int tmp = d[j];
-			// 			d[j] = d[j + 1];
-			// 			d[j + 1] = tmp;
-			// 			tmp = p[j];
-			// 			p[j] = p[j + 1];
-			// 			p[j + 1] = tmp;
-			// 		}
-			// 	}
-			// }
-			// for (int i = 0; i <= 9; i++) {
-			// 	if (p[i] = cp_id() - 1)
-			// 		continue;
-			// 	Direction(p[i], pos[i + 1]);
-			// }
+			 int d[10];
+			 CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+			 for (int i = 0; i <= 9; i++) {
+			 	if (i == cp_id() - 1) {
+			 		d[i] = 1e5;
+			 	}
+			 	d[i] = cur_pos[i].x - cur_pos[cp_id() - 1].x;
+			 }
+			 int p[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+			 for (int i = 1; i <= 10; i++) {
+			 	int j;
+			 	for (j = 0; j < 10 - i; j++) {
+			 		if (d[j] > d[j + 1]) {
+			 			int tmp = d[j];
+			 			d[j] = d[j + 1];
+			 			d[j + 1] = tmp;
+			 			tmp = p[j];
+			 			p[j] = p[j + 1];
+			 			p[j + 1] = tmp;
+			 		}
+			 	}
+			 }
+			 for (int i = 0; i <= 9; i++) {
+			 	if (p[i] = cp_id() - 1)
+			 		continue;
+			 	Direction(p[i], pos[i + 1]);
+			 }
 		}
 
 		// 景缪
@@ -1252,7 +1232,7 @@ void CStrategySystem::Possession() {
 			fp_sort(rp);
 			fp_sort(rp, 0, 3);
 			Direction(rp[0].id, pos[0]);
-			Direction(rp[1].id, pos[1]);
+			Direction(rp[1].  id, pos[1]);
 			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 3, 6);
 			Direction(rp[3].id, pos[3]);
@@ -1342,7 +1322,7 @@ int CStrategySystem::cp_id() {
 	}
 	else if (fm_id() == 7) {
 		for (int i = 0; i < 10; i++) {
-			if (cur_pos[i].y <= ball.position.x)
+			if (cur_pos[i].y <= ball.position.y)
 				cur_pos[i] = CPoint(-965, -723);
 		}
 		double min = 10000;
@@ -1355,7 +1335,7 @@ int CStrategySystem::cp_id() {
 	}
 	else if (fm_id() == 8) {
 		for (int i = 0; i < 10; i++) {
-			if (cur_pos[i].y >= ball.position.x)
+			if (cur_pos[i].y >= ball.position.y)
 				cur_pos[i] = CPoint(-965, -723);
 		}
 		double min = 10000;
