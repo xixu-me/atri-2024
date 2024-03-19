@@ -516,16 +516,6 @@ void CStrategySystem::Possession() {
 			Direction(rp[8].id, pos[9]);
 		}
 		else if (fm_id() == 3) {
-			for (int i = 0; i < 10; i++) {
-				if (rp[i].id == fm_id() - 1) {
-					rp[i].ang = 0;
-					rp[i].dis = 0;
-				}
-				else {
-					rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-					rp[i].dis = Distance(cur_pos[i], pos[0]);
-				}
-			}
 			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
 				// 内圈
 				pos[1] = CPoint(pos[0].x - 15, pos[0].y - 40);
