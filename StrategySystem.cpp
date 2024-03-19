@@ -211,18 +211,26 @@ void CStrategySystem::Penalty() {
 
 // 争球
 void CStrategySystem::Freeball() {
-	int d = 21;
+	//要实现先直冲，在曲线的话，就要加一个标识符标识此时的状态，当距离不足时标识符为1，距离够时标识符变为0，并且在争球结束后变为1
+	//感觉防御的话就直冲判断比较简单粗暴，毕竟目标是拦截，而不是射门，
 	static bool faceR;
-	if (Status() == 2) { // 左上
+	 int d = 25;		 
+	 if (Status() == 2) { // 左上
+		Direction(HOME3, ball.position);
+	 }
+	 else if (Status() == 3) { // 左下
+		Direction(HOME1, ball.position);
+	 }
+	 /* if (Status() == 2) { // 左上
 		if (Distance(home3.position, ball.position) > d && flag) {
-			Direction(HOME3, ball.position);
+			Direction(HOME3, CPoint(ball.position.x,ball.position.y-6));
 			faceR = fabs(home3.angle) > 90;
 		}
 		else {
 			flag = false;
-			double r = Distance(home3.position, ball.position) / (2 * (sin(atwo(home3.pos.x, home3.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505)))); // 求曲线行驶时轨迹的半径
-			int lw = (r - 8) / (r + 5) * 127;
-			if (faceR)
+			double r = Distance(home3.position, ball.position) / (2 * (sin(atwo(home3.pos.x, home3.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 605)))); // 求曲线行驶时轨迹的半径
+			int lw = (r-5) / (r +8) * 127;
+			 if (faceR)
 				Velocity(3, lw, 127);
 			else
 				Velocity(3, -127, -lw);
@@ -236,16 +244,17 @@ void CStrategySystem::Freeball() {
 		Direction(HOME8, ball.position);
 		Direction(HOME9, ball.position);
 		Direction(HOME10, ball.position);
-	}
-	else if (Status() == 3) { // 左下
+	 }
+	 
+	 else if (Status() == 3) { // 左下
 		if (Distance(home1.position, ball.position) > d && flag) {
 			Direction(HOME1, ball.position);
 			faceR = fabs(home1.angle) > 90;
 		}
 		else {
 			flag = false;
-			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
-			int rw = (r - 5) / (r + 5) * 127;
+			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 213))));
+			int rw = (r - 5) / (r + 8) * 127;
 			if (!faceR)
 				Velocity(1, -rw, -127);
 			else
@@ -260,8 +269,11 @@ void CStrategySystem::Freeball() {
 		Direction(HOME8, ball.position);
 		Direction(HOME9, ball.position);
 		Direction(HOME10, ball.position);
-	}
-	else if (Status() == 4) { // 右上
+	}*/
+	  else if (Status() == 4) { // 右上
+		Direction(HOME10, ball.position);
+	 }
+	/*else if (Status() == 4) { // 右上
 		if (Distance(home10.position, ball.position) > d && flag) {
 			Direction(HOME10, ball.position);
 			faceR = fabs(home10.angle) > 90;
@@ -284,8 +296,8 @@ void CStrategySystem::Freeball() {
 		Direction(HOME7, ball.position);
 		Direction(HOME8, ball.position);
 		Direction(HOME9, ball.position);
-	}
-	else if (Status() == 5) { // 右下
+	} */
+	 /* else if (Status() == 5) { // 右下
 		if (Distance(home7.position, ball.position) > d && flag) {
 			Direction(HOME7, ball.position);
 			faceR = fabs(home7.angle) > 90;
@@ -293,11 +305,11 @@ void CStrategySystem::Freeball() {
 		else {
 			flag = false;
 			double r = Distance(home7.position, ball.position) / (2 * (sin(atwo(home7.pos.x, home7.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 515, 723))));
-			int lw = (r - 5) / (r + 5) * 127;
+			int lw = (r - 8) / (r + 5) * 127;
 			if (faceR)
-				Velocity(10, -127, -lw);
+				Velocity(7, -127, -lw);
 			else
-				Velocity(10, lw, 127);
+				Velocity(7, lw, 127);
 		}
 		Direction(HOME1, ball.position);
 		Direction(HOME2, ball.position);
@@ -308,7 +320,13 @@ void CStrategySystem::Freeball() {
 		Direction(HOME8, ball.position);
 		Direction(HOME9, ball.position);
 		Direction(HOME10, ball.position);
-	}
+	}*/
+	 else if (Status() == 5) { // 右下//也许还有其它改进的思路，但实在南蚌
+		Direction(HOME7, ball.position);
+	 }
+	 else//这个标识符判断的问题到底咋搞，放在这的话应该是要在action函数里把freeball函数一直调用，如果要把还原放在action函数的话就要再不是争球的情况下都还原
+		flag = 1;
+		
 }
 
 // 两直线间夹角
