@@ -529,16 +529,6 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 361));
-				for (int i = 0; i < 10; i++) {
-					if (rp[i].id == fm_id() - 1) {
-						rp[i].ang = 0;
-						rp[i].dis = 0;
-					}
-					else {
-						rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-						rp[i].dis = Distance(cur_pos[i], pos[0]);
-					}
-				}
 				fp_sort(rp);
 				fp_sort(rp,0,6);
 				for (int i = 1; i <= 6; i++)
