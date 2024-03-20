@@ -508,16 +508,16 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 5);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
 			fp_sort(rp, 5, 7);
-			Direction(rp[5].id, pos[6]);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[6].id, pos[6]);
+			Direction(rp[7].id, pos[7]);
+			Direction(rp[8].id, pos[8]);
+			Direction(rp[9].id, pos[9]);
 		}
 		else if (fm_id() == 2) {
 			Direction(cp_id(), ball.position);
@@ -534,11 +534,11 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 5);
-			Direction(rp[4].id, pos[1]);
-			Direction(rp[3].id, pos[2]);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[1].id, pos[4]);
-			Direction(rp[0].id, pos[5]);
+			Direction(rp[5].id, pos[1]);
+			Direction(rp[4].id, pos[2]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[2].id, pos[4]);
+			Direction(rp[1].id, pos[5]);
 			fp_sort(rp, 5, 7);
 			Direction(rp[5].id, pos[6]);
 			Direction(rp[6].id, pos[7]);
@@ -561,16 +561,16 @@ void CStrategySystem::Possession() {
 				shot(cp_id(), 0, CPoint(45, 361));
 				fp_sort(rp);
 				fp_sort(rp, 0, 6);
-				Direction(rp[0].id, pos[1]);
-				Direction(rp[1].id, pos[2]);
-				Direction(rp[2].id, pos[3]);
-				Direction(rp[3].id, pos[4]);
-				Direction(rp[4].id, pos[5]);
-				Direction(rp[5].id, pos[6]);
+				Direction(rp[1].id, pos[1]);
+				Direction(rp[2].id, pos[2]);
+				Direction(rp[3].id, pos[3]);
+				Direction(rp[4].id, pos[4]);
+				Direction(rp[5].id, pos[5]);
+				Direction(rp[6].id, pos[6]);
 				fp_sort(rp, 5, 8);
-				Direction(rp[6].id, pos[7]);
-				Direction(rp[7].id, pos[8]);
-				Direction(rp[8].id, pos[9]);
+				Direction(rp[7].id, pos[7]);
+				Direction(rp[8].id, pos[8]);
+				Direction(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -587,16 +587,16 @@ void CStrategySystem::Possession() {
 				shot(cp_id(), 0, CPoint(45, 457));
 				fp_sort(rp);
 				fp_sort(rp, 0, 6);
-				Direction(rp[0].id, pos[1]);
-				Direction(rp[1].id, pos[2]);
-				Direction(rp[2].id, pos[3]);
-				Direction(rp[3].id, pos[4]);
-				Direction(rp[4].id, pos[5]);
-				Direction(rp[5].id, pos[6]);
+				Direction(rp[1].id, pos[1]);
+				Direction(rp[2].id, pos[2]);
+				Direction(rp[3].id, pos[3]);
+				Direction(rp[4].id, pos[4]);
+				Direction(rp[5].id, pos[5]);
+				Direction(rp[6].id, pos[6]);
 				fp_sort(rp, 5, 8);
-				Direction(rp[6].id, pos[7]);
-				Direction(rp[7].id, pos[8]);
-				Direction(rp[8].id, pos[9]);
+				Direction(rp[7].id, pos[7]);
+				Direction(rp[8].id, pos[8]);
+				Direction(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -615,15 +615,15 @@ void CStrategySystem::Possession() {
 				pos[9] = CPoint(170, pos[0].y + 405);
 				shot(cp_id(), 0);
 				fp_sort(rp, 0, 8);
-				Direction(rp[6].id, pos[1]);
-				Direction(rp[7].id, pos[2]);
-				Direction(rp[2].id, pos[3]);
-				Direction(rp[3].id, pos[4]);
-				Direction(rp[4].id, pos[5]);
-				Direction(rp[0].id, pos[6]);
-				Direction(rp[1].id, pos[7]);
-				Direction(rp[7].id, pos[8]);
-				Direction(rp[8].id, pos[9]);
+				Direction(rp[7].id, pos[1]);
+				Direction(rp[8].id, pos[2]);
+				Direction(rp[3].id, pos[3]);
+				Direction(rp[4].id, pos[4]);
+				Direction(rp[5].id, pos[5]);
+				Direction(rp[1].id, pos[6]);
+				Direction(rp[2].id, pos[7]);
+				Direction(rp[8].id, pos[8]);
+				Direction(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -642,15 +642,15 @@ void CStrategySystem::Possession() {
 				pos[9] = CPoint(170, pos[0].y - 405);
 				shot(cp_id(), 1);
 				fp_sort(rp, 0, 8);
-				Direction(rp[6].id, pos[1]);
-				Direction(rp[7].id, pos[2]);
-				Direction(rp[2].id, pos[3]);
-				Direction(rp[3].id, pos[4]);
-				Direction(rp[4].id, pos[5]);
-				Direction(rp[0].id, pos[6]);
-				Direction(rp[1].id, pos[7]);
-				Direction(rp[7].id, pos[8]);
-				Direction(rp[8].id, pos[9]);
+				Direction(rp[7].id, pos[1]);
+				Direction(rp[8].id, pos[2]);
+				Direction(rp[3].id, pos[3]);
+				Direction(rp[4].id, pos[4]);
+				Direction(rp[5].id, pos[5]);
+				Direction(rp[1].id, pos[6]);
+				Direction(rp[2].id, pos[7]);
+				Direction(rp[8].id, pos[8]);
+				Direction(rp[9].id, pos[9]);
 			}
 		}
 
@@ -670,17 +670,17 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 2, 6);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			Direction(rp[5].id, pos[6]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
+			Direction(rp[6].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[7].id, pos[7]);
+			Direction(rp[8].id, pos[8]);
+			Direction(rp[9].id, pos[9]);
 
 			/*double d[10], dy[10];
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
@@ -753,17 +753,17 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 2, 6);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			Direction(rp[5].id, pos[6]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
+			Direction(rp[6].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[7].id, pos[7]);
+			Direction(rp[8].id, pos[8]);
+			Direction(rp[9].id, pos[9]);
 
 			// double d[10], dy[10]; // dy是球员新的
 			// CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
@@ -842,17 +842,17 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 2, 5);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
 			fp_sort(rp, 5, 9);
-			Direction(rp[5].id, pos[6]);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[6].id, pos[6]);
+			Direction(rp[7].id, pos[7]);
+			Direction(rp[8].id, pos[8]);
+			Direction(rp[9].id, pos[9]);
 
 			/*int d[10];
 			CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
@@ -913,17 +913,17 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 2, 6);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			Direction(rp[5].id, pos[6]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
+			Direction(rp[6].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			PositionSE(rp[6].id, pos[7]);
-			PositionSE(rp[7].id, pos[8]);
-			PositionSE(rp[8].id, pos[9]);
+			PositionSE(rp[7].id, pos[7]);
+			PositionSE(rp[8].id, pos[8]);
+			PositionSE(rp[9].id, pos[9]);
 
 			// double adou[15];
 			// int xz[15];
@@ -1036,17 +1036,17 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 2);
-			Direction(rp[0].id, pos[1]);
-			Direction(rp[1].id, pos[2]);
+			Direction(rp[1].id, pos[1]);
+			Direction(rp[2].id, pos[2]);
 			fp_sort(rp, 2, 6);
-			Direction(rp[2].id, pos[3]);
-			Direction(rp[3].id, pos[4]);
-			Direction(rp[4].id, pos[5]);
-			Direction(rp[5].id, pos[6]);
+			Direction(rp[3].id, pos[3]);
+			Direction(rp[4].id, pos[4]);
+			Direction(rp[5].id, pos[5]);
+			Direction(rp[6].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			PositionSE(rp[6].id, pos[7]);
-			PositionSE(rp[7].id, pos[8]);
-			PositionSE(rp[8].id, pos[9]);
+			PositionSE(rp[7].id, pos[7]);
+			PositionSE(rp[8].id, pos[8]);
+			PositionSE(rp[9].id, pos[9]);
 			// double adou[15];
 			// int xz[15];
 			// int n = 1;
@@ -1173,32 +1173,32 @@ void CStrategySystem::Possession() {
 			if (ball.position.x >= 800) { // 球临近禁区
 				fp_sort(rp);
 				fp_sort(rp, 0, 3);
-				PositionSE(rp[0].id, pos[1]);
-				PositionSE(rp[1].id, pos[2]);
-				PositionSE(rp[2].id, pos[3]);
+				PositionSE(rp[1].id, pos[1]);
+				PositionSE(rp[2].id, pos[2]);
+				PositionSE(rp[3].id, pos[3]);
 				fp_sort(rp, 3, 8);
-				PositionSE(rp[3].id, pos[4]);
-				PositionSE(rp[4].id, pos[5]);
-				PositionSE(rp[5].id, pos[6]);
-				PositionSE(rp[6].id, pos[7]);
-				PositionSE(rp[7].id, pos[8]);
+				PositionSE(rp[4].id, pos[4]);
+				PositionSE(rp[5].id, pos[5]);
+				PositionSE(rp[6].id, pos[6]);
+				PositionSE(rp[7].id, pos[7]);
+				PositionSE(rp[8].id, pos[8]);
 				fp_sort(rp, 8, 9);
-				PositionSE(rp[8].id, pos[9]);
+				PositionSE(rp[9].id, pos[9]);
 			}
 			else {
 				fp_sort(rp);
 				fp_sort(rp, 0, 3);
-				Direction(rp[0].id, pos[1]);
-				Direction(rp[1].id, pos[2]);
-				Direction(rp[2].id, pos[3]);
+				Direction(rp[1].id, pos[1]);
+				Direction(rp[2].id, pos[2]);
+				Direction(rp[3].id, pos[3]);
 				fp_sort(rp, 3, 8);
-				Direction(rp[3].id, pos[4]);
-				Direction(rp[4].id, pos[5]);
-				Direction(rp[5].id, pos[6]);
-				Direction(rp[6].id, pos[7]);
-				Direction(rp[7].id, pos[8]);
+				Direction(rp[4].id, pos[4]);
+				Direction(rp[5].id, pos[5]);
+				Direction(rp[6].id, pos[6]);
+				Direction(rp[7].id, pos[7]);
+				Direction(rp[8].id, pos[8]);
 				fp_sort(rp, 8, 9);
-				Direction(rp[8].id, pos[9]);
+				Direction(rp[9].id, pos[9]);
 			}
 		}
 	}
