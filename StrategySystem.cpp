@@ -3044,7 +3044,7 @@ void CStrategySystem::Velocity(int which, int vL, int vR) {
 	}
 }
 
-void CStrategySystem::Position(int which, CPoint point) {
+void CStrategySystem::Direction(int which, CPoint point) {
 	Robot2 *robot;
 	double distance_e;
 	int dx, dy, desired_angle, theta_e, vL, vR;
