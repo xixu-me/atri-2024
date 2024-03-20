@@ -490,6 +490,8 @@ void CStrategySystem::Possession() {
 			}
 		}
 
+		RelPos r;
+
 		// 孙徐
 		if (fm_id() == 1) {
 			Position(cp_id(), ball.position);
