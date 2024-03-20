@@ -469,16 +469,18 @@ double CStrategySystem::atwo(int x1, int y1, int x2, int y2, int x3, int y3, int
 
 // 控球具体实现
 void CStrategySystem::Possession() {
-	CPoint pos[10];
-	RelPos rp[10];
-	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
+	CPoint pos[10]; // pos[0] 中央球员；p[1:9] 阵型球员
+
+	RelPos rp[10]; // 阵型球员相对中央球员的位置
 	for (int i = 0; i < 10; i++)
-		rp[i].id = i;
+		rp[i].id = i + 1;
+
+	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 	if (cp_id()) {
 		pos[0] = cur_pos[cp_id() - 1];
 
 		for (int i = 0; i < 10; i++) {
-			if (rp[i].id == cp_id() - 1) {
+			if (rp[i].id == cp_id()) {
 				rp[i].ang = 0;
 				rp[i].dis = 0;
 			}
@@ -487,6 +489,7 @@ void CStrategySystem::Possession() {
 				rp[i].dis = Distance(cur_pos[i], pos[0]);
 			}
 		}
+
 		RelPos r;
 
 		// 孙徐
@@ -543,7 +546,6 @@ void CStrategySystem::Possession() {
 			Direction(rp[8].id, pos[9]);
 		}
 		else if (fm_id() == 3) {
-			int t, d;
 			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
 				// 内圈
 				pos[1] = CPoint(pos[0].x - 20, pos[0].y - 40);
@@ -557,48 +559,18 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 361));
-				for (int i = 1; i < 10; i++) { // 距离排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].dis > rp[j + 1].dis) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				int h = 0;
-				t = 0;
-				for (int i = h; i < 7; i++) { // 角度排序6个
-					for (int j = h; j < 7 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 安排六个
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-						d = i;
-						if (t == 7)
-							break;
-					}
-				}
-				for (int i = d; i < 10; i++) { // 后几个排序
-					for (int j = d; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = d; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-						if (t == 7)
-							break;
-					}
-				}
+				fp_sort(rp);
+				fp_sort(rp, 0, 6);
+				Direction(rp[0].id, pos[1]);
+				Direction(rp[1].id, pos[2]);
+				Direction(rp[2].id, pos[3]);
+				Direction(rp[3].id, pos[4]);
+				Direction(rp[4].id, pos[5]);
+				Direction(rp[5].id, pos[6]);
+				fp_sort(rp, 5, 8);
+				Direction(rp[6].id, pos[7]);
+				Direction(rp[7].id, pos[8]);
+				Direction(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -613,48 +585,18 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 457));
-				for (int i = 0; i < 10; i++) { // 距离排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].dis > rp[j + 1].dis) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				int h = 0;
-				t = 0;
-				for (int i = h; i < 7; i++) { // 角度排序6个
-					for (int j = h; j < 7 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 安排六个
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-						d = i;
-						if (t == 7)
-							break;
-					}
-				}
-				for (int i = d; i < 10; i++) { // 后几个排序
-					for (int j = d; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = d; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-						if (t == 7)
-							break;
-					}
-				}
+				fp_sort(rp);
+				fp_sort(rp, 0, 6);
+				Direction(rp[0].id, pos[1]);
+				Direction(rp[1].id, pos[2]);
+				Direction(rp[2].id, pos[3]);
+				Direction(rp[3].id, pos[4]);
+				Direction(rp[4].id, pos[5]);
+				Direction(rp[5].id, pos[6]);
+				fp_sort(rp, 5, 8);
+				Direction(rp[6].id, pos[7]);
+				Direction(rp[7].id, pos[8]);
+				Direction(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -672,21 +614,16 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
 				shot(cp_id(), 0);
-				t = 0;
-				for (int i = 0; i < 10; i++) { // 角度排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-					}
-				}
+				fp_sort(rp, 0, 8);
+				Direction(rp[6].id, pos[1]);
+				Direction(rp[7].id, pos[2]);
+				Direction(rp[2].id, pos[3]);
+				Direction(rp[3].id, pos[4]);
+				Direction(rp[4].id, pos[5]);
+				Direction(rp[0].id, pos[6]);
+				Direction(rp[1].id, pos[7]);
+				Direction(rp[7].id, pos[8]);
+				Direction(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -704,39 +641,21 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
 				shot(cp_id(), 1);
-				t = 0;
-				for (int i = 0; i < 10; i++) { // 角度排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Direction(rp[i].id, pos[t]);
-						t++;
-					}
-				}
+				fp_sort(rp, 0, 8);
+				Direction(rp[6].id, pos[1]);
+				Direction(rp[7].id, pos[2]);
+				Direction(rp[2].id, pos[3]);
+				Direction(rp[3].id, pos[4]);
+				Direction(rp[4].id, pos[5]);
+				Direction(rp[0].id, pos[6]);
+				Direction(rp[1].id, pos[7]);
+				Direction(rp[7].id, pos[8]);
+				Direction(rp[8].id, pos[9]);
 			}
 		}
 
 		// 王徐
 		else if (fm_id() == 4) {
-
-			for (int i = 0; i < 10; i++) {
-				if (rp[i].id == fm_id() - 1) {
-					rp[i].ang = 0;
-					rp[i].dis = 0;
-				}
-				else {
-					rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-					rp[i].dis = Distance(cur_pos[i], pos[0]);
-				}
-			}
-			RelPos r;
-
 			Direction(cp_id(), ball.position);
 
 			pos[1] = CPoint(ball.position.x + (int)cos(45.0 * PI / 180.0) * 20, ball.position.y + (int)sin(45.0 * PI / 180.0) * 20);
@@ -749,46 +668,16 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(60.0 * PI / 180.0) * 60);
 			pos[9] = CPoint(pos[0].x + (int)cos(75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(75.0 * PI / 180.0) * 60);
 
-			// fp_sort(rp);
-			for (int i = 1; i < 10; i++) {
-				for (int j = 0; j < 10 - i; j++) {
-					if (rp[j].dis > rp[j + 1].dis) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
-			// fp_sort(rp, 0, 2);
-			for (int i = 0 + 1; i < 2; i++) {
-				for (int j = 0; j < 2 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
 			Direction(rp[0].id, pos[1]);
 			Direction(rp[1].id, pos[2]);
-			// fp_sort(rp, 2, 6);
-			for (int i = 2 + 1; i < 6; i++) {
-				for (int j = 2; j < 6 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp, 2, 6);
 			Direction(rp[2].id, pos[3]);
 			Direction(rp[3].id, pos[4]);
 			Direction(rp[4].id, pos[5]);
 			Direction(rp[5].id, pos[6]);
-
-			// fp_sort(rp, 6, 9);
-			for (int i = 6 + 1; i < 9; i++) {
-				for (int j = 6; j < 9 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
-
+			fp_sort(rp, 6, 9);
 			Direction(rp[6].id, pos[7]);
 			Direction(rp[7].id, pos[8]);
 			Direction(rp[8].id, pos[9]);
@@ -850,19 +739,6 @@ void CStrategySystem::Possession() {
 			Direction(p2[6], pos[3]);*/
 		}
 		else if (fm_id() == 5) {
-
-			for (int i = 0; i < 10; i++) {
-				if (rp[i].id == fm_id() - 1) {
-					rp[i].ang = 0;
-					rp[i].dis = 0;
-				}
-				else {
-					rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-					rp[i].dis = Distance(cur_pos[i], pos[0]);
-				}
-			}
-			RelPos r;
-
 			Direction(cp_id(), ball.position);
 
 			pos[2] = CPoint(ball.position.x + (int)cos(0.0 * PI / 180.0) * 20, ball.position.y + (int)sin(0.0 * PI / 180.0) * 20);
@@ -875,46 +751,16 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(-60.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-60.0 * PI / 180.0) * 60);
 			pos[7] = CPoint(pos[0].x + (int)cos(-75.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-75.0 * PI / 180.0) * 60);
 
-			// fp_sort(rp);
-			for (int i = 1; i < 10; i++) {
-				for (int j = 0; j < 10 - i; j++) {
-					if (rp[j].dis > rp[j + 1].dis) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
-			// fp_sort(rp, 0, 2);
-			for (int i = 0 + 1; i < 2; i++) {
-				for (int j = 0; j < 2 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
 			Direction(rp[0].id, pos[1]);
 			Direction(rp[1].id, pos[2]);
-			// fp_sort(rp, 2, 6);
-			for (int i = 2 + 1; i < 6; i++) {
-				for (int j = 2; j < 6 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp, 2, 6);
 			Direction(rp[2].id, pos[3]);
 			Direction(rp[3].id, pos[4]);
 			Direction(rp[4].id, pos[5]);
 			Direction(rp[5].id, pos[6]);
-
-			// fp_sort(rp, 6, 9);
-			for (int i = 6 + 1; i < 9; i++) {
-				for (int j = 6; j < 9 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
-
+			fp_sort(rp, 6, 9);
 			Direction(rp[6].id, pos[7]);
 			Direction(rp[7].id, pos[8]);
 			Direction(rp[8].id, pos[9]);
@@ -982,19 +828,6 @@ void CStrategySystem::Possession() {
 			// Direction(p2[6], pos[3]);
 		}
 		else if (fm_id() == 6) {
-
-			for (int i = 0; i < 10; i++) {
-				if (rp[i].id == fm_id() - 1) {
-					rp[i].ang = 0;
-					rp[i].dis = 0;
-				}
-				else {
-					rp[i].ang = atan2(cur_pos[i].y - pos[0].y, cur_pos[i].x - pos[0].x);
-					rp[i].dis = Distance(cur_pos[i], pos[0]);
-				}
-			}
-			RelPos r;
-
 			Direction(cp_id(), ball.position);
 
 			pos[1] = CPoint(ball.position.x + (int)cos(-90.0 * PI / 180.0) * 20, ball.position.y + (int)sin(-90.0 * PI / 180.0) * 20);
@@ -1007,44 +840,15 @@ void CStrategySystem::Possession() {
 			pos[8] = CPoint(pos[0].x + (int)cos(30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(30.0 * PI / 180.0) * 60);
 			pos[7] = CPoint(pos[0].x + (int)cos(-30.0 * PI / 180.0) * 60, pos[0].y + (int)sin(-30.0 * PI / 180.0) * 60);
 
-			// fp_sort(rp);
-			for (int i = 1; i < 10; i++) {
-				for (int j = 0; j < 10 - i; j++) {
-					if (rp[j].dis > rp[j + 1].dis) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
-			// fp_sort(rp, 0, 2);
-			for (int i = 0 + 1; i < 2; i++) {
-				for (int j = 0; j < 2 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp);
+			fp_sort(rp, 0, 2);
 			Direction(rp[0].id, pos[1]);
 			Direction(rp[1].id, pos[2]);
-			// fp_sort(rp, 2, 5);
-			for (int i = 2 + 1; i < 5; i++) {
-				for (int j = 2; j < 5 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp, 2, 5);
 			Direction(rp[2].id, pos[3]);
 			Direction(rp[3].id, pos[4]);
 			Direction(rp[4].id, pos[5]);
-
-			// fp_sort(rp, 5, 9);
-			for (int i = 5 + 1; i < 9; i++) {
-				for (int j = 5; j < 9 - i; j++) {
-					if (rp[j].ang > rp[j + 1].ang) {
-						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-					}
-				}
-			}
+			fp_sort(rp, 5, 9);
 			Direction(rp[5].id, pos[6]);
 			Direction(rp[6].id, pos[7]);
 			Direction(rp[7].id, pos[8]);
