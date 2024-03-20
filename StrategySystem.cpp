@@ -572,7 +572,7 @@ void CStrategySystem::Possession() {
 						}
 					}
 				}
-				for (int i = 0; i <= 10; i++)//安排六个
+				for (int i = 0; i < 10; i++)//安排六个
 				{
 					if (rp[i].id != cp_id())
 						{
@@ -582,7 +582,7 @@ void CStrategySystem::Possession() {
 							if(t==7)break;
 						}
 				}
-				for (int i =d; i <= 10; i++) {//后几个排序
+				for (int i =d; i < 10; i++) {//后几个排序
 					for (int j = d; j < 10 - i; j++) {
 						if (rp[j].ang > rp[j + 1].ang) {
 						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
@@ -628,7 +628,7 @@ void CStrategySystem::Possession() {
 						}
 					}
 				}
-				for (int i = 0; i <= 10; i++)//安排六个
+				for (int i = 0; i < 10; i++)//安排六个
 				{
 					if (rp[i].id != cp_id())
 						{
@@ -638,7 +638,7 @@ void CStrategySystem::Possession() {
 							if(t==7)break;
 						}
 				}
-				for (int i =d; i <= 10; i++) {//后几个排序
+				for (int i =d; i < 10; i++) {//后几个排序
 					for (int j = d; j < 10 - i; j++) {
 						if (rp[j].ang > rp[j + 1].ang) {
 						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
