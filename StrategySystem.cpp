@@ -612,7 +612,7 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 457));
-				for (int i = 1; i < 10; i++) {//距离排序
+				for (int i = 0; i < 10; i++) {//距离排序
 					for (int j = 0; j < 10 - i; j++) {
 						if (rp[j].dis > rp[j + 1].dis) {
 							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
@@ -622,7 +622,7 @@ void CStrategySystem::Possession() {
 				int h=0;
 				t=0;
 				for (int i =h; i < 7; i++) {//角度排序6个
-					for (int j = h; j < t - i; j++) {
+					for (int j = h; j < 10 - i; j++) {
 						if (rp[j].ang > rp[j + 1].ang) {
 						r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
 						}
@@ -679,7 +679,7 @@ void CStrategySystem::Possession() {
 					}
 				}
 				for (int i =0; i < 10; i++) {//角度排序
-					for (int j = 0; j < t - i; j++) {
+					for (int j = 0; j < 10 - i; j++) {
 						if (rp[j].ang > rp[j + 1].ang) {
 							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
 						}
@@ -711,7 +711,7 @@ void CStrategySystem::Possession() {
 				pos[9] = CPoint(170, pos[0].y - 405);
 				shot(cp_id(), 1);
 				for (int i =0; i < 10; i++) {//角度排序
-					for (int j = 0; j < t - i; j++) {
+					for (int j = 0; j < 10 - i; j++) {
 						if (rp[j].ang > rp[j + 1].ang) {
 							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
 						}
