@@ -166,17 +166,15 @@ void CStrategySystem::Penalty() {
 	srand(time(nullptr));
 	int x = rand() % 2;
 	int d = 21;
-	static bool faceR;
-	// Position(HOME1, CPoint(ball.position.x + 104, ball.position.y));
+	static bool faceR; // 角度
 	if (x) {
 		if (Distance(home1.position, ball.position) > d) {
-			Position(HOME1, ball.position);
+			Direction(HOME1, ball.position);
 			faceR = fabs(home1.angle) > 90;
 		}
 		else {
-			// flag = false;
 			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 505)))); // 求曲线行驶时轨迹的半径
-			int lw = (r - 3) / (r + 5) * 127;
+			int lw = r / (r + 6) * 127;
 			if (faceR)
 				Velocity(1, lw, 127);
 			else
@@ -185,28 +183,27 @@ void CStrategySystem::Penalty() {
 	}
 	else {
 		if (Distance(home1.position, ball.position) > d) {
-			Position(HOME1, ball.position);
+			Direction(HOME1, ball.position);
 			faceR = fabs(home1.angle) > 90;
 		}
 		else {
-			// flag = false;
 			double r = Distance(home1.position, ball.position) / (2 * (sin(atwo(home1.pos.x, home1.pos.y, ball.position.x, ball.position.y, ball.position.x, ball.position.y, 28, 313))));
-			int rw = r / (r + 3) * 127;
+			int rw = r / (r + 6) * 127;
 			if (!faceR)
 				Velocity(1, -rw, -127);
 			else
 				Velocity(1, 127, rw);
 		}
 	}
-	Position(HOME2, ball.position);
-	Position(HOME3, ball.position);
-	Position(HOME4, ball.position);
-	Position(HOME5, ball.position);
-	Position(HOME6, ball.position);
-	Position(HOME7, ball.position);
-	Position(HOME8, ball.position);
-	Position(HOME9, ball.position);
-	Position(HOME10, ball.position);
+	Direction(HOME1, ball.position);
+	Direction(HOME2, ball.position);
+	Direction(HOME4, ball.position);
+	Direction(HOME5, ball.position);
+	Direction(HOME6, ball.position);
+	Direction(HOME7, ball.position);
+	Direction(HOME8, ball.position);
+	Direction(HOME9, ball.position);
+	Direction(HOME10, ball.position);
 }
 
 // 争球
@@ -473,14 +470,14 @@ void CStrategySystem::Possession() {
 
 	RelPos rp[10];
 	for (int i = 0; i < 10; i++)
-		rp[i].id = i;
+		rp[i].id = i + 1;
 
 	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 
 	if (cp_id()) {
 		pos[0] = cur_pos[cp_id() - 1];
 		for (int i = 0; i < 10; i++) {
-			if (rp[i].id == cp_id() - 1) {
+			if (rp[i].id == cp_id()) {
 				rp[i].ang = 0;
 				rp[i].dis = 0;
 			}
@@ -1131,57 +1128,75 @@ void CStrategySystem::Possession() {
 		}
 		else if (fm_id() == 9) {
 			Direction(cp_id(), ball.position);
-			if(ball.position.y > 409){
-				pos[1].y = pos[0].y-35; pos[1].x = pos[0].x-10;
-				pos[2].y = pos[0].y-25; pos[2].x = pos[0].x+30;
-				pos[3].y = pos[0].y;	pos[3].x = pos[0].x+30;
-				pos[4].y = pos[0].y-65; pos[4].x = pos[0].x;
-				pos[5].y = pos[0].y-75; pos[5].x = pos[0].x+60;
-				pos[6].y = pos[0].y-60;	pos[6].x = pos[0].x+70;
-				pos[7].y = pos[0].y+20; pos[7].x = pos[0].x+70;
-				pos[8].y = pos[0].y+60; pos[8].x = pos[0].x+70;
-				pos[9].y = pos[0].y-90;pos[9].x = pos[0].x+70;
+			if (ball.position.y > 409) {
+				pos[1].y = pos[0].y - 35;
+				pos[1].x = pos[0].x - 10;
+				pos[2].y = pos[1].y - 25;
+				pos[2].x = pos[0].x + 30;
+				pos[3].y = pos[0].y;
+				pos[3].x = pos[3].x + 30;
+				pos[4].y = pos[0].y - 65;
+				pos[4].x = pos[0].x;
+				pos[5].y = pos[1].y - 75;
+				pos[5].x = pos[0].x + 60;
+				pos[6].y = pos[0].y - 60;
+				pos[6].x = pos[3].x + 70;
+				pos[7].y = pos[0].y + 20;
+				pos[7].x = pos[0].x + 70;
+				pos[8].y = pos[1].y + 60;
+				pos[8].x = pos[0].x + 70;
+				pos[9].y = pos[0].y - 90;
+				pos[9].x = pos[3].x + 07;
 			}
-			else if(ball.position.y <= 409){
-				pos[1].y = pos[0].y; pos[1].x = pos[0].x+30;
-				pos[2].y = pos[0].y+35; pos[2].x = pos[0].x-40;
-				pos[3].y = pos[0].y+25;	pos[3].x = pos[0].x;
-				pos[4].y = pos[0].y+65; pos[4].x = pos[0].x+70;
-				pos[5].y = pos[0].y+75; pos[5].x = pos[0].x+60;
-				pos[6].y = pos[0].y+65;	pos[6].x = pos[0].x+70;
-				pos[7].y = pos[0].y+20; pos[7].x = pos[0].x+70;
-				pos[8].y = pos[0].y-20; pos[8].x = pos[0].x+70;
-				pos[9].y = pos[0].y+90;pos[9].x = pos[0].x+70;
+			else if (ball.position.y <= 409) {
+				pos[1].y = pos[0].y;
+				pos[1].x = pos[0].x + 30;
+				pos[2].y = pos[1].y + 35;
+				pos[2].x = pos[0].x - 40;
+				pos[3].y = pos[0].y + 25;
+				pos[3].x = pos[3].x;
+				pos[4].y = pos[0].y + 65;
+				pos[4].x = pos[0].x + 70;
+				pos[5].y = pos[1].y + 75;
+				pos[5].x = pos[0].x + 60;
+				pos[6].y = pos[0].y + 65;
+				pos[6].x = pos[3].x + 70;
+				pos[7].y = pos[0].y + 20;
+				pos[7].x = pos[0].x + 70;
+				pos[8].y = pos[1].y - 20;
+				pos[8].x = pos[0].x + 70;
+				pos[9].y = pos[0].y + 90;
+				pos[9].x = pos[3].x + 70;
 			}
-			if(ball.position.x>=800){	//球临近禁区
+			if (ball.position.x >= 800) { // 球临近禁区
 				fp_sort(rp);
-				fp_sort(rp,0,3);
-				PositionSE(rp[0].id,pos[1]);
-				PositionSE(rp[1].id,pos[2]);
-				PositionSE(rp[2].id,pos[3]);
-				fp_sort(rp,3,8);
-				PositionSE(rp[3].id,pos[4]);
-				PositionSE(rp[4].id,pos[5]);
-				PositionSE(rp[5].id,pos[6]);
-				PositionSE(rp[6].id,pos[7]);
-				PositionSE(rp[7].id,pos[8]);
-				fp_sort(rp,8,9);
-				PositionSE(rp[8].id,pos[9]);
+				fp_sort(rp, 0, 3);
+				PositionSE(rp[0].id, pos[1]);
+				PositionSE(rp[1].id, pos[2]);
+				PositionSE(rp[2].id, pos[3]);
+				fp_sort(rp, 3, 8);
+				PositionSE(rp[3].id, pos[4]);
+				PositionSE(rp[4].id, pos[5]);
+				PositionSE(rp[5].id, pos[6]);
+				PositionSE(rp[6].id, pos[7]);
+				PositionSE(rp[7].id, pos[8]);
+				fp_sort(rp, 8, 9);
+				PositionSE(rp[8].id, pos[9]);
 			}
-			else{
+			else {
 				fp_sort(rp);
-				fp_sort(rp,0,3);
-				Direction(rp[0].id,pos[1]);
-				Direction(rp[1].id,pos[2]);
-				Direction(rp[2].id,pos[3]);
-				fp_sort(rp,3,8);
-				Direction(rp[3].id,pos[4]);
-				Direction(rp[4].id,pos[5]);
-				Direction(rp[5].id,pos[6]);
-				Direction(rp[6].id,pos[7]);
-				Direction(rp[7].id,pos[8]);
-				fp_sort(rp,8,9);
-				Direction(rp[8].id,pos[9]);
+				fp_sort(rp, 0, 3);
+				(rp[0].id, pos[1]);
+				Direction(rp[1].id, pos[2]);
+				Direction(rp[2].id, pos[3]);
+				fp_sort(rp, 3, 8);
+				Direction(rp[3].id, pos[4]);
+				Direction(rp[4].id, pos[5]);
+				Direction(rp[5].id, pos[6]);
+				Direction(rp[6].id, pos[7]);
+				Direction(rp[7].id, pos[8]);
+				fp_sort(rp, 8, 9);
+				Direction(rp[8].id, pos[9]);
 			}
 	}
 	else { // TODO 无中央球员
