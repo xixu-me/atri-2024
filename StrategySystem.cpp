@@ -22,146 +22,6 @@ extern int nKick;
 #define G_BOUND_BOUND 10
 
 // 罚球
-// void CStrategySystem::Penalty() {
-// 	srand(time(nullptr));
-// 	int x = rand() % 2;
-// 	// 简单直线函数点球，向上射终点为（60，313），向下射终点为（60，505）；
-// 	int k, b;
-// 	// 1往上射
-// 	if (x) {
-// 		k = (ball.position.y - 313) / (ball.position.x - 60);
-// 		b = 313 - 60 * k;
-// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16 - 1) && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-// 			Direction(HOME1, ball.position); // 跟踪球射门
-// 		else
-// 			Position(HOME1, CPoint(ball.position.x + 16 /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/, (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-// 	}
-// 	// 往下射
-// 	else {
-// 		k = (ball.position.y - 505) / (ball.position.x - 60);
-// 		b = 505 - 60 * k;
-// 		if (home1.position.x <= (ball.position.x + 16) && home1.position.x >= (ball.position.x + 16) - 1 && home1.position.y >= ((ball.position.x + 16) * k + b) - 1 && home1.position.y <= (ball.position.x + 16) * k + b)
-// 			Direction(HOME1, ball.position); // 跟踪球射门
-// 		else
-// 			Position(HOME1, CPoint(ball.position.x + 16, /*球每次更新位置，则将机器人放到函数直线上与球不同位置上，下一周期在踢球*/ (ball.position.x + 16) * k + b)); // 机器人最开始不在范围，则移动到指定位置
-// 	}
-// }
-
-/*
-void CStrategySystem::Penalty() {
-	srand(time(nullptr));
-	int x = rand() % 2;
-	if (ball.position.y < 410) {
-		if (Distance(home1.position, ball.position) > 15) {
-			Position(HOME1, CPoint(28, 313));
-		}
-		else {
-			Position(HOME1, CPoint(60, 313));
-		}
-	}
-	else if (ball.position.y > 410) {
-		if (Distance(home1.position, ball.position)>15) {
-			Position(HOME1, CPoint(28, 505));
-		}
-		else {
-			Position(HOME1, CPoint(60, 505));
-		}
-	}else if (ball.position.y == 410) {
-		if (x) {
-				Position(HOME1, CPoint(60, 313));
-		}
-		else {
-				Position(HOME1, CPoint(60, 313));
-		}
-	}
-}*/
-
-/* void CStrategySystem::Penalty() {
-	srand(time(nullptr));
-	int x = rand() % 2;
-	if (x) {
-		if (Distance(home1.position, ball.position) > 15) {
-			Position(HOME1, CPoint(28, 313));
-		}
-		else {
-			Position(HOME1, CPoint(60, 313));
-		}
-	}
-	else {
-		if (Distance(home1.position, ball.position) > 15) {
-			Position(HOME1, CPoint(28, 505));
-		}
-		else {
-			Position(HOME1, CPoint(60, 505));
-		}
-	}
-}*/
-
-// void CStrategySystem::Penalty() {
-// 	srand(time(nullptr));
-// 	int x = rand() % 2;
-// 	if (x) {
-// 		Position(HOME1, CPoint(60, 313));
-// 	}
-// 	else {
-// 		Position(HOME1, CPoint(60, 505));
-// 	}
-// }
-
-// void CStrategySystem::Penalty() {
-// 	if (home1.position.y < ball.position.y) {
-// 		if (-home1.position.y != (-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10) + (-505 - ((-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10)))) {
-// 			Position(HOME1, CPoint(ball.position.x + 10, -((-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10) + (-505 - (-ball.position.y + 505) / (ball.position.x - 60) * (ball.position.x + 10)))));
-// 		}
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
-// 	}
-// 	else if (home1.position.y == ball.position.y) {
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
-// 	}
-// 	else {
-// 		if (-home1.position.y != (-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10) + (-303 - ((-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10)))) {
-// 			Position(HOME1, CPoint(ball.position.x - 234, -(-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10) + (-303 - ((-ball.position.y + 303) / (ball.position.x - 60) * (ball.position.x + 10)))));
-// 		}
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
-// 	}
-// }
-
-// void CStrategySystem::Penalty() {
-// 	srand(time(nullptr));
-// 	int x = rand() % 2;
-// 	if (x) {
-// 		if ((home1.position.x > ball.position.x + 24 + 1) || (home1.position.x < ball.position.x + 24 - 1) || (home1.position.y > ball.position.y + 10 + 1) || (home1.position.y > ball.position.y + 10 - 1)) {
-// 			Position(HOME1, CPoint(ball.position.x + 24, ball.position.y + 10));
-// 		}
-// 		Position(HOME1, CPoint(ball.position.x - 233, ball.position.y - 97));
-// 		// else {
-// 		//	//Position(HOME1, CPoint(36.5, 313));
-// 		//
-// 		// }
-// 	}
-// 	else {
-// 		if ((home1.position.x > ball.position.x + 24 + 1) || (home1.position.x < ball.position.x + 24 - 1) || (home1.position.y > ball.position.y - 10 + 1) || (home1.position.y > ball.position.y - 10 - 1)) {
-// 			Position(HOME1, CPoint(ball.position.x + 24, ball.position.y - 10));
-// 		}
-// 		Position(HOME1, CPoint(ball.position.x - 228, ball.position.y + 95));
-// 		// else {
-// 		//	//Position(HOME1, CPoint(41.5, 505));
-// 		// }
-// 	}
-// }
-
-// void CStrategySystem::Penalty() {
-// 	if (home1.position.y < ball.position.y) {
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y + 100));
-// 	}
-// 	else if (home1.position.y == ball.position.y) {
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y));
-// 	}
-// 	else {
-// 		Position(HOME1, CPoint(ball.position.x - 234, ball.position.y - 100));
-// 	}
-// }
-
 void CStrategySystem::Penalty() {
 	srand(time(nullptr));
 	int x = rand() % 2;
@@ -217,6 +77,15 @@ void CStrategySystem::Freeball() {
 	int d = 25;
 	if (Status() == 2) { // 左上
 		Direction(HOME3, ball.position);
+		Direction(HOME1, ball.position);
+		Direction(HOME2, ball.position);
+		Direction(HOME4, ball.position);
+		Direction(HOME5, ball.position);
+		Direction(HOME6, ball.position);
+		Direction(HOME7, ball.position);
+		Direction(HOME8, ball.position);
+		Direction(HOME9, ball.position);
+		Direction(HOME10, ball.position);
 	}
 	else if (Status() == 3) { // 左下
 		Direction(HOME1, ball.position);
@@ -326,15 +195,6 @@ void CStrategySystem::Freeball() {
 	}
 	else // 这个标识符判断的问题到底咋搞，放在这的话应该是要在action函数里把freeball函数一直调用，如果要把还原放在action函数的话就要再不是争球的情况下都还原
 		flag = 1;
-	Direction(HOME1, ball.position);
-	Direction(HOME2, ball.position);
-	Direction(HOME4, ball.position);
-	Direction(HOME5, ball.position);
-	Direction(HOME6, ball.position);
-	Direction(HOME7, ball.position);
-	Direction(HOME8, ball.position);
-	Direction(HOME9, ball.position);
-	Direction(HOME10, ball.position);
 }
 
 // 两直线间夹角
@@ -540,10 +400,10 @@ void CStrategySystem::Possession() {
 			Direction(rp[2].id, pos[4]);
 			Direction(rp[1].id, pos[5]);
 			fp_sort(rp, 5, 7);
-			Direction(rp[5].id, pos[6]);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			Direction(rp[6].id, pos[6]);
+			Direction(rp[7].id, pos[7]);
+			Direction(rp[8].id, pos[8]);
+			Direction(rp[9].id, pos[9]);
 		}
 		else if (fm_id() == 3) {
 			if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y <= 409) {
@@ -2757,7 +2617,7 @@ void CStrategySystem::Rush(int which, CPoint point) {
 int CStrategySystem::Status() {
 	if (ball.position.x <= 309 && ball.position.x >= 279) {
 		if (ball.position.y >= 394 && ball.position.y <= 424)
-			return 1;
+			return 1; // 罚球
 		if (ball.position.y <= 193 && ball.position.y >= 173)
 			return 2; // 左上争球点
 		if (ball.position.y <= 648 && ball.position.y >= 628)
@@ -2780,12 +2640,12 @@ void CStrategySystem::Action() {
 		flag = true;
 		Penalty();
 		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		Freeball();
-		break;
+	// case 2:
+	// case 3:
+	// case 4:
+	// case 5:
+	// 	Freeball();
+	// 	break;
 	default:
 		flag = true;
 		Possession();
