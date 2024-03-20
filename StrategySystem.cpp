@@ -2422,7 +2422,7 @@ void CStrategySystem::Goalie() { // TODO 两侧卡顿
 					xiy = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * (xix - xid) + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
 				}
 				if (ball.position.x <= 900 || ball.position.y < 313 || ball.position.y > 505)
-					if ((t / 4) % 2)
+					if ((T / 4) % 2)
 						xiy += 30;
 					else
 						xiy -= 30;
@@ -2869,7 +2869,7 @@ int CStrategySystem::Status() {
 }
 
 void CStrategySystem::Action() {
-	t++;
+	T++;
 	Goalie();
 	switch (Status()) {
 	case 1:
@@ -3265,12 +3265,7 @@ void CStrategySystem::ReceiveData(Robot1 bal, Robot2 ho1, Robot2 ho2, Robot2 ho3
 }
 
 CStrategySystem::CStrategySystem(int id) {
-	// int t = 10;
-	// while (t--) {
-	// 	Navigation.push_back(CPoint(515, 409));
-	// }
-
-	t = 0;
+	T = 0;
 
 	start = true;
 

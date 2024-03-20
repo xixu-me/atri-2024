@@ -91,7 +91,7 @@ private:
 	Robot3 opponent;
 
 	bool start; // 是否刚开始
-	int t;		// 时间，即周期数
+	int T;		// 时间，即周期数
 	struct infor {
 		int num;	// 球员编号
 		double dis; // 球员到球的距离
