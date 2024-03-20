@@ -1186,7 +1186,7 @@ void CStrategySystem::Possession() {
 			else {
 				fp_sort(rp);
 				fp_sort(rp, 0, 3);
-				(rp[0].id, pos[1]);
+				Direction(rp[0].id, pos[1]);
 				Direction(rp[1].id, pos[2]);
 				Direction(rp[2].id, pos[3]);
 				fp_sort(rp, 3, 8);
