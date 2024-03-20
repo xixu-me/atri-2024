@@ -1117,9 +1117,9 @@ void CStrategySystem::Possession() {
 			Direction(rp[4].id, pos[5]);
 			Direction(rp[5].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			PositionSE(rp[6].id, pos[7]);
+			PositionSE(rp[7].id, pos[8]);
+			PositionSE(rp[8].id, pos[9]);
 
 			// double adou[15];
 			// int xz[15];
@@ -1240,9 +1240,9 @@ void CStrategySystem::Possession() {
 			Direction(rp[4].id, pos[5]);
 			Direction(rp[5].id, pos[6]);
 			fp_sort(rp, 6, 9);
-			Direction(rp[6].id, pos[7]);
-			Direction(rp[7].id, pos[8]);
-			Direction(rp[8].id, pos[9]);
+			PositionSE(rp[6].id, pos[7]);
+			PositionSE(rp[7].id, pos[8]);
+			PositionSE(rp[8].id, pos[9]);
 			// double adou[15];
 			// int xz[15];
 			// int n = 1;
