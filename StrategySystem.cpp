@@ -1136,7 +1136,7 @@ void CStrategySystem::Possession() {
 				pos[3].y = pos[0].y;
 				pos[3].x = pos[3].x + 30;
 				pos[4].y = pos[0].y - 65;
-				pos[4].x = pos[0];
+				pos[4].x = pos[0].x;
 				pos[5].y = pos[1].y - 75;
 				pos[5].x = pos[0].x + 60;
 				pos[6].y = pos[0].y - 60;
