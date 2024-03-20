@@ -560,48 +560,18 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 361));
-				for (int i = 1; i < 10; i++) { // 距离排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].dis > rp[j + 1].dis) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				int h = 0;
-				t = 0;
-				for (int i = h; i < 7; i++) { // 角度排序6个
-					for (int j = h; j < 7 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 安排六个
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-						d = i;
-						if (t == 7)
-							break;
-					}
-				}
-				for (int i = d; i < 10; i++) { // 后几个排序
-					for (int j = d; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = d; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-						if (t == 7)
-							break;
-					}
-				}
+				fp_sort(rp);
+				fp_sort(rp, 0, 6);
+				Position(rp[0].id, pos[1]);
+				Position(rp[1].id, pos[2]);
+				Position(rp[2].id, pos[3]);
+				Position(rp[3].id, pos[4]);
+				Position(rp[4].id, pos[5]);
+				Position(rp[5].id, pos[6]);
+				fp_sort(rp, 5, 8);
+				Position(rp[6].id, pos[7]);
+				Position(rp[7].id, pos[8]);
+				Position(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -616,48 +586,18 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
 				shot(cp_id(), 0, CPoint(45, 457));
-				for (int i = 0; i < 10; i++) { // 距离排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].dis > rp[j + 1].dis) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				int h = 0;
-				t = 0;
-				for (int i = h; i < 7; i++) { // 角度排序6个
-					for (int j = h; j < 7 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 安排六个
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-						d = i;
-						if (t == 7)
-							break;
-					}
-				}
-				for (int i = d; i < 10; i++) { // 后几个排序
-					for (int j = d; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = d; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-						if (t == 7)
-							break;
-					}
-				}
+				fp_sort(rp);
+				fp_sort(rp, 0, 6);
+				Position(rp[0].id, pos[1]);
+				Position(rp[1].id, pos[2]);
+				Position(rp[2].id, pos[3]);
+				Position(rp[3].id, pos[4]);
+				Position(rp[4].id, pos[5]);
+				Position(rp[5].id, pos[6]);
+				fp_sort(rp, 5, 8);
+				Position(rp[6].id, pos[7]);
+				Position(rp[7].id, pos[8]);
+				Position(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -675,21 +615,16 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
 				shot(cp_id(), 0);
-				t = 0;
-				for (int i = 0; i < 10; i++) { // 角度排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-					}
-				}
+				fp_sort(rp, 0, 8);
+				Position(rp[6].id, pos[1]);
+				Position(rp[7].id, pos[2]);
+				Position(rp[2].id, pos[3]);
+				Position(rp[3].id, pos[4]);
+				Position(rp[4].id, pos[5]);
+				Position(rp[0].id, pos[6]);
+				Position(rp[1].id, pos[7]);
+				Position(rp[7].id, pos[8]);
+				Position(rp[9].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -707,21 +642,16 @@ void CStrategySystem::Possession() {
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
 				shot(cp_id(), 1);
-				t = 0;
-				for (int i = 0; i < 10; i++) { // 角度排序
-					for (int j = 0; j < 10 - i; j++) {
-						if (rp[j].ang > rp[j + 1].ang) {
-							r = rp[j], rp[j] = rp[j + 1], rp[j + 1] = r;
-						}
-					}
-				}
-				for (int i = 0; i < 10; i++) // 动
-				{
-					if (rp[i].id != cp_id()) {
-						Position(rp[i].id, pos[t]);
-						t++;
-					}
-				}
+				fp_sort(rp, 0, 8);
+				Position(rp[6].id, pos[1]);
+				Position(rp[7].id, pos[2]);
+				Position(rp[2].id, pos[3]);
+				Position(rp[3].id, pos[4]);
+				Position(rp[4].id, pos[5]);
+				Position(rp[0].id, pos[6]);
+				Position(rp[1].id, pos[7]);
+				Position(rp[7].id, pos[8]);
+				Position(rp[9].id, pos[9]);
 			}
 		}
 
