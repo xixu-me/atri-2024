@@ -571,7 +571,7 @@ void CStrategySystem::Possession() {
 				fp_sort(rp, 5, 8);
 				Position(rp[6].id, pos[7]);
 				Position(rp[7].id, pos[8]);
-				Position(rp[9].id, pos[9]);
+				Position(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -597,7 +597,7 @@ void CStrategySystem::Possession() {
 				fp_sort(rp, 5, 8);
 				Position(rp[6].id, pos[7]);
 				Position(rp[7].id, pos[8]);
-				Position(rp[9].id, pos[9]);
+				Position(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -624,7 +624,7 @@ void CStrategySystem::Possession() {
 				Position(rp[0].id, pos[6]);
 				Position(rp[1].id, pos[7]);
 				Position(rp[7].id, pos[8]);
-				Position(rp[9].id, pos[9]);
+				Position(rp[8].id, pos[9]);
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -651,7 +651,7 @@ void CStrategySystem::Possession() {
 				Position(rp[0].id, pos[6]);
 				Position(rp[1].id, pos[7]);
 				Position(rp[7].id, pos[8]);
-				Position(rp[9].id, pos[9]);
+				Position(rp[8].id, pos[9]);
 			}
 		}
 
@@ -1130,132 +1130,59 @@ void CStrategySystem::Possession() {
 			// //  否则就保持一定速度在点位待机
 		}
 		else if (fm_id() == 9) {
-			Position(cp_id(), ball.position);
-
-			pos[1].y = ball.position.y;
-			pos[1].x = 900;
-			pos[2].x = pos[1].x;
-			if (ball.position.y > 409) // 球在下面
-			{
-				pos[2].y = pos[1].y - 40;
+			Direction(cp_id(), ball.position);
+			if(ball.position.y > 409){
+				pos[1].y = pos[0].y-35; pos[1].x = pos[0].x-10;
+				pos[2].y = pos[0].y-25; pos[2].x = pos[0].x+30;
+				pos[3].y = pos[0].y;	pos[3].x = pos[0].x+30;
+				pos[4].y = pos[0].y-65; pos[4].x = pos[0].x;
+				pos[5].y = pos[0].y-75; pos[5].x = pos[0].x+60;
+				pos[6].y = pos[0].y-60;	pos[6].x = pos[0].x+70;
+				pos[7].y = pos[0].y+20; pos[7].x = pos[0].x+70;
+				pos[8].y = pos[0].y+60; pos[8].x = pos[0].x+70;
+				pos[9].y = pos[0].y-90;pos[9].x = pos[0].x+70;
 			}
-			else if (ball.position.y <= 409) // 球在上面
-			{
-				pos[2].y = pos[1].y + 40;
+			else if(ball.position.y <= 409){
+				pos[1].y = pos[0].y; pos[1].x = pos[0].x+30;
+				pos[2].y = pos[0].y+35; pos[2].x = pos[0].x-40;
+				pos[3].y = pos[0].y+25;	pos[3].x = pos[0].x;
+				pos[4].y = pos[0].y+65; pos[4].x = pos[0].x+70;
+				pos[5].y = pos[0].y+75; pos[5].x = pos[0].x+60;
+				pos[6].y = pos[0].y+65;	pos[6].x = pos[0].x+70;
+				pos[7].y = pos[0].y+20; pos[7].x = pos[0].x+70;
+				pos[8].y = pos[0].y-20; pos[8].x = pos[0].x+70;
+				pos[9].y = pos[0].y+90;pos[9].x = pos[0].x+70;
 			}
-			if (ball.position.x < 873) // 球在禁区外
-			{
-				pos[3].x = ball.position.x;
-				pos[3].y = ball.position.y + 55; // 球下面
-				pos[4].x = ball.position.x;
-				pos[4].y = ball.position.y - 55; // 球上面
-				if (ball.position.x < 850) {
-					pos[5].x = ball.position.x + 20;
-					pos[5].y = ball.position.y; // 正对球
-				}
-				else {
-					pos[5].x = 870;
-					pos[5].y = ball.position.y; // 正对球
-				}
-				pos[6].x = 870;
-				pos[6].y = ball.position.y + 50;
-				pos[7].x = 870;
-				pos[7].y = ball.position.y - 50;
-				pos[8].x = 870;
-				pos[8].y = ball.position.y + 65;
-				pos[9].x = 870;
-				pos[9].y = ball.position.y - 65;
+			if(ball.position.x>=800){	//球临近禁区
+				fp_sort(rp);
+				fp_sort(rp,0,3);
+				PositionSE(rp[0].id,pos[1]);
+				PositionSE(rp[1].id,pos[2]);
+				PositionSE(rp[2].id,pos[3]);
+				fp_sort(rp,3,8);
+				PositionSE(rp[3].id,pos[4]);
+				PositionSE(rp[4].id,pos[5]);
+				PositionSE(rp[5].id,pos[6]);
+				PositionSE(rp[6].id,pos[7]);
+				PositionSE(rp[7].id,pos[8]);
+				fp_sort(rp,8,9);
+				PositionSE(rp[8].id,pos[9]);
 			}
-			else if (ball.position.x > 873) // 球在禁区里,球员不进禁区
-			{
-				pos[3].x = 870;
-				pos[3].y = ball.position.y + 50; // 球下面
-				pos[4].x = 870;
-				pos[4].y = ball.position.y - 50; // 球上面
-				pos[5].x = pos[1].x - 80;
-				pos[5].y = ball.position.y; // 正对球
-				if (ball.position.y > 409)	// 球在下面
-				{
-					pos[6].x = 900;
-					pos[6].y = 610;
-					pos[7].x = pos[5].x;
-					pos[7].y = pos[5].y - 70;
-					pos[8].x = pos[5].x;
-					pos[8].y = pos[5].y + 70;
-					pos[9].x = 870;
-					pos[9].y = ball.position.y - 100;
-				}
-				if (ball.position.y <= 409) // 球在下面
-				{
-					pos[6].x = 900;
-					pos[6].y = 210;
-					pos[7].x = pos[5].x;
-					pos[7].y = pos[5].y - 70;
-					pos[8].x = pos[5].x;
-					pos[8].y = pos[5].y + 70;
-					pos[9].x = 870;
-					pos[9].y = ball.position.y + 100;
-				}
-
-				struct infor a[10];
-				Robot2 *robot;
-				for (int j = 1; j <= 9; j++) {
-					for (int i = 1; i <= 9; i++) {
-						a[i].num = i;
-						a[i].dis = -1;
-						switch (i) {
-						case HOME1:
-							robot = &home1;
-							break;
-						case HOME2:
-							robot = &home2;
-							break;
-						case HOME3:
-							robot = &home3;
-							break;
-						case HOME4:
-							robot = &home4;
-							break;
-						case HOME5:
-							robot = &home5;
-							break;
-						case HOME6:
-							robot = &home6;
-							break;
-						case HOME7:
-							robot = &home7;
-							break;
-						case HOME8:
-							robot = &home8;
-							break;
-						case HOME9:
-							robot = &home9;
-							break;
-						case HOME10:
-							robot = &home10;
-							break;
-						}
-						if (a[i].dis == -1)
-							a[i].dis = Distance(pos[j], robot->position); // 机器人到点位的距离
-					}
-					int min = a[1].dis;
-					int p = 1;					 // 最近的球员编号
-					for (int l = 2; l <= 9; l++) // 选出最近的机器人
-					{
-						if (min <= a[l].dis) {
-							a[l].dis = -1;
-						}
-						else {
-							min = a[l].dis;
-							a[p].dis = -1;
-							p = l;
-						}
-					}
-					if (a[p].num != cp_id())		  // 不是中心球员
-						PositionSE(a[p].num, pos[j]); // 移动到最近的点位
-				}
+			else{
+				fp_sort(rp);
+				fp_sort(rp,0,3);
+				Direction(rp[0].id,pos[1]);
+				Direction(rp[1].id,pos[2]);
+				Direction(rp[2].id,pos[3]);
+				fp_sort(rp,3,8);
+				Direction(rp[3].id,pos[4]);
+				Direction(rp[4].id,pos[5]);
+				Direction(rp[5].id,pos[6]);
+				Direction(rp[6].id,pos[7]);
+				Direction(rp[7].id,pos[8]);
+				fp_sort(rp,8,9);
+				Direction(rp[8].id,pos[9]);
 			}
-		}
 	}
 	else { // TODO 无中央球员
 		if (fm_id() == 4 || fm_id() == 6) {
