@@ -493,13 +493,13 @@ void CStrategySystem::Possession() {
 		if (fm_id() == 1) {
 			Direction(cp_id(), ball.position);
 
-			pos[1] = CPoint(pos[0].x, pos[0].y - 10);
-			pos[2] = CPoint(pos[0].x + 10, pos[0].y - 10);
-			pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-			pos[6] = CPoint(pos[0].x + 20, pos[0].y);
-			pos[4] = CPoint(pos[0].x + 10, pos[0].y + 10);
-			pos[7] = CPoint(pos[0].x + 20, pos[0].y + 10);
-			pos[5] = CPoint(pos[0].x + 10, pos[0].y + 20);
+			pos[1] = CPoint(pos[0].x, pos[0].y - 20);
+			pos[2] = CPoint(pos[0].x + 20, pos[0].y - 20);
+			pos[3] = CPoint(pos[0].x + 20, pos[0].y);
+			pos[6] = CPoint(pos[0].x + 40, pos[0].y);
+			pos[4] = CPoint(pos[0].x + 20, pos[0].y + 20);
+			pos[7] = CPoint(pos[0].x + 40, pos[0].y + 20);
+			pos[5] = CPoint(pos[0].x + 20, pos[0].y + 40);
 			pos[8] = CPoint(170, 409);
 			pos[9] = CPoint(170, 556);
 
@@ -519,13 +519,13 @@ void CStrategySystem::Possession() {
 		else if (fm_id() == 2) {
 			Direction(cp_id(), ball.position);
 
-			pos[1] = CPoint(pos[0].x, pos[0].y + 10);
-			pos[2] = CPoint(pos[0].x + 10, pos[0].y + 10);
-			pos[3] = CPoint(pos[0].x + 10, pos[0].y);
-			pos[6] = CPoint(pos[0].x + 20, pos[0].y);
-			pos[4] = CPoint(pos[0].x + 10, pos[0].y - 10);
-			pos[7] = CPoint(pos[0].x + 20, pos[0].y - 10);
-			pos[5] = CPoint(pos[0].x + 10, pos[0].y - 20);
+			pos[1] = CPoint(pos[0].x, pos[0].y + 20);
+			pos[2] = CPoint(pos[0].x + 20, pos[0].y + 20);
+			pos[3] = CPoint(pos[0].x + 20, pos[0].y);
+			pos[6] = CPoint(pos[0].x + 40, pos[0].y);
+			pos[4] = CPoint(pos[0].x + 20, pos[0].y - 20);
+			pos[7] = CPoint(pos[0].x + 40, pos[0].y - 20);
+			pos[5] = CPoint(pos[0].x + 20, pos[0].y - 40);
 			pos[8] = CPoint(170, 409);
 			pos[9] = CPoint(170, 265);
 
