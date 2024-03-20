@@ -530,13 +530,13 @@ void CStrategySystem::Possession() {
 
 			fp_sort(rp);
 			fp_sort(rp, 0, 5);
-			Direction(rp[5].id, pos[1]);
-			Direction(rp[4].id, pos[2]);
-			Direction(rp[3].id, pos[3]);
-			Direction(rp[2].id, pos[4]);
-			Direction(rp[1].id, pos[5]);
+			Direction(rp[4].id, pos[1]);
+			Direction(rp[3].id, pos[2]);
+			Direction(rp[2].id, pos[3]);
+			Direction(rp[1].id, pos[4]);
+			Direction(rp[0].id, pos[5]);
 			fp_sort(rp, 5, 7);
-			Direction(rp[7].id, pos[6]);
+			Direction(rp[5].id, pos[6]);
 			Direction(rp[6].id, pos[7]);
 			Direction(rp[7].id, pos[8]);
 			Direction(rp[8].id, pos[9]);
