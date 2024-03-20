@@ -473,14 +473,14 @@ void CStrategySystem::Possession() {
 
 	RelPos rp[10];
 	for (int i = 0; i < 10; i++)
-		rp[i].id = i;
+		rp[i].id = i + 1;
 
 	CPoint cur_pos[10]{ home1.position, home2.position, home3.position, home4.position, home5.position, home6.position, home7.position, home8.position, home9.position, home10.position };
 
 	if (cp_id()) {
 		pos[0] = cur_pos[cp_id() - 1];
 		for (int i = 0; i < 10; i++) {
-			if (rp[i].id == cp_id() - 1) {
+			if (rp[i].id == cp_id()) {
 				rp[i].ang = 0;
 				rp[i].dis = 0;
 			}
