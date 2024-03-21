@@ -37,7 +37,8 @@ private:
 	CPoint coor(int which);							// 返回机器人的位置
 
 	// void spin(int which, bool isClockwise);	   // 自旋
-	//void shot1(int which, double o, CPoint t); // 直射
+	void shot1(int which, double o, CPoint t); // 直射
+	bool canshot();							   // 射？
 	int search1();							   // 查找在大区里的机器人
 	int search2();							   // 查找在小区里的机器人
 	//CPoint searchNear(int which);			   // 查找最近的机器人
@@ -45,8 +46,8 @@ private:
 	// void ccd(int which, double d, double j);									 // 曲线行驶
 	double atwo(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4); // 两直线间夹角
 	// void navigate();
-	void shot(int which);			 // 射门;
-	void shot(int which,CPoint t); // 把球向 t 点,
+	void shot(int which, bool de);			 // 射门;
+	void shot(int which, bool de, CPoint t); // 把球向 t 点射,de 向上还是向下射,de = 0从上向下射
 	CPoint shooter_pos();					 // 对方射门者位置
 
 	double Distance(CPoint point1, CPoint point2); // 计算两点之间的距离
