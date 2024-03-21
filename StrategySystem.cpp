@@ -2175,29 +2175,29 @@ void CStrategySystem::Goalie() { // TODO 两侧卡顿
 	if (ball.position.x <= hgoalie.position.x) {
 		int xix = ball.position.x > 950 ? 965 : 950, xiy, xii = int((double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * 965 + (ball.oldPosition.y - (double(ball.position.y - ball.oldPosition.y) / (ball.position.x - ball.oldPosition.x)) * ball.oldPosition.x) + 0.5), xid = 2;
 		if (Distance(ball.position, ball.oldPosition) < 1 || ball.position.x <= ball.oldPosition.x || xii < 313 || xii > 505) {
-			if (ball.position.x >= 927 && ball.position.y >= 313 && ball.position.y <= 505) {
-				xiy = ball.position.y;
+			// if (ball.position.x >= 927 && ball.position.y >= 313 && ball.position.y <= 505) {
+			// 	xiy = ball.position.y;
+			// 	if (xiy < 343 || xiy > 475)
+			// 		xix = 965;
+			// }
+			// else {
+			xii = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * 965 + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
+			if (xii < 313 || xii > 505) {
+				xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
 				if (xiy < 343 || xiy > 475)
 					xix = 965;
 			}
 			else {
-				xii = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * 965 + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
-				if (xii < 313 || xii > 505) {
-					xiy = int((Distance(ball.position, CPoint(863, 313)) * 192 / (Distance(ball.position, CPoint(863, 313)) + Distance(ball.position, CPoint(863, 505)))) + 313.5);
-					if (xiy < 343 || xiy > 475)
-						xix = 965;
-				}
-				else {
-					if (xii < 343 || xii > 475)
-						xix = 965;
-					xiy = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * (xix - xid) + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
-				}
-				if (ball.position.x <= 900 || ball.position.y < 313 || ball.position.y > 505)
-					if ((T / 4) % 2)
-						xiy += 30;
-					else
-						xiy -= 30;
+				if (xii < 343 || xii > 475)
+					xix = 965;
+				xiy = int((double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * (xix - xid) + (shooter_pos().y - (double(ball.position.y - shooter_pos().y) / (ball.position.x - shooter_pos().x)) * shooter_pos().x) + 0.5);
 			}
+			if (ball.position.x <= 900 || ball.position.y < 313 || ball.position.y > 505)
+				if ((T / 4) % 2)
+					xiy += 30;
+				else
+					xiy -= 30;
+			// }
 		}
 		else {
 			if (xii < 343 || xii > 475)
