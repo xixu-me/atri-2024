@@ -415,7 +415,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
-				shot(cp_id(), 0, CPoint(45, 361));
+				shot(cp_id(), CPoint(45, 361));
 				fp_sort(rp);
 				fp_sort(rp, 0, 6);
 				Direction(rp[1].id, pos[1]);
@@ -441,7 +441,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
-				shot(cp_id(), 0, CPoint(45, 457));
+				shot(cp_id(), CPoint(45, 457));
 				fp_sort(rp);
 				fp_sort(rp, 0, 6);
 				Direction(rp[1].id, pos[1]);
@@ -470,7 +470,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 225);
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
-				shot(cp_id(), 0);
+				shot(cp_id());
 				fp_sort(rp, 0, 8);
 				Direction(rp[7].id, pos[1]);
 				Direction(rp[8].id, pos[2]);
@@ -497,7 +497,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 615);
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
-				shot(cp_id(), 1);
+				shot(cp_id());
 				fp_sort(rp, 0, 8);
 				Direction(rp[7].id, pos[1]);
 				Direction(rp[8].id, pos[2]);
@@ -1332,7 +1332,7 @@ CPoint CStrategySystem::coor(int which) {
 }
 
 // 0向下门框射
-void CStrategySystem::shot(int which, bool de) {
+void CStrategySystem::shot(int which) {
 	Robot2 *robot;
 	switch (which) {
 	case HOME1:
@@ -1369,6 +1369,11 @@ void CStrategySystem::shot(int which, bool de) {
 		robot = &hgoalie;
 		break;
 	}
+	bool de;
+	if (ball.position.y > robot->position.y)
+		de = 0;
+	else
+		de = 1;
 	double O, O1;
 	CPoint t1, t2, t3, t4; // t1球，t2机器人,t3机器人要移动到的点，t4门
 	t1.x = ball.position.x;
@@ -1499,7 +1504,7 @@ bool CStrategySystem::canshot() {
 }
 
 // 把球向t点射,de向上还是向下射
-void CStrategySystem::shot(int which, bool de, CPoint t) {
+void CStrategySystem::shot(int which, CPoint t) {
 	Robot2 *robot;
 	switch (which) {
 	case HOME1:
@@ -1536,6 +1541,11 @@ void CStrategySystem::shot(int which, bool de, CPoint t) {
 		robot = &hgoalie;
 		break;
 	}
+	bool de;
+	if (ball.position.y > robot->position.y)
+		de = 0;
+	else
+		de = 1;
 	double O;
 	CPoint t1, t2, t3; // t1球，t2机器人,t3机器人要移动到的点
 	t1.x = ball.position.x;
