@@ -415,19 +415,19 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y - 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y - 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y - 120 * sin(22.5));
-				shot(cp_id(), CPoint(45, 361));
 				fp_sort(rp);
-				fp_sort(rp, 0, 6);
+				fp_sort(rp, 1, 6);
 				Direction(rp[1].id, pos[1]);
 				Direction(rp[2].id, pos[2]);
 				Direction(rp[3].id, pos[3]);
 				Direction(rp[4].id, pos[4]);
 				Direction(rp[5].id, pos[5]);
 				Direction(rp[6].id, pos[6]);
-				fp_sort(rp, 5, 9);
+				fp_sort(rp, 6, 9);
 				Direction(rp[7].id, pos[7]);
 				Direction(rp[8].id, pos[8]);
 				Direction(rp[9].id, pos[9]);
+				shot(cp_id(), CPoint(45, 361));
 			}
 			else if (ball.position.x >= 157 && ball.position.x <= 290 && ball.position.y > 409) {
 				// 内圈
@@ -441,9 +441,8 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(pos[0].x + 120 * cos(67.5), pos[0].y + 120 * sin(67.5));
 				pos[8] = CPoint(pos[0].x + 120 * cos(45), pos[0].y + 120 * sin(45));
 				pos[9] = CPoint(pos[0].x + 120 * cos(22.5), pos[0].y + 120 * sin(22.5));
-				shot(cp_id(), CPoint(45, 457));
 				fp_sort(rp);
-				fp_sort(rp, 0, 6);
+				fp_sort(rp, 1, 6);
 				Direction(rp[1].id, pos[1]);
 				Direction(rp[2].id, pos[2]);
 				Direction(rp[3].id, pos[3]);
@@ -454,6 +453,7 @@ void CStrategySystem::Possession() {
 				Direction(rp[7].id, pos[7]);
 				Direction(rp[8].id, pos[8]);
 				Direction(rp[9].id, pos[9]);
+				shot(cp_id(), CPoint(45, 457));
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y <= 409) // 球在上半
 			{
@@ -470,7 +470,6 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 225);
 				pos[8] = CPoint(170, pos[0].y + 45);
 				pos[9] = CPoint(170, pos[0].y + 405);
-				shot(cp_id());
 				fp_sort(rp, 0, 9);
 				Direction(rp[7].id, pos[1]);
 				Direction(rp[8].id, pos[2]);
@@ -481,6 +480,7 @@ void CStrategySystem::Possession() {
 				Direction(rp[2].id, pos[7]);
 				Direction(rp[8].id, pos[8]);
 				Direction(rp[9].id, pos[9]);
+				shot(cp_id());
 			}
 			else if (ball.position.x < 157 && ball.position.y >= 217 && ball.position.y > 409) // 球在下半
 			{
@@ -497,8 +497,7 @@ void CStrategySystem::Possession() {
 				pos[7] = CPoint(ball.position.x, 615);
 				pos[8] = CPoint(170, pos[0].y - 45);
 				pos[9] = CPoint(170, pos[0].y - 405);
-				shot(cp_id());
-				fp_sort(rp, 0, 9);
+				fp_sort(rp, 1, 9);
 				Direction(rp[7].id, pos[1]);
 				Direction(rp[8].id, pos[2]);
 				Direction(rp[3].id, pos[3]);
@@ -508,6 +507,7 @@ void CStrategySystem::Possession() {
 				Direction(rp[2].id, pos[7]);
 				Direction(rp[8].id, pos[8]);
 				Direction(rp[9].id, pos[9]);
+				shot(cp_id());
 			}
 		}
 
