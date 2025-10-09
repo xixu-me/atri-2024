@@ -1,0 +1,154 @@
+Noncommercial No-Derivatives Software License (Bilingual)
+(CC BY-NC-ND 4.0-Inspired; Not a Creative Commons License; Not OSI-approved)
+非商业—禁止演绎软件许可（双语）
+SPDX-License-Identifier: LicenseRef-NCND-Software-1.0
+Version: 1.0
+
+Copyright (c) 2025 Ace Team of Robotics Intelligence
+
+Language Notice / 语言声明
+EN: This file contains the license text in English and Chinese. In case of any inconsistency or ambiguity,
+    the English version in Section A controls.
+汉语：本文件同时包含英语与汉语条款；如有不一致或歧义，以 A 部分之英语版为准。
+
+────────────────────────────────────────
+A. English Version (Authoritative)
+────────────────────────────────────────
+Noncommercial No-Derivatives Software License
+(CC BY-NC-ND 4.0-Inspired; Not a Creative Commons License; Not OSI-approved)
+
+1. Purpose and Summary.
+   This License is designed for software where the licensor wishes to allow use, copying, execution, and limited redistribution of unmodified code for non-commercial purposes, while prohibiting distribution of modifications and commercial use. It is inspired by Creative Commons BY-NC-ND 4.0 but adapted for software. It is not an official Creative Commons license and is not “open source” as defined by the Open Source Initiative.
+
+2. Definitions.
+   2.1 “Licensed Software” means the software made available by Licensor under this License, including source code (“Source Code”) and compiled forms (“Object Code”), and any associated documentation.
+   2.2 “You” (or “Your”) means any individual or entity exercising permissions under this License.
+   2.3 “Non-Commercial Use” means any use that is not intended for or directed toward commercial advantage or monetary compensation. Non-Commercial Use includes personal use, academic research and teaching, evaluation, and internal experimentation not deployed in production to deliver services to third parties. Non-Commercial Use excludes (a) offering, providing, or enhancing a product or service for a fee; (b) use in production systems that support a business function; (c) software-as-a-service (SaaS), platform-as-a-service (PaaS), or similar hosted offerings; (d) use by or for a commercial entity where the primary purpose is operational use rather than evaluation.
+   2.4 “Derivative Work” means any work that is based on or incorporates the Licensed Software or any portion of it with modifications, translations, or other changes such that it is an adaptation under applicable copyright law.
+   2.5 “Larger Work” means a work that combines the Licensed Software in unmodified form with other separate and independent works, such as by aggregation, dynamic or static linking, or packaging.
+   2.6 “Contribution” means any original work of authorship, including modifications to the Licensed Software, submitted intentionally to the Licensor for inclusion in the project.
+   2.7 “Contributor” means the Licensor and any individual or entity that submits a Contribution.
+   2.8 “Patent Claims” means all patent claims, including claims of continuation, continuation-in-part, and reissue, that a Contributor can license and that are necessarily infringed by their Contribution alone or by combination of their Contribution with the Licensed Software.
+
+3. Grant of Copyright License.
+   Subject to Section 5 (Restrictions) and Your compliance with this License, Licensor grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable (except as stated in Section 9) license to:
+   3.1 use, reproduce, and execute the Licensed Software for Non-Commercial Use;
+   3.2 make and keep private technical modifications that are strictly necessary to compile, configure, or integrate the Licensed Software (e.g., build scripts, dependency pins, path adjustments) (“Technical Modifications”), provided that You do not distribute the Licensed Software in modified form;
+   3.3 create Larger Works and (for Non-Commercial Use) distribute Object Code of the Larger Work that includes the Licensed Software unmodified, provided that (a) the Licensed Software’s Source Code is included unmodified or made available via a URL that is publicly accessible at no charge, (b) You preserve the notices required by Section 4, and (c) recipients are able to extract and use the Licensed Software as a separate component under this License.
+
+4. Attribution and Notices.
+   Any distribution permitted under this License must, in a reasonable manner customary for software, include: (a) the above copyright notice; (b) this License text; (c) a notice identifying the Licensed Software and original authors; and (d) a copy of, or link to, the original repository or homepage if provided by Licensor. If the Licensed Software is used in a user-facing Larger Work, reasonable attribution in documentation, “About” screens, or help text satisfies this requirement.
+
+5. Restrictions (No Derivatives; Non-Commercial; No Additional Terms).
+   5.1 No Distribution of Modified Code. You may not distribute the Licensed Software in modified form, including patches, forks, translations, re-implementations, or feature-altered builds. All public redistribution must contain the Licensed Software unmodified.
+   5.2 Non-Commercial Only. You may not use the Licensed Software for commercial purposes, including but not limited to providing hosted services, operating production workloads for or within a business, or generating revenue or other commercial advantage.
+   5.3 No Additional Restrictions. You may not impose terms or technological measures on the Licensed Software that legally or practically restrict recipients from exercising the permissions granted by this License. Distribution via platforms that apply technical protection measures (e.g., app stores) is permitted only if You also make available to the same recipients, at no charge, an unprotected copy of the Licensed Software (and any required build/installation instructions) under this License.
+   5.4 No Trademark License. This License does not grant rights to use Licensor’s or Contributors’ names, logos, or trademarks.
+
+6. Patent License.
+   Each Contributor grants You a perpetual, worldwide, royalty-free, non-exclusive, irrevocable (except as stated in Section 9) patent license to make, have made, use, offer to sell, sell, import, and otherwise run, for Non-Commercial Use permitted here, the Licensed Software, solely to the extent that their Contribution or their Contribution’s combination with the Licensed Software, in the form distributed by the Licensor, infringes the Contributor’s Patent Claims.
+
+7. Patent Retaliation.
+   If You or Your affiliate institute patent litigation (including a cross-claim or counterclaim in a lawsuit) alleging that the Licensed Software or a Contribution infringes a Patent Claim, then any licenses granted to You under this License automatically terminate as of the date such litigation is filed.
+
+8. Contributions Back to the Project.
+   Unless You enter into a separate agreement with Licensor, any Contribution You submit is licensed by You to Licensor under this same License, with the patent license in Section 6. You represent that You have the right to grant such licenses and that Your Contribution is an original work by You.
+
+9. Term and Termination.
+   This License takes effect upon Your acceptance and continues unless terminated. Your rights under this License automatically terminate if You materially breach it and fail to cure within 30 days of becoming aware of the breach. Termination under Section 7 is immediate and without cure. Upon termination, You must cease exercise of the rights granted by this License; however, recipients who received the Licensed Software from You under this License will not have their licenses terminated, provided they remain in compliance. Provisions that by their nature should survive termination do so, including Sections 6–13.
+
+10. Source Availability for Redistributed Binaries.
+    If You distribute an Object Code Larger Work that includes the Licensed Software, You must provide access to the exact, unmodified Source Code of the Licensed Software used to build that Object Code, via a durable public URL or as a bundle accompanying the Object Code, for as long as You distribute the Object Code.
+
+11. Third-Party Components.
+    This License applies only to the Licensed Software. Third-party software included in a Larger Work remains governed by its own licenses.
+
+12. Warranty Disclaimer.
+    THE LICENSED SOFTWARE IS PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE. YOU BEAR THE RISK OF USING IT.
+
+13. Limitation of Liability.
+    TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR OR ANY CONTRIBUTOR BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF PROFITS, REVENUE, GOODWILL, OR DATA, ARISING OUT OF OR RELATING TO THIS LICENSE OR USE OF THE LICENSED SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE AGGREGATE LIABILITY OF LICENSOR AND CONTRIBUTORS FOR DIRECT DAMAGES SHALL NOT EXCEED ONE HUNDRED U.S. DOLLARS (US$100).
+
+14. Accepting the License.
+    You accept and agree to be bound by the terms of this License by copying, installing, executing, accessing, or otherwise using the Licensed Software, or by distributing it as permitted here.
+
+15. Miscellaneous.
+    15.1 No Sublicensing; Assignment. You may not sublicense the Licensed Software. You may assign this License only in connection with a merger, acquisition, or sale of substantially all assets where the Licensed Software is transferred, provided the assignee agrees to these terms.
+    15.2 Severability. If any provision of this License is unenforceable, the remaining provisions will remain in full force and effect.
+    15.3 Entire Agreement; No Waiver. This License is the entire agreement concerning its subject matter. Failure to enforce any provision is not a waiver.
+    15.4 Governing Law. This License will be governed by applicable law without regard to conflict-of-laws principles.
+    15.5 Interpretation. For the avoidance of doubt, permissions granted in this License are limited to Non-Commercial Use and distribution of unmodified code; any rights not expressly granted are reserved by Licensor.
+
+────────────────────────────────────────
+B. 汉语译本（供参考）
+────────────────────────────────────────
+非商业—禁止演绎软件许可
+（受 CC BY-NC-ND 4.0 启发；非 Creative Commons 官方许可；非 OSI 认可开源许可）
+
+【提示】本汉语版本为便利性译本；如与英语版条款不一致，以英语版为准。此许可并非 Creative Commons 官方许可，亦非 Open Source Initiative（OSI）定义的“开源”许可。
+
+1. 目的与概要
+   本许可用于这样一类软件：许可方希望在禁止商业用途与禁止发布修改版的前提下，允许非商业目的的使用、复制、执行以及对未修改代码的有限再分发。本许可受 Creative Commons BY-NC-ND 4.0 启发并针对软件场景进行了改写；它不是 Creative Commons 官方许可，也不符合 OSI 的“开源”定义。
+
+2. 定义
+   2.1 “许可软件”（Licensed Software）：指许可方根据本许可提供的软件，包括源代码（“源代码”，Source Code）、已编译形式（“目标代码”，Object Code）以及随附文档。
+   2.2 “您”（You / Your）：指依据本许可行使权利的任何个人或实体。
+   2.3 “非商业使用”（Non-Commercial Use）：指不以获得商业优势或金钱报酬为目的或主要目的的使用。非商业使用包括个人用途、教学与学术研究、评估，以及不对第三方提供服务的内部试验性使用；但不包括：(a) 为收费产品或服务之提供、开发或强化之使用；(b) 支撑业务功能的生产系统之使用；(c) 以软件即服务（SaaS）、平台即服务（PaaS）或同类托管方式提供本软件的使用；(d) 以运营为主要目的、而非评估之由商业实体实施或为其实施的使用。
+   2.4 “衍生作品”（Derivative Work）：指基于许可软件或其任何部分进行修改、翻译或其他变更而成，依相关著作权法构成改编之作品。
+   2.5 “合并作品”（Larger Work）：指将未修改的许可软件与其他独立作品组合而成的作品，例如聚合、静态或动态链接、打包等。
+   2.6 “贡献”（Contribution）：指有意提交给许可方、拟被纳入项目的原创作品（包括对许可软件的修改）。
+   2.7 “贡献者”（Contributor）：指许可方以及提交贡献的任何个人或实体。
+   2.8 “专利权利主张”（Patent Claims）：指贡献者可授权许可的、其贡献单独或其贡献与许可软件（按许可方发布的形式）组合实施时必然侵害的全部专利权利主张，包括继续申请、部分继续申请及再颁证等权利主张。
+
+3. 著作权许可授予
+   在您遵守本许可并受第5条（限制）约束的前提下，许可方授予您一项全球性的、免版税的、不可再许可的、非独占的、除本许可第9条另有规定外不可撤销的著作权许可，以：
+   3.1 为非商业使用之目的，使用、复制并执行许可软件；
+   3.2 为编译、配置或集成许可软件之必要而进行并保留严格限于实现使用之技术性修改（例如构建脚本、依赖版本固定、路径调整）（“技术性修改”），但您不得以修改形式对外分发许可软件；
+   3.3 创建合并作品，并在非商业使用范围内分发包含未修改许可软件的合并作品之目标代码，惟须：(a) 将许可软件之源代码以未修改形式一并提供，或通过不收费、可长期访问的公开 URL 提供；(b) 保留并传递第4条要求的声明与通知；且 (c) 使受让方能够将许可软件作为独立组件提取并依本许可使用。
+
+4. 署名与通知
+   任何依本许可允许的分发均应以软件行业通常合理方式包含：（a）上述版权声明；（b）本许可全文；（c）识别许可软件及其原始作者的说明；以及（d）许可方提供的原始仓库或主页之链接（如有）。如许可软件被用于面向用户的合并作品，在文档、“关于”页面或帮助信息中给予合理署名，即视为符合本条之要求。
+
+5. 限制（禁止演绎；仅限非商业；不得施加附加限制）
+   5.1 禁止分发修改版代码。您不得以修改形式分发许可软件，包括但不限于补丁、分叉、翻译、重新实现或功能变更的构建版本。所有对外再分发均必须包含未修改的许可软件。
+   5.2 仅限非商业使用。您不得将许可软件用于商业目的，包括但不限于提供托管服务、在支撑业务功能的生产环境中运行、或以获取收入或其他商业优势为目的之使用。
+   5.3 不得施加附加限制。您不得对许可软件施加法律上或事实上限制受让方行使本许可所赋权利的条款或技术措施（例如数字版权管理/DRM）。如通过强制技术保护措施的平台（例如应用商店）进行分发，仅在您同时向同一受让方免费提供一份不受保护的许可软件副本（及必要的构建/安装说明），且该副本受本许可约束之情形下方属允许。
+   5.4 商标例外。本许可不授予对许可方或贡献者之名称、标识或商标的任何使用权。
+
+6. 专利许可
+   在不违反第9条之前提下，每一贡献者授予您一项永久的、全球性的、免版税的、非独占的专利许可，以在本许可允许的非商业使用范围内制造、使之制造、使用、要约销售、销售、进口及以其他方式运行许可软件；该专利许可之范围仅及于该贡献者之贡献单独或其贡献与许可软件（按许可方发布的形式）组合实施时必然侵害之专利权利主张。
+
+7. 专利反制
+   如您或您的关联方就许可软件或任何贡献提起或主张专利侵权诉讼（包括交叉诉讼或反诉），则自提起之日起，依据本许可授予您的一切许可自动终止。
+
+8. 向项目回馈的贡献
+   除非您与许可方另行签订协议，您提交的任何贡献均依本许可（包括第6条之专利许可）授权给许可方。您声明并保证：您有权授予该等许可，且您的贡献为您的原创作品。
+
+9. 期限与终止
+   本许可自您接受之时生效并持续有效，除非依本条或第7条终止。若您实质性违反本许可，且在知悉或理应知悉该违约后三十（30）日内未能纠正，则您在本许可项下的权利自动终止。依据第7条之终止为即时且不得补救。终止后，您必须停止行使本许可授予的权利；但在终止前已自您处获得许可软件且遵守本许可之受让方，其许可不因此而终止。按其性质应在终止后继续有效之条款（包括第6—13条）不受影响。
+
+10. 再分发二进制所对应的源代码可得性
+    如您分发包含许可软件的合并作品之目标代码，您必须在您分发该目标代码期间，为受让方提供获取用于构建该目标代码的“许可软件之原封未动之源代码”的途径，方式可以是不收费的、可长期访问的公开 URL，或随同目标代码一并提供的源代码包。
+
+11. 第三方组件
+    本许可仅适用于许可软件。本许可不改变合并作品内第三方软件的各自许可条款。
+
+12. 免责声明
+    许可软件按“现状”（AS IS）及“可得”（AS AVAILABLE）提供；许可方与贡献者不作任何明示或默示的保证，包括但不限于所有权、不侵权、适销性、或特定用途适用性的保证。您应自行承担使用风险。
+
+13. 责任限制
+    在适用法律允许的最大范围内，许可方或任何贡献者均不就任何间接、特殊、附带、后果性、示范性或惩罚性损害，或任何利润、收入、商誉或数据的损失承担责任，即便已被告知可能发生该等损害。在任何情况下，许可方与贡献者对因本许可或使用许可软件所引起或与之相关的直接损害的累计责任总额不超过一百美元（USD $100）。
+
+14. 接受本许可
+    当您复制、安装、执行、访问或以其他方式使用许可软件，或按本许可允许进行分发时，即视为您接受并同意受本许可约束。
+
+15. 其他
+    15.1 不得再许可；转让。您不得再许可许可软件。您仅可在与并购、收购或实质全部资产转让且许可软件一并被转移之情况下转让本许可，且受让方须同意受本许可约束。
+    15.2 可分割性。若本许可任何条款被认定为不可执行，其余条款仍保持完全有效。
+    15.3 完整协议；不构成弃权。本许可构成双方就其标的之完整协议。未行使或延迟行使任何权利不构成对该权利之放弃。
+    15.4 适用法律。本许可受适用法律管辖，而不考虑其法律冲突规则。
+    15.5 解释。为免疑义，本许可授予的权限仅限于非商业使用与未修改代码之分发；未明确授予之权利均由许可方保留。
+
+────────────────────────────────────────
+End of License / 许可文本结束
+────────────────────────────────────────
