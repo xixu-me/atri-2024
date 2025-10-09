@@ -15,34 +15,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Agentsock.cpp">
+    <ClCompile Include="src\Agentsock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BaseAgent.cpp">
+    <ClCompile Include="src\BaseAgent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DSetupDlg.cpp">
+    <ClCompile Include="src\DSetupDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainFrm.cpp">
+    <ClCompile Include="src\MainFrm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MicroClient.cpp">
+    <ClCompile Include="src\MicroClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MicroClientDoc.cpp">
+    <ClCompile Include="src\MicroClientDoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MicroClientView.cpp">
+    <ClCompile Include="src\MicroClientView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StdAfx.cpp">
+    <ClCompile Include="src\StdAfx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StrategySystem.cpp">
+    <ClCompile Include="src\StrategySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TParseString.cpp">
+    <ClCompile Include="src\TParseString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,40 +52,40 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agentsock.h">
+    <ClInclude Include="include\Agentsock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BaseAgent.h">
+    <ClInclude Include="include\BaseAgent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DSetupDlg.h">
+    <ClInclude Include="include\DSetupDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="general.h">
+    <ClInclude Include="include\general.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainFrm.h">
+    <ClInclude Include="include\MainFrm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MicroClient.h">
+    <ClInclude Include="include\MicroClient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MicroClientDoc.h">
+    <ClInclude Include="include\MicroClientDoc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MicroClientView.h">
+    <ClInclude Include="include\MicroClientView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="include\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StdAfx.h">
+    <ClInclude Include="include\StdAfx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StrategySystem.h">
+    <ClInclude Include="include\StrategySystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TParseString.h">
+    <ClInclude Include="include\TParseString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
